@@ -82,7 +82,8 @@ namespace Action
 
 	Boolean BitSet::operator ==(const Object & Arg) const 
 	{
-		try{
+		try
+		{
 			const BitSet & my_bits=dynamic_cast<const BitSet &>(Arg);
 			return Boolean(m_data==my_bits.m_data);
 		}

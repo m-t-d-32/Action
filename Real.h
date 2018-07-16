@@ -146,6 +146,7 @@ namespace Action
 			for (int i=0;i<times;++i)
 			{
 				result*=*((int *)(&m_fValue)+i);
+				result >>= ((i ^ 23) % sizeof(int));
 			}
 			if (result<0) result=-result;
 			return ::_hashCode(result);

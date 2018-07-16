@@ -35,7 +35,8 @@ namespace Action
 			return Boolean(!b.getVal());
 		} 
 		Boolean operator ==(const Object & Arg) const override{
-			try{
+			try
+			{
 				const Boolean & my_bool=dynamic_cast<const Boolean &>(Arg);
 				return Boolean((getVal() && my_bool.getVal()) || (!getVal() && !my_bool.getVal()));
 			}

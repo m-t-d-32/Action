@@ -67,8 +67,7 @@ namespace Action
 		my_hash = my_hash % m_iCapacity;
 		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
-			Object & tmp_obj=(Object &)(*it);
-			if (tmp_obj==my_obj)
+			if (*it==my_obj)
 			{
 				return Boolean::True;
 			}
@@ -77,17 +76,16 @@ namespace Action
 	}
 
 	template <class T>
-	T HashSet<T>::get(const T & arg) const
+	T & HashSet<T>::get(const T & arg) const
 	{
 		Object & my_obj=(Object &)(arg);
 		int my_hash=my_obj.hashCode();
 		my_hash = my_hash % m_iCapacity;
 		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
-			Object & tmp_obj=(Object &)(*it);
-			if (tmp_obj==my_obj)
+			if (*it==my_obj)
 			{
-				return tmp_obj;
+				return *it;
 			}
 		}
 		throw Set_ElementNotExists();

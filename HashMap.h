@@ -14,45 +14,64 @@ namespace Action
 			K key;
 			V value;
 		public:
+			Pair() {}
+			Pair(K _key, V _value) :key(_key), value(_value) {}
 			int hashCode() const override{
 				return ((Object &)(key)).hashCode();
 			}
 			Boolean operator ==(const Object & obj) const override{
-				try{
-					my_pair=dynamic_cast<Pair &> (obj);
+				try
+				{
+					const Pair my_pair=dynamic_cast<const Pair &> (obj);
 					return Boolean(key==my_pair.key);
 				}
 				catch (std::bad_cast){
 					throw Type_NotCorrespond();
 				}
 			}
-			String getName(){
+			String getName() const override {
 				return "Action::HashMap::Pair";
 			}
-			String toString(){
+			String toString() const override{
 				return ((Object &)key).toString()+":"+((Object &)value).toString();
 			}
 		};
 
-		typedef HashSet<Pair<K,V> >::Pointer HashMap<K,V>::Pointer;
+		struct Pointer
+		{
+		private:
+			typename HashSet<Pair>::Pointer m_ptr;
+		public:
+			Pointer(typename HashSet<Pair>::Pointer ptr) :m_ptr(ptr) {}
+			Pair operator *() { return *m_ptr; }
+			Pair * operator ->() { return &(*this); }
+			Pointer & operator ++() { ++m_ptr; return *this; }
+			Pointer operator ++(int) { return Pointer(m_ptr++); }
+			Pointer & operator --() { --m_ptr; return *this; }
+			Pointer operator --(int) { return Pointer(m_ptr--); }
+			Pointer next() const { return Pointer(m_ptr.next()); }
+			Pointer last() const { return Pointer(m_ptr.last()); }
+			Boolean operator ==(const Pointer & ptrArgOfAnother) const { return m_ptr == ptrArgOfAnother.m_ptr; }
+			Boolean operator !=(const Pointer & ptrArgOfAnother) const { return NOT operator ==(ptrArgOfAnother);}
+		};
 
+		friend struct Pointer;
 	public:
-		HashMap();
-		void insert(K key,V value);
-		V get(K key) const;
-		V & operator [](K key);
-		Boolean containsKey(K Key);
-		Boolean containsValue(V value);
-		void erase(K key);
+		void insert(K ,V );
+		V get(K ) const;
+		V & operator [](K );
+		Boolean containsKey(K );
+		Boolean containsValue(V );
+		void erase(K );
 		void clear(){m_set.clear();}
 		Integer size(){return m_set.size();}
 		Boolean empty(){return m_set.empty();}
-		ArrayList toArray() {return m_set.toArray();}
+		ArrayList<Pair> toArray() {return m_set.toArray();}
 
-		Pointer begin() const;
-		Pointer end() const;
-		Pointer v_begin() const;
-		Pointer v_end() const;
+		Pointer begin() const {	return m_set.begin();}
+		Pointer end() const { return m_set.end(); }
+		Pointer v_begin() const { return m_set.v_begin(); }
+		Pointer v_end() const { return m_set.v_end(); }
 
 		String getName() const override{
 			return "Action::HashMap";
@@ -60,8 +79,7 @@ namespace Action
 		String toString() const override{
 			return m_set.toString();
 		}
-		~HashMap();
 	private:
-		HashSet<Pair<K,V> > m_set;
+		HashSet<Pair> m_set;
 	};
 }

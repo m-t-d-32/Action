@@ -109,7 +109,8 @@ namespace Action
 	template <class T,class Compare>
 	Boolean Heap<T,Compare>::operator ==(const Object & oArgOfData) const
 	{
-		try{
+		try
+		{
 			const Heap<T,Compare> & HpArgOfData=dynamic_cast<const Heap<T,Compare> &>(oArgOfData);
 			return Boolean(m_data==HpArgOfData.m_data);
 		}

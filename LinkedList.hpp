@@ -255,7 +255,8 @@ namespace Action
 	template <class T>
 	Boolean LinkedList<T>::operator ==(const Object & oArgOfAnother) const
 	{
-		try{
+		try
+		{
 			const LinkedList<T> & linkArgOfAnother=dynamic_cast<const LinkedList<T> &>(oArgOfAnother);
 			Node *ptr1=m_ptrBegin,*ptr2=linkArgOfAnother.m_ptrBegin;
 			while (ptr1 && ptr2)

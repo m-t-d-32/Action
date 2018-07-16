@@ -29,19 +29,16 @@ namespace Action
 			m_chars.push_back(Argstr.m_chars.at(i));
 		}
 	}
-
 	
 	void String::append(const char & chArg)
 	{
 		m_chars.insert(m_chars.size(),chArg);
 	}
-
     
     void String::append(const String & strArg)
     {
         m_chars.insert(length(),strArg.m_chars,0,strArg.length());
     }
-
     
     String String::operator +(const char & chArg) const
     {
@@ -49,7 +46,6 @@ namespace Action
         tmp_str.append(chArg);
         return tmp_str;
     }
-
     
     String String::operator +(const String & strArg) const
     {
@@ -75,19 +71,16 @@ namespace Action
 		m_chars.clear();
 		m_chars.push_back('\0');
 	}
-
 	
 	void String::insert(const Integer & iArgOfPos,const char & chArg)
 	{
 		m_chars.insert(iArgOfPos,chArg);
 	}
-
 	
 	void String::insert(const Integer & iArgOfPos,const String & strArg)
 	{
         m_chars.insert(iArgOfPos,strArg.m_chars,0,strArg.length());
 	}
-
 	
 	Integer String::find(const char & chFind) const
 	{
@@ -105,7 +98,6 @@ namespace Action
 		m_chars=strArg.m_chars;
 		return *this;
 	}
-
 	
 	void String::print(std::ostream & os) const
 	{
@@ -113,6 +105,11 @@ namespace Action
 		{
 			os<<m_chars.m_data[i];
 		}
+	}
+
+	int String::hashCode() const
+	{
+		return ::_str_hashCode(m_chars.m_data, length().get_int());
 	}
 
 	Boolean String::operator ==(const Action::Object & arg) const
@@ -139,9 +136,5 @@ namespace Action
 		{
 			throw Type_NotCorrespond();
 		}
-	}
-
-	String::~String()
-	{
 	}
 }

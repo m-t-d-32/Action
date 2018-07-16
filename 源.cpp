@@ -1,22 +1,13 @@
-#include "HashSet.hpp"
-#include <time.h>
-#include <stdlib.h>
+#include "HashMap.hpp"
 using namespace Action;
-#include <iostream>
-#include <set>
-using namespace std;
+#include <cstdlib>
 int main()
 {
-	Integer my_time=clock();
-
-	HashSet<Integer> h;
-	for (int i=0;i<100000;++i)
-		h.insert(i);
-	HashSet<Integer>::Pointer it=h.end();
-	for (it--;it!=h.v_begin();--it);
-
-
-	(clock()-my_time).print();
+	HashMap<String, Integer> my_map;
+	my_map.insert("hello", 1);
+	//my_map.insert("bye", 2);
+	my_map["bye"] = 3;
+	my_map.print();
 	system("pause");
 	return 0;
 }

@@ -35,12 +35,12 @@ namespace Action
 		virtual String getName() const override{ return "Action::String";}
 		virtual String toString() const override{ return *this;}
 		virtual void print(std::ostream & os=std::cout) const override;
+		virtual int hashCode() const override;
 		virtual Boolean compareTo(const Object &) const override;
 		virtual Boolean operator ==(const Object &) const override;
 		friend Boolean operator ==(const String & s1,const String & s2){
 			return s1.m_chars==s2.m_chars;
 		}
-        virtual ~String();
     private:
         ArrayList<char> m_chars;
     };

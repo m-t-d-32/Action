@@ -13,7 +13,8 @@ namespace Action
 		return rtn;
 	}
 	Boolean Byte::operator ==(const Object & Arg) const{
-		try{
+		try
+		{
 			const Byte & my_byte=dynamic_cast<const Byte &>(Arg);
 			return Boolean(getVal()==my_byte.getVal());
 		}

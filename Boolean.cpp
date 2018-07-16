@@ -4,8 +4,8 @@
 
 namespace Action
 {
-	const Boolean Boolean::True=Boolean::True;
-	const Boolean Boolean::False=Boolean::False;
+	const Boolean Boolean::True = Boolean(true);
+	const Boolean Boolean::False = Boolean(false);
 	String Boolean::getName() const{
 		return "Action::Boolean";
 	}

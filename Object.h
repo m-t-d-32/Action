@@ -10,7 +10,8 @@ extern "C"
 {
 #endif
 
-int _hashCode(int key);
+int _hashCode(int);
+int _str_hashCode(char *, int);
 
 #ifdef __cplusplus
 }

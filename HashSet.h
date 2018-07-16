@@ -27,6 +27,9 @@ namespace Action
 				if (*this==m_set->end()) throw Set_PtrOutOfRange();
 				else return *m_ptr;
 			}
+			T * operator ->() {
+				return &(*this);
+			}
 			Pointer & operator ++(){
 				*this=next();
 				return *this;
@@ -97,6 +100,8 @@ namespace Action
 		};
 		friend struct Pointer;
 
+		template <class K,class V>
+		friend class HashMap;
 	public:
         HashSet();
         void insert(const T &);
@@ -110,7 +115,6 @@ namespace Action
 		Pointer end() const;
 		Pointer v_begin() const;
 		Pointer v_end() const;
-		T get(const T &) const;
 		virtual String getName() const override{
 			return "Action::HashSet";
 		}
@@ -126,5 +130,6 @@ namespace Action
         int m_iSize;
         int m_iCapacity;
 		void increase();
+		T & get(const T &) const;
     };
 }

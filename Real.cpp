@@ -35,7 +35,8 @@ namespace Action
 	}
 	Boolean Real::operator ==(const Object & Arg) const
 	{
-		try{
+		try
+		{
 			const Real & my_real=dynamic_cast<const Real &>(Arg);
 			return Boolean(fabs(m_fValue-my_real.m_fValue)<=PRECISION);
 		}
