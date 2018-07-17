@@ -1,13 +1,22 @@
-#include "HashMap.hpp"
+#include "Stack.h"
+#include <vector>
+#include "String.h"
 using namespace Action;
+
+#include <iostream>
+#include <stack>
+#include <ctime>
 #include <cstdlib>
+#include <string>
+#include <fstream>
+using namespace std;
 int main()
 {
-	HashMap<String, Integer> my_map;
-	my_map.insert("hello", 1);
-	//my_map.insert("bye", 2);
-	my_map["bye"] = 3;
-	my_map.print();
+	ArrayList<String> act_stk;
+	for (int i = 0; i < 100; ++i)
+		act_stk.push_back("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+	ofstream of("1.txt");
+	act_stk.print(of);
 	system("pause");
 	return 0;
 }

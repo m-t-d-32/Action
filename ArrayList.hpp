@@ -112,14 +112,16 @@ namespace Action
 	void ArrayList<T>::insert(const Integer & iArgOfPos,const ArrayList & ArrAno,const Integer & iBegin,
 			const Integer & iEnd)
 	{
-        if (iBegin<0 || iBegin>=iEnd || iEnd>ArrAno.size())
-            throw ArrayList_IndexOutOfRange();
+		if (iBegin<0 || iBegin>iEnd || iEnd > ArrAno.size())
+			throw ArrayList_IndexOutOfRange();
+		else if (iBegin == iEnd)
+			return;
         int cpy_size=(iEnd-iBegin).get_int();
         int tmp_size=m_iSize;
         resize(size()+cpy_size);
         memmove(m_data+(iArgOfPos+cpy_size).get_int(),m_data+iArgOfPos.get_int(),((tmp_size-iArgOfPos).get_int()*sizeof(T)));
         for (int i=0;i<cpy_size;++i)
-            m_alloc.Construct(iArgOfPos+i,ArrAno.at(iBegin+i));
+            m_data[(iArgOfPos+i).get_int()]=ArrAno.at(iBegin+i);
 	}
 
     template <class T>
@@ -152,18 +154,10 @@ namespace Action
 	template <class T>
 	ArrayList<T> & ArrayList<T>::operator =(const ArrayList<T> & arrArgOfAnother)
 	{
-		int i;
-		for (i=0;i<m_iSize;++i)
+		resize(arrArgOfAnother.m_iSize);
+		for (int i = 0;i<m_iSize;++i)
 		{
-			m_alloc.Destruct(i);
-		}
-		free(m_data);
-		m_alloc.SetCapacity(arrArgOfAnother.m_alloc.GetCapacity());
-		m_data=m_alloc.GetSpace();
-		m_iSize=arrArgOfAnother.m_iSize;
-		for (i=0;i<m_iSize;++i)
-		{
-			m_alloc.Construct(i,arrArgOfAnother.at(i));
+			m_data[i] = arrArgOfAnother.m_data[i];
 		}
 		return *this;
 	}
@@ -200,6 +194,7 @@ namespace Action
 		{
 			if (iArgOfSpace>=m_alloc.GetCapacity())
 			{
+				m_alloc.SetCapacity(iArgOfSpace);
 				T * temp_tDataSpace=m_alloc.GetSpace();
 				memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
 				free(m_data);
@@ -259,7 +254,7 @@ namespace Action
 		{
 			try
 			{
-				Object & my_ref=(Object &)(m_data[i]);
+				const Object & my_ref=(const Object &)(m_data[i]);
 				rtn+=my_ref.toString();
 				if (i!=m_iSize-1)
 					rtn+=",";

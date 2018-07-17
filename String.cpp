@@ -22,14 +22,8 @@ namespace Action
 	}
 
 	
-	String::String(const String & Argstr)
-	{
-		for (int i=0;i<=Argstr.length();++i)
-		{
-			m_chars.push_back(Argstr.m_chars.at(i));
-		}
-	}
-	
+	String::String(const String & strArg) :m_chars(strArg.m_chars) {}
+
 	void String::append(const char & chArg)
 	{
 		m_chars.insert(m_chars.size(),chArg);
