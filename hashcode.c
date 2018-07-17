@@ -14,7 +14,8 @@ int _hashCode(int key)
 int _str_hashCode(char * begin, int len)
 {
 	int key = 0;
-	for (int i = 0; i < len; ++i)
+	int i;
+	for (i = 0; i < len; ++i)
 	{
 		key *= _hashCode(*(begin + i));
 	}

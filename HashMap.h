@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Integer.h"
 #include "HashSet.hpp"
+#include "LinkedList.h"
 
 namespace Action
 {
@@ -34,6 +35,26 @@ namespace Action
 			}
 			String toString() const override{
 				return ((Object &)key).toString()+":"+((Object &)value).toString();
+			}
+		};
+
+		class PairSet: public HashSet<Pair>
+		{
+		public:
+			Pair & get(const Pair & arg) const{
+				Object & my_obj = (Object &)(arg);
+				int my_hash = my_obj.hashCode() % this->m_iCapacity;
+
+				for (typename LinkedList<Pair>::Pointer it = this->m_links[my_hash].begin(); 
+					it != this->m_links[my_hash].end(); 
+					++it)
+				{
+					if (*it == my_obj)
+					{
+						return *it;
+					}
+				}
+				throw Set_ElementNotExists();
 			}
 		};
 
@@ -80,6 +101,6 @@ namespace Action
 			return m_set.toString();
 		}
 	private:
-		HashSet<Pair> m_set;
+		PairSet m_set;
 	};
 }

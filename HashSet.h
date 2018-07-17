@@ -99,9 +99,6 @@ namespace Action
 			}
 		};
 		friend struct Pointer;
-
-		template <class K,class V>
-		friend class HashMap;
 	public:
         HashSet();
         void insert(const T &);
@@ -125,11 +122,10 @@ namespace Action
 		const static Integer BEGIN_SPACE;
 		const static Integer EVERY_INCREASE;
 		const static Real INCREASE_CAPACITY;
-    private:
+    protected:
         LinkedList<T> * m_links;
         int m_iSize;
         int m_iCapacity;
 		void increase();
-		T & get(const T &) const;
     };
 }

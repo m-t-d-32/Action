@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 
 #define __MY__VERSION__98 0
 

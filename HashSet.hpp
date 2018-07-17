@@ -28,7 +28,7 @@ namespace Action
 		int my_hash=my_obj.hashCode();
 		my_hash = my_hash % m_iCapacity;
 
-		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
+		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
 			if (*it==my_obj)
 				return;
@@ -47,7 +47,7 @@ namespace Action
 		Object & my_obj=(Object &)(arg);
 		int my_hash=my_obj.hashCode();
 		my_hash = my_hash % m_iCapacity;
-		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
+		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
 			Object & tmp_obj=(Object &)(*it);
 			if (tmp_obj==my_obj)
@@ -65,7 +65,7 @@ namespace Action
 		Object & my_obj=(Object &)(arg);
 		int my_hash=my_obj.hashCode();
 		my_hash = my_hash % m_iCapacity;
-		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
+		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
 			if (*it==my_obj)
 			{
@@ -76,28 +76,12 @@ namespace Action
 	}
 
 	template <class T>
-	T & HashSet<T>::get(const T & arg) const
-	{
-		Object & my_obj=(Object &)(arg);
-		int my_hash=my_obj.hashCode();
-		my_hash = my_hash % m_iCapacity;
-		for (LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
-		{
-			if (*it==my_obj)
-			{
-				return *it;
-			}
-		}
-		throw Set_ElementNotExists();
-	}
-
-	template <class T>
 	ArrayList<T> HashSet<T>::toArray() const
 	{
 		ArrayList<T> rtn;
 		for (int i=0;i<m_iCapacity;++i)
 		{
-			for (LinkedList<T>::Pointer it=m_links[i].begin();it!=m_links[i].end();++it)
+			for (typename LinkedList<T>::Pointer it=m_links[i].begin();it!=m_links[i].end();++it)
 			{
 				rtn.push_back(*it);
 			}
@@ -120,7 +104,8 @@ namespace Action
 	{
 		if (m_iSize==0)
 			return end();
-		for (int i=0;i<m_iCapacity;++i)
+		int i;
+		for (i=0;i<m_iCapacity;++i)
 		{
 			if (m_links[i].size()!=0)
 				break;
@@ -161,7 +146,7 @@ namespace Action
 		LinkedList<T> *tmp_links=new LinkedList<T>[tmp_Capacity];
 		for (int i=0;i<m_iCapacity;++i)
 		{
-			for (LinkedList<T>::Pointer it=m_links[i].begin();it!=m_links[i].end();++it)
+			for (typename LinkedList<T>::Pointer it=m_links[i].begin();it!=m_links[i].end();++it)
 			{
 				Object & my_obj=(Object &)(*it);
 				int my_hash=my_obj.hashCode();

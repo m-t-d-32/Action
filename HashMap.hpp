@@ -50,7 +50,7 @@ namespace Action
 	{
 		for (int i = 0; i < m_set.m_iCapacity; ++i)
 		{
-			for (LinkedList<Pair<T, V> >::Pointer it = m_set.m_links[i].begin();
+			for (typename LinkedList<Pair>::Pointer it = m_set.m_links[i].begin();
 				it != m_set.m_links[i].end();
 				++it)
 			{
