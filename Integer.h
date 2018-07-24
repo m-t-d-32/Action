@@ -30,10 +30,11 @@ namespace Action
 		Integer(){m_iValue=0;}
 		Integer(int iArg){m_iValue=iArg;}
 		Integer(const Integer & iArg){m_iValue=iArg.m_iValue;}
-		
+		explicit Integer(const Real & fArg){m_iValue=(int)fArg.get_double();}
+
 		String getName() const override;
 		String toString() const override;
-		Boolean compareTo(const Object & str) const override;
+		Boolean compareTo(const Object & arg) const override;
 
 		inline int get_int() const {return m_iValue;}
 
@@ -80,7 +81,7 @@ namespace Action
 		{
 			if (!Arg2.m_iValue)
 				throw DividedByZero();
-			else 
+			else
 			{
 				int iResult=Arg1.m_iValue%Arg2.m_iValue;
 				if (Arg1==MIN_VALUE && Arg2.m_iValue==-1)
@@ -92,7 +93,7 @@ namespace Action
 		{
 			if (!Arg2.m_iValue)
 				throw DividedByZero();
-			else 
+			else
 			{
 				int iResult=Arg1.m_iValue/Arg2.m_iValue;
 				if (Arg1==MIN_VALUE && Arg2.m_iValue==-1)
@@ -100,12 +101,12 @@ namespace Action
 				return iResult;
 			}
 		}
-		inline friend Integer operator ^(const Integer & Arg1,const Integer & Arg2) 
+		inline friend Integer operator ^(const Integer & Arg1,const Integer & Arg2)
 		{
 			int iBase=Arg1.m_iValue,iRadix=Arg2.m_iValue;
 			if (iRadix<0)
 				return 0;
-			
+
 			int iResult=1;
 			while (iRadix)
 			{
@@ -124,23 +125,23 @@ namespace Action
 		{return Arg1.m_iValue | Arg2.m_iValue;}
 		inline friend Integer bit_xor(const Integer & Arg1,const Integer & Arg2)
 		{return Arg1.m_iValue ^ Arg2.m_iValue;}
-		inline friend Integer bit_not(const Integer & Arg) 
+		inline friend Integer bit_not(const Integer & Arg)
 		{return	~Arg.m_iValue;}
-		inline friend Integer bit_left(const Integer & Arg,const Integer & iCount) 
+		inline friend Integer bit_left(const Integer & Arg,const Integer & iCount)
 		{
 			if (iCount.m_iValue>=sizeof(int)*8 ||
 				iCount.m_iValue<0)
 				throw Integer_OutOfBound(((unsigned int)Arg.m_iValue)<<iCount.m_iValue);
 			return ((unsigned int)Arg.m_iValue)<<iCount.m_iValue;
 		}
-		inline friend Integer bit_right(const Integer & Arg,const Integer & iCount) 
+		inline friend Integer bit_right(const Integer & Arg,const Integer & iCount)
 		{
 			if (iCount.m_iValue>=sizeof(int)*8 ||
 				iCount.m_iValue<0)
 				throw Integer_OutOfBound(((unsigned int)Arg.m_iValue)>>iCount.m_iValue);
 			return ((unsigned int)Arg.m_iValue)>>iCount.m_iValue;
 		}
-		inline friend Integer algorithm_bit_left(const Integer & Arg,const Integer & iCount) 
+		inline friend Integer algorithm_bit_left(const Integer & Arg,const Integer & iCount)
 		{
 			if (iCount.m_iValue>=sizeof(int)*8 ||
 				iCount.m_iValue<0)

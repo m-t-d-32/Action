@@ -21,32 +21,31 @@ namespace Action
 	}
 
 	template <class T>
-	void Allocator<T>::Auto_Increase()
+	void Allocator<T>::autoIncrease()
 	{
 		m_iNextCapacity*=EVERY_INCREASE.get_int();
 	}
 
 	template <class T>
-	void Allocator<T>::Construct(const Integer & iArgOfIndex,const T & tArgOfCopy)
+	void Allocator<T>::construct(const Integer & iArgOfIndex,const T & tArgOfCopy)
 	{
 		new(m_tSpace+iArgOfIndex.get_int()) T(tArgOfCopy);
 	}
 
 	template <class T>
-	void Allocator<T>::Destruct(const Integer & iArgOfIndex)
+	void Allocator<T>::destruct(const Integer & iArgOfIndex)
 	{
 		(m_tSpace+iArgOfIndex.get_int())->~T();
 	}
 
 	template <class T>
-	void Allocator<T>::SetCapacity(const Integer & iArgOfSpace)
+	void Allocator<T>::setCapacity(const Integer & iArgOfSpace)
 	{
 		m_iNextCapacity=iArgOfSpace.get_int();
-		Auto_Increase();
 	}
 
 	template <class T>
-	T * Allocator<T>::GetSpace()
+	T * Allocator<T>::getSpace()
 	{
 		if (m_iNextCapacity<=0) throw Alloc_OutOfMemory();
 		m_tSpace=(T *)malloc(sizeof(T)*m_iNextCapacity);
@@ -54,7 +53,7 @@ namespace Action
 		else
 		{
 			m_iCapacity=m_iNextCapacity;
-			Auto_Increase();
+			autoIncrease();
 		}
 		return m_tSpace;
 	}

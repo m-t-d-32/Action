@@ -4,6 +4,8 @@
 #include "HashSet.hpp"
 #include "LinkedList.h"
 
+#ifndef Action__HashMap
+#define Action__HashMap
 namespace Action
 {
 	template <class K,class V>
@@ -17,10 +19,10 @@ namespace Action
 		public:
 			Pair() {}
 			Pair(K _key, V _value) :key(_key), value(_value) {}
-			int hashCode() const override{
+			virtual int hashCode() const override{
 				return ((Object &)(key)).hashCode();
 			}
-			Boolean operator ==(const Object & obj) const override{
+			virtual Boolean operator ==(const Object & obj) const override{
 				try
 				{
 					const Pair my_pair=dynamic_cast<const Pair &> (obj);
@@ -30,10 +32,10 @@ namespace Action
 					throw Type_NotCorrespond();
 				}
 			}
-			String getName() const override {
+			virtual String getName() const override {
 				return "Action::HashMap::Pair";
 			}
-			String toString() const override{
+			virtual String toString() const override{
 				return ((Object &)key).toString()+":"+((Object &)value).toString();
 			}
 		};
@@ -41,12 +43,12 @@ namespace Action
 		class PairSet: public HashSet<Pair>
 		{
 		public:
-			Pair & get(const Pair & arg) const{
+			virtual Pair & get(const Pair & arg) const{
 				Object & my_obj = (Object &)(arg);
 				int my_hash = my_obj.hashCode() % this->m_iCapacity;
 
-				for (typename LinkedList<Pair>::Pointer it = this->m_links[my_hash].begin(); 
-					it != this->m_links[my_hash].end(); 
+				for (typename LinkedList<Pair>::Pointer it = this->m_links[my_hash].begin();
+					it != this->m_links[my_hash].end();
 					++it)
 				{
 					if (*it == my_obj)
@@ -64,8 +66,8 @@ namespace Action
 			typename HashSet<Pair>::Pointer m_ptr;
 		public:
 			Pointer(typename HashSet<Pair>::Pointer ptr) :m_ptr(ptr) {}
-			Pair operator *() { return *m_ptr; }
-			Pair * operator ->() { return &(*this); }
+			Pair & operator *() { return *m_ptr; }
+			Pair * operator ->() { return &(*m_ptr); }
 			Pointer & operator ++() { ++m_ptr; return *this; }
 			Pointer operator ++(int) { return Pointer(m_ptr++); }
 			Pointer & operator --() { --m_ptr; return *this; }
@@ -78,29 +80,35 @@ namespace Action
 
 		friend struct Pointer;
 	public:
-		void insert(K ,V );
-		V get(K ) const;
-		V & operator [](K );
-		Boolean containsKey(K );
-		Boolean containsValue(V );
-		void erase(K );
-		void clear(){m_set.clear();}
-		Integer size(){return m_set.size();}
-		Boolean empty(){return m_set.empty();}
-		ArrayList<Pair> toArray() {return m_set.toArray();}
+	    HashMap(){}
+	    HashMap(const HashMap &);
+	    HashMap & operator =(const HashMap &);
+		virtual void insert(K ,V );
+		virtual V get(K ) const;
+		virtual V & operator [](K );
+		virtual Boolean containsKey(K );
+		virtual Boolean containsValue(V );
+		virtual void erase(K );
+		virtual void clear(){m_set.clear();}
+		virtual Integer size(){return m_set.size();}
+		virtual Boolean empty(){return m_set.empty();}
+		virtual ArrayList<Pair> toArray() {return m_set.toArray();}
 
-		Pointer begin() const {	return m_set.begin();}
-		Pointer end() const { return m_set.end(); }
-		Pointer v_begin() const { return m_set.v_begin(); }
-		Pointer v_end() const { return m_set.v_end(); }
+		virtual Pointer begin() const {	return m_set.begin();}
+		virtual Pointer end() const { return m_set.end(); }
+		virtual Pointer v_begin() const { return m_set.v_begin(); }
+		virtual Pointer v_end() const { return m_set.v_end(); }
 
-		String getName() const override{
+		virtual String getName() const override{
 			return "Action::HashMap";
 		}
-		String toString() const override{
+		virtual String toString() const override{
 			return m_set.toString();
 		}
+		virtual ~HashMap(){}
 	private:
 		PairSet m_set;
 	};
 }
+
+#endif /* Action__HashMap */

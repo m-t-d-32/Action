@@ -2,7 +2,7 @@
 #include "Byte.h"
 #include "Type_NotCorrespond.h"
 #ifndef Action__Boolean
-#define Action__Boolean 
+#define Action__Boolean
 
 namespace Action
 {
@@ -18,6 +18,12 @@ namespace Action
 		Boolean(){
 			setVal(0);
 		}
+		Boolean(const Boolean & arg):Byte(arg){}
+		Boolean & operator =(const Boolean & arg){
+		    if (arg.getVal()) *this=True;
+		    else *this=False;
+		    return *this;
+        }
 		explicit Boolean(char t){
 			if (t) setVal(-1);
 			else setVal(0);
@@ -25,15 +31,15 @@ namespace Action
 		inline friend Boolean operator AND(const Boolean & b1,const Boolean & b2){
 			return Boolean(b1.getVal() && b2.getVal());
 		}
-		friend Boolean operator OR(const Boolean & b1,const Boolean & b2){
+		inline friend Boolean operator OR(const Boolean & b1,const Boolean & b2){
 			return Boolean(b1.getVal() || b2.getVal());
 		}
-		friend Boolean operator XOR(const Boolean & b1,const Boolean & b2){
+		inline friend Boolean operator XOR(const Boolean & b1,const Boolean & b2){
 			return Boolean(b1.getVal() ^ b2.getVal());
-		} 
-		friend Boolean operator NOT(const Boolean & b){
+		}
+		inline friend Boolean operator NOT(const Boolean & b){
 			return Boolean(!b.getVal());
-		} 
+		}
 		Boolean operator ==(const Object & Arg) const override{
 			try
 			{
@@ -44,18 +50,14 @@ namespace Action
 				throw Type_NotCorrespond();
 			}
 		}
-		friend Boolean operator ==(const Boolean & b1,const Boolean & b2){
+		inline friend Boolean operator ==(const Boolean & b1,const Boolean & b2){
 			return Boolean((b1.getVal() && b2.getVal()) || (!b1.getVal() && !b2.getVal()));
 		}
 		operator bool() const{
 			return getVal()?true:false;
 		}
-		virtual String getName() const override;
-		virtual String toString() const override;
-		void print(std::ostream & os=std::cout) const override{
-			Byte::print(os);
-		}
-		~Boolean(){}
+		String getName() const override;
+		String toString() const override;
 	};
 }
-#endif
+#endif /* Action__Boolean */

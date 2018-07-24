@@ -9,6 +9,8 @@
 #include "Set_PtrOutOfRange.h"
 #include "Set_ElementNotExists.h"
 
+#ifndef Action__HashSet
+#define Action__HashSet
 namespace Action
 {
     template <class T>
@@ -23,7 +25,7 @@ namespace Action
 		public:
 			Pointer(const HashSet * set, typename LinkedList<T>::Pointer ptr):
 			  m_set(set),m_ptr(ptr){}
-			T operator *(){
+			T & operator *(){
 				if (*this==m_set->end()) throw Set_PtrOutOfRange();
 				else return *m_ptr;
 			}
@@ -48,18 +50,18 @@ namespace Action
 				*this=last();
 				return ptrReturnVal;
 			}
-			
+
 			Pointer next() const{
 				if (*this==m_set->end())
 					throw Set_PtrOutOfRange();
 				else if (*this==m_set->v_begin())
-					return m_set->begin();				
+					return m_set->begin();
 				else
 				{
 					if (m_ptr.next()!=(m_ptr.getList())->end())
 						return Pointer(m_set,m_ptr.next());
 					else
-					{	
+					{
 						LinkedList<T> * rtn_list;
 						for (rtn_list=m_ptr.getList()+1;rtn_list<m_set->m_links+m_set->m_iCapacity;++rtn_list)
 							if (rtn_list->size()>0) break;
@@ -101,24 +103,26 @@ namespace Action
 		friend struct Pointer;
 	public:
         HashSet();
-        void insert(const T &);
-        void erase(const T &);
-        Boolean contains(const T &) const;
-        Integer size() const{ return m_iSize; }
-        Boolean isEmpty() const{return m_iSize==0; }
-		ArrayList<T> toArray() const;
-        void clear();
-		Pointer begin() const;
-		Pointer end() const;
-		Pointer v_begin() const;
-		Pointer v_end() const;
+        HashSet(const HashSet &);
+        HashSet & operator =(const HashSet &);
+        virtual void insert(const T &);
+        virtual void erase(const T &);
+        virtual Boolean contains(const T &) const;
+        virtual Integer size() const{ return m_iSize; }
+        virtual Boolean empty() const{return Boolean(m_iSize==0); }
+		virtual ArrayList<T> toArray() const;
+        virtual void clear();
+		virtual Pointer begin() const;
+		virtual Pointer end() const;
+		virtual Pointer v_begin() const;
+		virtual Pointer v_end() const;
 		virtual String getName() const override{
 			return "Action::HashSet";
 		}
 		virtual String toString() const override{
 			return toArray().toString();
 		}
-		~HashSet();
+		virtual ~HashSet();
 		const static Integer BEGIN_SPACE;
 		const static Integer EVERY_INCREASE;
 		const static Real INCREASE_CAPACITY;
@@ -129,3 +133,5 @@ namespace Action
 		void increase();
     };
 }
+
+#endif /* Action__HashSet */

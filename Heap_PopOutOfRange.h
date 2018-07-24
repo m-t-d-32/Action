@@ -8,8 +8,8 @@ namespace Action
 	class Heap_PopOutOfRange: public Exception
 	{
 	public:
-		virtual String getName() const override;
-		virtual String toString() const override;
+		String getName() const override;
+		String toString() const override;
 	};
 }
 #endif  /* Action__Heap_PopOutOfRange */

@@ -13,12 +13,13 @@ int _hashCode(int key)
 
 int _str_hashCode(char * begin, int len)
 {
-	int key = 0;
+	int key = 1;
 	int i;
 	for (i = 0; i < len; ++i)
 	{
-		key *= _hashCode(*(begin + i));
+		key += _hashCode(*(begin + i));
 	}
+	if (key<0) key=-key;
 	return key;
 }
 

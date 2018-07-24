@@ -2,8 +2,25 @@
 #include "HashMap.h"
 #include "String.h"
 
+#ifndef HASHMAP__CPP
+#define HASHMAP__CPP
 namespace Action
 {
+    template<class K, class V>
+    HashMap<K, V>::HashMap(const HashMap & hmapArg)
+    {
+        m_set=hmapArg.m_set;
+    }
+
+    template<class K, class V>
+    HashMap<K, V> & HashMap<K, V>::operator =(const HashMap & hmapArg)
+    {
+		if (this==&hmapArg)
+			return *this;
+        m_set=hmapArg.m_set;
+        return *this;
+    }
+
 	template<class K, class V>
 	void HashMap<K, V>::insert(K key, V value)
 	{
@@ -48,16 +65,11 @@ namespace Action
 	template<class K, class V>
 	Boolean HashMap<K, V>::containsValue(V value)
 	{
-		for (int i = 0; i < m_set.m_iCapacity; ++i)
-		{
-			for (typename LinkedList<Pair>::Pointer it = m_set.m_links[i].begin();
-				it != m_set.m_links[i].end();
-				++it)
-			{
-				if (it->value == value)
-					return Boolean::True;
-			}
-		}
+	    for (typename HashMap<K, V>::Pointer it=begin();it!=end();++it)
+        {
+            if (it->value == value)
+                return Boolean::True;
+        }
 		return Boolean::False;
 	}
 
@@ -67,3 +79,4 @@ namespace Action
 		m_set.erase(Pair(key, V()));
 	}
 }
+#endif

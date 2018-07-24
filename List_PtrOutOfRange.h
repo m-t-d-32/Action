@@ -8,8 +8,8 @@ namespace Action
 	class List_PtrOutOfRange: public Exception
 	{
 	public:
-		virtual String getName() const override;
-		virtual String toString() const override;
+		String getName() const override;
+		String toString() const override;
 	};
 }
 #endif  /* Action__List_PtrOutOfRange */

@@ -11,8 +11,8 @@ namespace Action
 	public:
         Integer_OutOfBound(int fal_value):m_false_value(fal_value){}
         Integer getValue() const;
-		virtual String getName() const override;
-		virtual String toString() const override;
+		String getName() const override;
+		String toString() const override;
     private:
         int m_false_value;
 	};

@@ -21,7 +21,11 @@ namespace Action
     void Object::print(std::ostream & os) const
     {
         toString().print(os);
-    }	
+    }
+    void Object::println(std::ostream & os) const
+    {
+        (toString()+"\n").print(os);
+    }
     Boolean Object::compareTo(const Object & os) const
     {
         return Boolean::False;

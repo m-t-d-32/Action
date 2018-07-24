@@ -12,7 +12,7 @@ namespace Action
 	template <class T>
 	ArrayList<T>::ArrayList()
 	{
-		m_data=m_alloc.GetSpace();
+		m_data=m_alloc.getSpace();
 		m_iSize=0;
 	}
 
@@ -21,20 +21,20 @@ namespace Action
 	{
 		if (iArgOfSpace<=0)
 			throw ArrayList_IndexOutOfRange();
-		m_alloc.SetCapacity(iArgOfSpace);
-		m_data=m_alloc.GetSpace();
+		m_alloc.setCapacity(iArgOfSpace);
+		m_data=m_alloc.getSpace();
 		m_iSize=0;
 	}
 
 	template <class T>
 	ArrayList<T>::ArrayList(const ArrayList<T> & arrArgOfAnother)
 	{
-		m_alloc.SetCapacity(arrArgOfAnother.m_alloc.GetCapacity());
-		m_data=m_alloc.GetSpace();
+		m_alloc.setCapacity(arrArgOfAnother.m_alloc.getCapacity());
+		m_data=m_alloc.getSpace();
 		m_iSize=arrArgOfAnother.m_iSize;
 		for (int i=0;i<m_iSize;++i)
 		{
-			m_alloc.Construct(i,arrArgOfAnother.m_data[i]);
+			m_alloc.construct(i,arrArgOfAnother.m_data[i]);
 		}
 	}
 
@@ -59,7 +59,7 @@ namespace Action
 	{
 		for (int i=0;i<m_iSize;++i)
 		{
-			m_alloc.Destruct(i);
+			m_alloc.destruct(i);
 		}
 		m_iSize=0;
 	}
@@ -67,14 +67,14 @@ namespace Action
 	template <class T>
 	void ArrayList<T>::push_back(const T & tArgOfElement)
 	{
-		if (m_iSize>=m_alloc.GetCapacity())
+		if (m_iSize>=m_alloc.getCapacity())
 		{
-			T * temp_tDataSpace=m_alloc.GetSpace();
+			T * temp_tDataSpace=m_alloc.getSpace();
 			memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
 			free(m_data);
 			m_data=temp_tDataSpace;
 		}
-		m_alloc.Construct(m_iSize,tArgOfElement);
+		m_alloc.construct(m_iSize,tArgOfElement);
 		++m_iSize;
 	}
 
@@ -83,7 +83,7 @@ namespace Action
 	{
 		if (m_iSize<=0)
 			throw ArrayList_IndexOutOfRange();
-		m_alloc.Destruct(--m_iSize);
+		m_alloc.destruct(--m_iSize);
 	}
 
 	template <class T>
@@ -91,19 +91,19 @@ namespace Action
 	{
 		if (iArgOfPos>m_iSize || iArgOfPos<0)
 			throw ArrayList_IndexOutOfRange();
-		if (m_iSize>=m_alloc.GetCapacity())
+		if (m_iSize>=m_alloc.getCapacity())
 		{
-			T * temp_tDataSpace=m_alloc.GetSpace();
+			T * temp_tDataSpace=m_alloc.getSpace();
 			memcpy(temp_tDataSpace,m_data,(iArgOfPos*sizeof(T)).get_int());
 			memcpy(temp_tDataSpace+(iArgOfPos+1).get_int(),m_data+iArgOfPos.get_int(),((m_iSize-iArgOfPos).get_int()*sizeof(T)));
-			m_alloc.Construct(iArgOfPos,tArgOfElement);
+			m_alloc.construct(iArgOfPos,tArgOfElement);
 			free(m_data);
 			m_data=temp_tDataSpace;
 		}
 		else
 		{
 			memmove(m_data+(iArgOfPos+1).get_int(),m_data+iArgOfPos.get_int(),((m_iSize-iArgOfPos).get_int()*sizeof(T)));
-			m_alloc.Construct(iArgOfPos,tArgOfElement);
+			m_alloc.construct(iArgOfPos,tArgOfElement);
 		}
 		++m_iSize;
 	}
@@ -135,7 +135,7 @@ namespace Action
 	{
 		if (iArgOfPos>=m_iSize || iArgOfPos<0)
 			throw ArrayList_IndexOutOfRange();
-		m_alloc.Destruct(iArgOfPos);
+		m_alloc.destruct(iArgOfPos);
 		memmove(m_data+iArgOfPos.get_int(),m_data+(iArgOfPos+1).get_int(),(m_iSize-iArgOfPos-1).get_int()*sizeof(T));
 		--m_iSize;
 	}
@@ -146,7 +146,7 @@ namespace Action
 		if (iBegin<0 || iEnd>m_iSize || iEnd<=iBegin)
 			throw ArrayList_IndexOutOfRange();
 		for (Integer i=iBegin;i<iEnd;++i)
-			m_alloc.Destruct(i);
+			m_alloc.destruct(i);
 		memmove(m_data+iBegin.get_int(),m_data+iEnd.get_int(),(m_iSize-iEnd).get_int()*sizeof(T));
 		m_iSize-=(iEnd-iBegin).get_int();
 	}
@@ -154,6 +154,8 @@ namespace Action
 	template <class T>
 	ArrayList<T> & ArrayList<T>::operator =(const ArrayList<T> & arrArgOfAnother)
 	{
+		if (this==&arrArgOfAnother)
+			return *this;
 		resize(arrArgOfAnother.m_iSize);
 		for (int i = 0;i<m_iSize;++i)
 		{
@@ -187,22 +189,22 @@ namespace Action
 		{
 			for (int i=iArgOfSpace.get_int();i<m_iSize;++i)
 			{
-				m_alloc.Destruct(i);
+				m_alloc.destruct(i);
 			}
 		}
 		else
 		{
-			if (iArgOfSpace>=m_alloc.GetCapacity())
+			if (iArgOfSpace>=m_alloc.getCapacity())
 			{
-				m_alloc.SetCapacity(iArgOfSpace);
-				T * temp_tDataSpace=m_alloc.GetSpace();
+				m_alloc.setCapacity(iArgOfSpace);
+				T * temp_tDataSpace=m_alloc.getSpace();
 				memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
 				free(m_data);
 				m_data=temp_tDataSpace;
 			}
 			for (int i=m_iSize;i<iArgOfSpace;++i)
 			{
-				m_alloc.Construct(i,Val);
+				m_alloc.construct(i,Val);
 			}
 		}
 		m_iSize=iArgOfSpace.get_int();
@@ -226,7 +228,7 @@ namespace Action
 	{
 		try
 		{
-			const ArrayList<T> & arrArgOfAnother=dynamic_cast<const ArrayList<T>& >(oArgOfAnother); 
+			const ArrayList<T> & arrArgOfAnother=dynamic_cast<const ArrayList<T>& >(oArgOfAnother);
 			if (m_iSize!=arrArgOfAnother.m_iSize) return Boolean::False;
 
 			for (int i=0;i<m_iSize;++i)
@@ -271,11 +273,7 @@ namespace Action
 	template <class T>
 	ArrayList<T>::~ArrayList()
 	{
-		for (int i=0;i<m_iSize;++i)
-		{
-			m_alloc.Destruct(i);
-		}
+		clear();
 	}
 }
-
 #endif

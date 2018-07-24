@@ -14,39 +14,33 @@
 #define Action__Allocator
 namespace Action
 {
-	//内存分配器，用于申请内存和调用构造，析构函数
 	template <class T>
 	class Allocator : public Object
 	{
 	private:
-		void Auto_Increase();
+		void autoIncrease();
 	public:
-        const static Integer EVERY_INCREASE;	//每次扩容的倍数
-        const static Integer BEGIN_SPACE;	//初始空间大小
+        const static Integer EVERY_INCREASE;
+        const static Integer BEGIN_SPACE;
 
-		//构造函数
 		Allocator();
+		virtual void setCapacity(const Integer &);
+		virtual inline Integer getCapacity() const {return m_iCapacity;}
+		virtual void construct(const Integer &,const T &);
+		virtual void destruct(const Integer &);
+		virtual T * getSpace();
+		virtual String getName() const;
+		virtual ~Allocator();
 
-		//设置下次需要的空间（下次申请的空间是参数的两倍，用于提高性能)
-		void SetCapacity(const Integer &);
+#if __cplusplus < 201103L
+    private:
+        Allocator & operator =(const Allocator &);
+        Allocator(const Allocator &);
+#else
+        void operator =(const Allocator &)=delete;
+        Allocator(const Allocator &)=delete;
+#endif
 
-		//获得下次需要申请的空间
-		inline Integer GetCapacity() const {return m_iCapacity;}
-		
-		//在以第一个参数为数组下标的空间上调用拷贝构造函数，拷贝第二个参数
-		void Construct(const Integer &,const T &);
-
-		//在以参数为数组下标的空间上调用析构函数
-		void Destruct(const Integer &);
-
-		//获得数组指针
-		T * GetSpace();
-
-		//获得关于这个类的信息
-		String getName() const;
-
-		//析构函数，直接释放数组空间
-		~Allocator();
 	private:
 		T * m_tSpace;
 		int m_iCapacity;

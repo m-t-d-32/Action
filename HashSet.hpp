@@ -5,7 +5,7 @@
 #ifndef HASHSET__CPP
 #define HASHSET__CPP
 namespace Action
-{	
+{
 	template <class T>
 	const Integer HashSet<T>::BEGIN_SPACE=10;
 	template <class T>
@@ -19,6 +19,25 @@ namespace Action
         m_iSize=0;
 		m_iCapacity=BEGIN_SPACE.get_int();
         m_links=new LinkedList<T> [m_iCapacity];
+    }
+
+    template <class T>
+    HashSet<T>::HashSet(const HashSet<T> & hsetArg)
+    {
+        operator =(hsetArg);
+    }
+
+    template <class T>
+    HashSet<T> & HashSet<T>::operator =(const HashSet & hsetArg)
+    {
+		if (this==&hsetArg)
+			return *this;
+        m_iSize=hsetArg.m_iSize;
+        m_iCapacity=hsetArg.iCapacity;
+        m_links=new LinkedList<T> [m_iCapacity];
+        for (int i=0;i<m_iCapacity;++i)
+            m_links[i]=hsetArg.m_links[i];
+        return *this;
     }
 
     template <class T>

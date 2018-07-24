@@ -1,6 +1,7 @@
 #include <iostream>
 #include <typeinfo>
-
+#include <cstdio>
+#include <limits.h>
 #define __MY__VERSION__98 0
 
 #ifndef Action__Object
@@ -35,6 +36,7 @@ namespace Action
     {
     public:
         virtual void print(std::ostream & os=std::cout) const;
+        virtual void println(std::ostream & os=std::cout) const;
         inline Integer getVersion() const;
         virtual String getName() const;
         virtual String toString() const;

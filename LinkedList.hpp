@@ -26,6 +26,8 @@ namespace Action
 	template <class T>
 	LinkedList<T> & LinkedList<T>::operator =(const LinkedList & linkArgOfAnother)
 	{
+		if (this==&linkArgOfAnother)
+			return *this;
 		Node * ptrArg=linkArgOfAnother.m_ptrBegin;
 		Node * ptrTemp;
 		if (!ptrArg)
@@ -324,5 +326,4 @@ namespace Action
 		clear();
 	}
 }
-
 #endif

@@ -79,7 +79,7 @@ namespace Action
 				}
 
 				Boolean operator ==(const Pointer & ptrArg) const {
-					return Boolean(m_list==ptrArg.m_list && m_index==ptrArg.m_index);	//判断两个迭代器是否相等
+					return Boolean(m_list==ptrArg.m_list && m_index==ptrArg.m_index);
 				}
 
 				Boolean operator !=(const Pointer & ptrArg) const {
@@ -104,19 +104,19 @@ namespace Action
 				}
 		};
 
-		ArrayList();	
-		ArrayList(const Integer &);	
+		ArrayList();
+		ArrayList(const Integer &);
 		ArrayList(const ArrayList &);
 
 		virtual Pointer begin(){return Pointer(*this,0);}
 		virtual Pointer end(){return Pointer(*this,size());}
 
-		virtual void resize(const Integer &,const T & Val=T());	
-		ArrayList & operator =(const ArrayList &);
+		virtual void resize(const Integer &,const T & Val=T());
+		virtual ArrayList & operator =(const ArrayList &);
 		virtual T & operator [](const Integer &);
         virtual T at(const Integer &) const;
 		virtual T front() const;
-		virtual T back() const;	
+		virtual T back() const;
 		virtual void push_back(const T &);
 		virtual void pop_back();
 		virtual void insert(const Integer &, const T &);
@@ -130,10 +130,10 @@ namespace Action
 		virtual Boolean operator ==(const Object &) const override;
 		virtual inline Integer size() const {return m_iSize;}
 		virtual inline Boolean empty() const{return Boolean(size()<=0);}
-		virtual Integer find (const T &) const;	
+		virtual Integer find (const T &) const;
 
-		String getName() const override;
-		String toString() const override;
+		virtual String getName() const override;
+		virtual String toString() const override;
 		virtual ~ArrayList();
 	private:
 		int m_iSize;

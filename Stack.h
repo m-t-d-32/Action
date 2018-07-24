@@ -17,6 +17,8 @@ namespace Action
 	public:
 		Stack(){}
 		Stack(const Stack & stkArgOfCopy):m_array(stkArgOfCopy.m_array){}
+		Stack & operator =(const Stack &);
+
 		virtual void push(const T &);
 		virtual T pop();
 		virtual T top() const ;
@@ -45,26 +47,6 @@ namespace Action
 		}
 		virtual ~Stack(){}
 	};
-
-	template <class T>
-	void Stack<T>::push(const T & tArgOfElement)
-	{
-		m_array.push_back(tArgOfElement);
-	}
-
-	template <class T>
-	T Stack<T>::pop()
-	{
-		T rtn=m_array.back();
-		m_array.pop_back();
-		return rtn;
-	}
-
-	template <class T>
-	T Stack<T>::top() const 
-	{
-		return m_array.back();
-	}
 }
 #endif /* Action__Stack */
 

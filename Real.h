@@ -57,26 +57,26 @@ namespace Action
 			return fValue;
 		}
 
-		inline friend Real operator + (const Real & fArg1,const Real & fArg2) 
+		inline friend Real operator + (const Real & fArg1,const Real & fArg2)
 		{
 			double fValue=fArg1.m_fValue+fArg2.m_fValue;
 			if (isinf(fValue))
 				throw Real_OutOfBound(fValue);
 			return fValue;
 		}
-		inline friend Real operator - (const Real & fArg1,const Real & fArg2) 
+		inline friend Real operator - (const Real & fArg1,const Real & fArg2)
 		{
 			return fArg1+(-fArg2);
 		}
-		inline friend Real operator * (const Real & fArg1,const Real & fArg2) 
+		inline friend Real operator * (const Real & fArg1,const Real & fArg2)
 		{
 			double fValue=fArg1.m_fValue*fArg2.m_fValue;
 			if (isinf(fValue))
 				throw Real_OutOfBound(fValue);
 			return fValue;
 		}
-		inline friend Real operator / (const Real & fArg1,const Real & fArg2) 
-		{			
+		inline friend Real operator / (const Real & fArg1,const Real & fArg2)
+		{
 			if (fabs(fArg1.m_fValue)<PRECISION.m_fValue)
 				throw DividedByZero();
 			double fValue=fArg1.m_fValue/fArg2.m_fValue;
@@ -84,7 +84,7 @@ namespace Action
 				throw Real_OutOfBound(fValue);
 			return fValue;
 		}
-		inline friend Real operator ^ (const Real & fArg1,const Real & fArg2) 
+		inline friend Real operator ^ (const Real & fArg1,const Real & fArg2)
 		{
 			double fValue=pow(fArg1.m_fValue,fArg2.m_fValue);
 			if (isnan(fValue))
@@ -166,9 +166,9 @@ namespace Action
 		{return NOT (Arg1>Arg2);}
 		inline double get_double() const
 		{return m_fValue;}
-		virtual String getName() const override;
-		virtual String toString() const override;
-		virtual Boolean compareTo(const Object &) const override;
+		String getName() const override;
+		String toString() const override;
+		Boolean compareTo(const Object &) const override;
 	private:
 		double m_fValue;
 		static Real PRECISION;
