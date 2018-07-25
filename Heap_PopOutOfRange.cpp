@@ -4,6 +4,6 @@
 
 namespace Action
 {
-	String Heap_PopOutOfRange::getName()const {return "Action::Heap_PopOutOfRange";}
-	String Heap_PopOutOfRange::toString() const {return "Heap is empty and the operation's illegal.";}
+	String Heap_PopOutOfRange::get_name()const {return "Action::Heap_PopOutOfRange";}
+	String Heap_PopOutOfRange::to_string() const {return "Heap is empty and the operation's illegal.";}
 }

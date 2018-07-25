@@ -129,8 +129,8 @@ namespace Action
 			virtual Boolean empty() const { return Boolean(m_iSize==0);}
 			virtual Integer find (const T &) const;
 
-			virtual String getName() const override;
-			virtual String toString() const override;
+			virtual String get_name() const override;
+			virtual String to_string() const override;
 			virtual ~LinkedList();
 		private:
 			Node * m_ptrBegin, *m_ptrEnd;

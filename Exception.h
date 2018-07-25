@@ -8,10 +8,10 @@ namespace Action
 	{
 	public:
 		Exception();
-		virtual Exception * getCause() const;
-		virtual void initCause(Exception *);
-		virtual String getName() const override;
-		virtual String toString() const override;
+		virtual Exception * get_cause() const;
+		virtual void init_cause(Exception *);
+		virtual String get_name() const override;
+		virtual String to_string() const override;
 		virtual ~Exception();
 	private:
 		Exception * m_cause;

@@ -37,13 +37,13 @@ namespace Action
     public:
         virtual void print(std::ostream & os=std::cout) const;
         virtual void println(std::ostream & os=std::cout) const;
-        inline Integer getVersion() const;
-        virtual String getName() const;
-        virtual String toString() const;
-        virtual Boolean compareTo(const Object &) const;
+        inline Integer get_version() const;
+        virtual String get_name() const;
+        virtual String to_string() const;
+        virtual Boolean compare_to(const Object &) const;
 		virtual Boolean operator ==(const Object &) const;
 		virtual Boolean operator !=(const Object &) const;
-        virtual int hashCode() const;
+        virtual int hash_code() const;
         virtual ~Object();
     };
 }

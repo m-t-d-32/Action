@@ -110,17 +110,17 @@ namespace Action
         virtual Boolean contains(const T &) const;
         virtual Integer size() const{ return m_iSize; }
         virtual Boolean empty() const{return Boolean(m_iSize==0); }
-		virtual ArrayList<T> toArray() const;
+		virtual ArrayList<T> to_array() const;
         virtual void clear();
 		virtual Pointer begin() const;
 		virtual Pointer end() const;
 		virtual Pointer v_begin() const;
 		virtual Pointer v_end() const;
-		virtual String getName() const override{
+		virtual String get_name() const override{
 			return "Action::HashSet";
 		}
-		virtual String toString() const override{
-			return toArray().toString();
+		virtual String to_string() const override{
+			return to_array().to_string();
 		}
 		virtual ~HashSet();
 		const static Integer BEGIN_SPACE;
@@ -130,7 +130,7 @@ namespace Action
         LinkedList<T> * m_links;
         int m_iSize;
         int m_iCapacity;
-		void increase();
+		void auto_increase();
     };
 }
 

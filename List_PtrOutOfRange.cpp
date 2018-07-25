@@ -4,6 +4,6 @@
 
 namespace Action
 {
-	String List_PtrOutOfRange::getName()const {return "Action::List_PtrOutOfRange";}
-	String List_PtrOutOfRange::toString() const {return "The Pointer or index of the LinkedList is illegal.";}
+	String List_PtrOutOfRange::get_name()const {return "Action::List_PtrOutOfRange";}
+	String List_PtrOutOfRange::to_string() const {return "The Pointer or index of the LinkedList is illegal.";}
 }

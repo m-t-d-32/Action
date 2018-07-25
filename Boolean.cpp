@@ -6,11 +6,11 @@ namespace Action
 {
 	const Boolean Boolean::True = Boolean(true);
 	const Boolean Boolean::False = Boolean(false);
-	String Boolean::getName() const{
+	String Boolean::get_name() const{
 		return "Action::Boolean";
 	}
-	String Boolean::toString() const{
-		if (getVal()) return "True";
+	String Boolean::to_string() const{
+		if (get_val()) return "True";
 		else return "False";
 	}
 }

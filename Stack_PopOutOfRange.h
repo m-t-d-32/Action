@@ -8,8 +8,8 @@ namespace Action
 	class Stack_PopOutOfRange: public Exception
 	{
 	public:
-		String getName() const override;
-		String toString() const override;
+		String get_name() const override;
+		String to_string() const override;
 	};
 }
 #endif  /* Action__Stack_PopOutOfRange */

@@ -107,12 +107,11 @@ namespace Action
 		ArrayList();
 		ArrayList(const Integer &);
 		ArrayList(const ArrayList &);
-
+		ArrayList & operator =(const ArrayList &);
 		virtual Pointer begin(){return Pointer(*this,0);}
 		virtual Pointer end(){return Pointer(*this,size());}
 
-		virtual void resize(const Integer &,const T & Val=T());
-		virtual ArrayList & operator =(const ArrayList &);
+		virtual void resize(const Integer &,const T & Val=T());		
 		virtual T & operator [](const Integer &);
         virtual T at(const Integer &) const;
 		virtual T front() const;
@@ -132,8 +131,8 @@ namespace Action
 		virtual inline Boolean empty() const{return Boolean(size()<=0);}
 		virtual Integer find (const T &) const;
 
-		virtual String getName() const override;
-		virtual String toString() const override;
+		virtual String get_name() const override;
+		virtual String to_string() const override;
 		virtual ~ArrayList();
 	private:
 		int m_iSize;

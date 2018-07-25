@@ -44,7 +44,7 @@ namespace Action
     void HashSet<T>::insert(const T & arg)
 	{
 		Object & my_obj=(Object &)(arg);
-		int my_hash=my_obj.hashCode();
+		int my_hash=my_obj.hash_code();
 		my_hash = my_hash % m_iCapacity;
 
 		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
@@ -57,14 +57,14 @@ namespace Action
 		++m_iSize;
 
 		if (m_iCapacity*INCREASE_CAPACITY.get_double()<m_iSize)
-			increase();
+			auto_increase();
 	}
 
 	template <class T>
 	void HashSet<T>::erase(const T & arg)
 	{
 		Object & my_obj=(Object &)(arg);
-		int my_hash=my_obj.hashCode();
+		int my_hash=my_obj.hash_code();
 		my_hash = my_hash % m_iCapacity;
 		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
@@ -82,7 +82,7 @@ namespace Action
 	Boolean HashSet<T>::contains(const T & arg) const
 	{
 		Object & my_obj=(Object &)(arg);
-		int my_hash=my_obj.hashCode();
+		int my_hash=my_obj.hash_code();
 		my_hash = my_hash % m_iCapacity;
 		for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin();it!=m_links[my_hash].end();++it)
 		{
@@ -95,7 +95,7 @@ namespace Action
 	}
 
 	template <class T>
-	ArrayList<T> HashSet<T>::toArray() const
+	ArrayList<T> HashSet<T>::to_array() const
 	{
 		ArrayList<T> rtn;
 		for (int i=0;i<m_iCapacity;++i)
@@ -159,7 +159,7 @@ namespace Action
 	}
 
 	template <class T>
-	void HashSet<T>::increase()
+	void HashSet<T>::auto_increase()
 	{
 		int tmp_Capacity=EVERY_INCREASE.get_int()*m_iCapacity;
 		LinkedList<T> *tmp_links=new LinkedList<T>[tmp_Capacity];
@@ -168,7 +168,7 @@ namespace Action
 			for (typename LinkedList<T>::Pointer it=m_links[i].begin();it!=m_links[i].end();++it)
 			{
 				Object & my_obj=(Object &)(*it);
-				int my_hash=my_obj.hashCode();
+				int my_hash=my_obj.hash_code();
 				my_hash = my_hash % tmp_Capacity;
 				tmp_links[my_hash].push_back(*it);
 			}

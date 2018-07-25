@@ -21,7 +21,7 @@ namespace Action
 	}
 
 	template <class T>
-	void Allocator<T>::autoIncrease()
+	void Allocator<T>::auto_increase()
 	{
 		m_iNextCapacity*=EVERY_INCREASE.get_int();
 	}
@@ -39,13 +39,13 @@ namespace Action
 	}
 
 	template <class T>
-	void Allocator<T>::setCapacity(const Integer & iArgOfSpace)
+	void Allocator<T>::set_capacity(const Integer & iArgOfSpace)
 	{
 		m_iNextCapacity=iArgOfSpace.get_int();
 	}
 
 	template <class T>
-	T * Allocator<T>::getSpace()
+	T * Allocator<T>::get_space()
 	{
 		if (m_iNextCapacity<=0) throw Alloc_OutOfMemory();
 		m_tSpace=(T *)malloc(sizeof(T)*m_iNextCapacity);
@@ -53,13 +53,13 @@ namespace Action
 		else
 		{
 			m_iCapacity=m_iNextCapacity;
-			autoIncrease();
+			auto_increase();
 		}
 		return m_tSpace;
 	}
 
 	template <class T>
-	String Allocator<T>::getName() const{
+	String Allocator<T>::get_name() const{
 		return "Action::Allocator";
 	}
 

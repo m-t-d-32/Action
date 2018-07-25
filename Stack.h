@@ -36,11 +36,11 @@ namespace Action
 				throw Type_NotCorrespond();
 			}
 		}
-		virtual String getName() const override{
+		virtual String get_name() const override{
 			return "Action::Stack";
 		}
-		virtual String toString() const override{
-			return m_array.toString();
+		virtual String to_string() const override{
+			return m_array.to_string();
 		}
 		virtual void print(std::ostream & os=std::cout) const override{
 			m_array.print(os);

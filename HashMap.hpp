@@ -57,13 +57,13 @@ namespace Action
 	}
 
 	template<class K, class V>
-	Boolean HashMap<K, V>::containsKey(K key)
+	Boolean HashMap<K, V>::contains_key(K key)
 	{
 		return m_set.contains(Pair(key, V()));
 	}
 
 	template<class K, class V>
-	Boolean HashMap<K, V>::containsValue(V value)
+	Boolean HashMap<K, V>::contains_value(V value)
 	{
 	    for (typename HashMap<K, V>::Pointer it=begin();it!=end();++it)
         {

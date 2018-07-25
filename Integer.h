@@ -32,9 +32,9 @@ namespace Action
 		Integer(const Integer & iArg){m_iValue=iArg.m_iValue;}
 		explicit Integer(const Real & fArg){m_iValue=(int)fArg.get_double();}
 
-		String getName() const override;
-		String toString() const override;
-		Boolean compareTo(const Object & arg) const override;
+		String get_name() const override;
+		String to_string() const override;
+		Boolean compare_to(const Object & arg) const override;
 
 		inline int get_int() const {return m_iValue;}
 
@@ -198,7 +198,7 @@ namespace Action
 			return *this;
 		}
 		Boolean operator ==(const Object &) const override;
-		int hashCode() const override{
+		int hash_code() const override{
 			return ::_hashCode(m_iValue);
 		}
 		inline friend Boolean operator ==(const Integer Arg1,const Integer & Arg2)

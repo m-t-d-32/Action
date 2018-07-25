@@ -5,9 +5,9 @@
 namespace Action
 {
 	Exception::Exception():m_cause(NULL){}
-	Exception * Exception::getCause() const {return m_cause;}
-	void Exception::initCause(Exception * cause){m_cause=cause;}
-	String Exception::getName() const {	return "Action::Exception";	}
-	String Exception::toString() const { return "An Exception was Thrown.";	}
+	Exception * Exception::get_cause() const {return m_cause;}
+	void Exception::init_cause(Exception * cause){m_cause=cause;}
+	String Exception::get_name() const {	return "Action::Exception";	}
+	String Exception::to_string() const { return "An Exception was Thrown.";	}
 	Exception::~Exception(){}
 }

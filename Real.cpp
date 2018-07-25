@@ -10,10 +10,10 @@ namespace Action
 	const Real Real::MIN_VALUE=DBL_MIN;
 	Real Real::PRECISION=MIN_VALUE;
 	Real::Real(const Integer & iArg) {m_fValue=iArg.m_iValue;}
-	String Real::getName() const{
+	String Real::get_name() const{
 		return "Action::Real";
 	}
-	String Real::toString() const
+	String Real::to_string() const
 	{
 		const int _MAX_V=100;
 
@@ -21,7 +21,7 @@ namespace Action
 		sprintf(_str,"%lf",m_fValue);
 		return _str;
 	}
-    Boolean Real::compareTo(const Object & arg) const
+    Boolean Real::compare_to(const Object & arg) const
 	{
 		try
 		{

@@ -4,6 +4,6 @@
 
 namespace Action
 {
-	String Stack_PopOutOfRange::getName() const {return "Action::Stack_PopOutOfRange";}
-	String Stack_PopOutOfRange::toString() const {return "Stack is empty and the operation's illegal.";}
+	String Stack_PopOutOfRange::get_name() const {return "Action::Stack_PopOutOfRange";}
+	String Stack_PopOutOfRange::to_string() const {return "Stack is empty and the operation's illegal.";}
 }

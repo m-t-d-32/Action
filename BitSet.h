@@ -22,11 +22,11 @@ namespace Action
 		virtual Boolean get(Integer);
 		virtual BitSet & operator =(const BitSet &);
 		virtual Boolean operator ==(const Object & Arg) const override;
-		virtual String getName() const override{
+		virtual String get_name() const override{
 			return "Action::BitSet";
 		}
-		virtual String toString() const override{
-			return m_data.toString();
+		virtual String to_string() const override{
+			return m_data.to_string();
 		}
 		virtual ~BitSet(){}
 	private:

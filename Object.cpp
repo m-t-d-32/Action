@@ -6,31 +6,31 @@
 
 namespace Action
 {
-    String Object::getName() const
+    String Object::get_name() const
     {
         return "Action::Object";
     }
-    String Object::toString() const
+    String Object::to_string() const
     {
-        return getName();
+        return get_name();
     }
-	Integer Object::getVersion() const
+	Integer Object::get_version() const
 	{
         return __MY__VERSION__98;
     }
     void Object::print(std::ostream & os) const
     {
-        toString().print(os);
+        to_string().print(os);
     }
     void Object::println(std::ostream & os) const
     {
-        (toString()+"\n").print(os);
+        (to_string()+"\n").print(os);
     }
-    Boolean Object::compareTo(const Object & os) const
+    Boolean Object::compare_to(const Object & os) const
     {
         return Boolean::False;
     }
-    int Object::hashCode() const
+    int Object::hash_code() const
     {
 		return ::_hashCode((int)this);
     }

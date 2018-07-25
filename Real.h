@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Object.h"
-#include <math.h>
-#include <limits.h>
-#include <float.h>
+#include <cmath>
+#include <climits>
+#include <cfloat>
 #include "DividedByZero.h"
 #include "Real_OutOfBound.h"
 #include "Real_NotANumber.h"
@@ -26,7 +26,7 @@ namespace Action
 	public:
 		const static Real MAX_VALUE;
 		const static Real MIN_VALUE;
-		static void SetPrecision(const Real & Precision)
+		static void set_precision(const Real & Precision)
 		{
 			PRECISION=Precision;
 			if (isnan(Precision.m_fValue))
@@ -49,7 +49,7 @@ namespace Action
 			m_fValue=fArg.m_fValue;
 		}
 
-		inline Real operator -() const
+		inline Real operator - () const
 		{
 			double fValue=-m_fValue;
 			if (isinf(fValue))
@@ -140,7 +140,7 @@ namespace Action
 			m_fValue=fArg.m_fValue;
 			return *this;
 		}
-		int hashCode() const override{
+		int hash_code() const override{
 			int times=sizeof(double)/sizeof(int);
 			int result=1;
 			for (int i=0;i<times;++i)
@@ -166,9 +166,9 @@ namespace Action
 		{return NOT (Arg1>Arg2);}
 		inline double get_double() const
 		{return m_fValue;}
-		String getName() const override;
-		String toString() const override;
-		Boolean compareTo(const Object &) const override;
+		String get_name() const override;
+		String to_string() const override;
+		Boolean compare_to(const Object &) const override;
 	private:
 		double m_fValue;
 		static Real PRECISION;

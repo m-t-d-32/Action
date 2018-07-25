@@ -19,8 +19,8 @@ namespace Action
 		public:
 			Pair() {}
 			Pair(K _key, V _value) :key(_key), value(_value) {}
-			virtual int hashCode() const override{
-				return ((Object &)(key)).hashCode();
+			virtual int hash_code() const override{
+				return ((Object &)(key)).hash_code();
 			}
 			virtual Boolean operator ==(const Object & obj) const override{
 				try
@@ -32,11 +32,11 @@ namespace Action
 					throw Type_NotCorrespond();
 				}
 			}
-			virtual String getName() const override {
+			virtual String get_name() const override {
 				return "Action::HashMap::Pair";
 			}
-			virtual String toString() const override{
-				return ((Object &)key).toString()+":"+((Object &)value).toString();
+			virtual String to_string() const override{
+				return ((Object &)key).to_string()+":"+((Object &)value).to_string();
 			}
 		};
 
@@ -45,7 +45,7 @@ namespace Action
 		public:
 			virtual Pair & get(const Pair & arg) const{
 				Object & my_obj = (Object &)(arg);
-				int my_hash = my_obj.hashCode() % this->m_iCapacity;
+				int my_hash = my_obj.hash_code() % this->m_iCapacity;
 
 				for (typename LinkedList<Pair>::Pointer it = this->m_links[my_hash].begin();
 					it != this->m_links[my_hash].end();
@@ -86,24 +86,24 @@ namespace Action
 		virtual void insert(K ,V );
 		virtual V get(K ) const;
 		virtual V & operator [](K );
-		virtual Boolean containsKey(K );
-		virtual Boolean containsValue(V );
+		virtual Boolean contains_key(K );
+		virtual Boolean contains_value(V );
 		virtual void erase(K );
 		virtual void clear(){m_set.clear();}
 		virtual Integer size(){return m_set.size();}
 		virtual Boolean empty(){return m_set.empty();}
-		virtual ArrayList<Pair> toArray() {return m_set.toArray();}
+		virtual ArrayList<Pair> to_array() {return m_set.to_array();}
 
 		virtual Pointer begin() const {	return m_set.begin();}
 		virtual Pointer end() const { return m_set.end(); }
 		virtual Pointer v_begin() const { return m_set.v_begin(); }
 		virtual Pointer v_end() const { return m_set.v_end(); }
 
-		virtual String getName() const override{
+		virtual String get_name() const override{
 			return "Action::HashMap";
 		}
-		virtual String toString() const override{
-			return m_set.toString();
+		virtual String to_string() const override{
+			return m_set.to_string();
 		}
 		virtual ~HashMap(){}
 	private:

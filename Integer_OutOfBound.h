@@ -10,9 +10,9 @@ namespace Action
 	{
 	public:
         Integer_OutOfBound(int fal_value):m_false_value(fal_value){}
-        Integer getValue() const;
-		String getName() const override;
-		String toString() const override;
+        Integer get_value() const;
+		String get_name() const override;
+		String to_string() const override;
     private:
         int m_false_value;
 	};

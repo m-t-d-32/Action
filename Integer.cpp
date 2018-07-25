@@ -28,17 +28,17 @@ namespace Action
 			throw Type_NotCorrespond();
 		}
 	}
-	String Integer::getName() const{
+	String Integer::get_name() const{
 		return "Action::Integer";
 	}
-    String Integer::toString() const{
+    String Integer::to_string() const{
 		const int _MAX_V=20;
 
 		char _str[_MAX_V]={0};
 		sprintf(_str,"%d",m_iValue);
 		return _str;
 	}
-    Boolean Integer::compareTo(const Object & arg) const
+    Boolean Integer::compare_to(const Object & arg) const
 	{
 		try
 		{

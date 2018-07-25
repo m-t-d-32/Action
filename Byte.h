@@ -16,16 +16,16 @@ namespace Action
 		}
 		Byte(char arg) { m_bValue = arg; }
 		Byte(const Byte & arg){ m_bValue = arg.m_bValue; }
-		virtual Byte & operator =(const Byte & arg){
+		Byte & operator =(const Byte & arg){
 		    m_bValue=arg.m_bValue;
 		    return *this;
 		}
-		virtual inline char getVal() const { return m_bValue; }
-		virtual inline void setVal(char arg) { m_bValue = arg; }
-		virtual Boolean operator ==(const Object & Arg) const override;
-		virtual String getName() const override;
-		virtual String toString() const override;
-		virtual int hashCode() const override{
+		virtual inline char get_val() const { return m_bValue; }
+		virtual inline void set_val(char arg) { m_bValue = arg; }
+		virtual Boolean operator ==(const Object & arg) const override;
+		virtual String get_name() const override;
+		virtual String to_string() const override;
+		virtual int hash_code() const override{
 			return ::_hashCode(m_bValue);
 		}
 	};

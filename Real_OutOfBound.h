@@ -9,9 +9,9 @@ namespace Action
 	{
 	public:
 		Real_OutOfBound(double fal_value):m_false_value(fal_value){}
-		String getName() const override;
-		String toString() const override;
-		double getValue() const;
+		String get_name() const override;
+		String to_string() const override;
+		double get_value() const;
 	private:
 		double m_false_value;
 	};

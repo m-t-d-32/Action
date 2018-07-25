@@ -300,18 +300,18 @@ namespace Action
 	}
 
 	template <class T>
-	String LinkedList<T>::getName() const
+	String LinkedList<T>::get_name() const
 	{
 		return "Action::LinkedList";
 	}
 
 	template <class T>
-	String LinkedList<T>::toString() const
+	String LinkedList<T>::to_string() const
 	{
 		String rtn="[";
 		for (const Node * ptr=m_ptrBegin;ptr!=NULL;ptr=ptr->ptrNext)
 		{
-			rtn+=((Object &)(ptr->tValue)).toString();
+			rtn+=((Object &)(ptr->tValue)).to_string();
 			if (ptr!=m_ptrEnd)
 			{
 				rtn+=",";

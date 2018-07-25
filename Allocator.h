@@ -18,18 +18,18 @@ namespace Action
 	class Allocator : public Object
 	{
 	private:
-		void autoIncrease();
+		void auto_increase();
 	public:
         const static Integer EVERY_INCREASE;
         const static Integer BEGIN_SPACE;
 
 		Allocator();
-		virtual void setCapacity(const Integer &);
-		virtual inline Integer getCapacity() const {return m_iCapacity;}
+		virtual void set_capacity(const Integer &);
+		virtual inline Integer get_capacity() const {return m_iCapacity;}
 		virtual void construct(const Integer &,const T &);
 		virtual void destruct(const Integer &);
-		virtual T * getSpace();
-		virtual String getName() const;
+		virtual T * get_space();
+		virtual String get_name() const;
 		virtual ~Allocator();
 
 #if __cplusplus < 201103L

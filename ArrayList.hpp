@@ -12,7 +12,7 @@ namespace Action
 	template <class T>
 	ArrayList<T>::ArrayList()
 	{
-		m_data=m_alloc.getSpace();
+		m_data=m_alloc.get_space();
 		m_iSize=0;
 	}
 
@@ -21,16 +21,16 @@ namespace Action
 	{
 		if (iArgOfSpace<=0)
 			throw ArrayList_IndexOutOfRange();
-		m_alloc.setCapacity(iArgOfSpace);
-		m_data=m_alloc.getSpace();
+		m_alloc.set_capacity(iArgOfSpace);
+		m_data=m_alloc.get_space();
 		m_iSize=0;
 	}
 
 	template <class T>
 	ArrayList<T>::ArrayList(const ArrayList<T> & arrArgOfAnother)
 	{
-		m_alloc.setCapacity(arrArgOfAnother.m_alloc.getCapacity());
-		m_data=m_alloc.getSpace();
+		m_alloc.set_capacity(arrArgOfAnother.m_alloc.get_capacity());
+		m_data=m_alloc.get_space();
 		m_iSize=arrArgOfAnother.m_iSize;
 		for (int i=0;i<m_iSize;++i)
 		{
@@ -67,9 +67,9 @@ namespace Action
 	template <class T>
 	void ArrayList<T>::push_back(const T & tArgOfElement)
 	{
-		if (m_iSize>=m_alloc.getCapacity())
+		if (m_iSize>=m_alloc.get_capacity())
 		{
-			T * temp_tDataSpace=m_alloc.getSpace();
+			T * temp_tDataSpace=m_alloc.get_space();
 			memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
 			free(m_data);
 			m_data=temp_tDataSpace;
@@ -91,9 +91,9 @@ namespace Action
 	{
 		if (iArgOfPos>m_iSize || iArgOfPos<0)
 			throw ArrayList_IndexOutOfRange();
-		if (m_iSize>=m_alloc.getCapacity())
+		if (m_iSize>=m_alloc.get_capacity())
 		{
-			T * temp_tDataSpace=m_alloc.getSpace();
+			T * temp_tDataSpace=m_alloc.get_space();
 			memcpy(temp_tDataSpace,m_data,(iArgOfPos*sizeof(T)).get_int());
 			memcpy(temp_tDataSpace+(iArgOfPos+1).get_int(),m_data+iArgOfPos.get_int(),((m_iSize-iArgOfPos).get_int()*sizeof(T)));
 			m_alloc.construct(iArgOfPos,tArgOfElement);
@@ -194,10 +194,10 @@ namespace Action
 		}
 		else
 		{
-			if (iArgOfSpace>=m_alloc.getCapacity())
+			if (iArgOfSpace>=m_alloc.get_capacity())
 			{
-				m_alloc.setCapacity(iArgOfSpace);
-				T * temp_tDataSpace=m_alloc.getSpace();
+				m_alloc.set_capacity(iArgOfSpace);
+				T * temp_tDataSpace=m_alloc.get_space();
 				memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
 				free(m_data);
 				m_data=temp_tDataSpace;
@@ -245,19 +245,19 @@ namespace Action
 	}
 
 	template <class T>
-	String ArrayList<T>::getName() const{
+	String ArrayList<T>::get_name() const{
 		return "Action::ArrayList";
 	}
 
 	template <class T>
-	String ArrayList<T>::toString() const{
+	String ArrayList<T>::to_string() const{
 		String rtn="[";
 		for (int i=0;i<m_iSize;++i)
 		{
 			try
 			{
 				const Object & my_ref=(const Object &)(m_data[i]);
-				rtn+=my_ref.toString();
+				rtn+=my_ref.to_string();
 				if (i!=m_iSize-1)
 					rtn+=",";
 			}

@@ -53,11 +53,11 @@ namespace Action
 		virtual void clear();
 		virtual T pop();
 		virtual Boolean operator ==(const Object & Arg) const override;
-		virtual String getName() const override{
+		virtual String get_name() const override{
 			return "Action::Heap";
 		}
-		virtual String toString() const override{
-			return m_data.toString();
+		virtual String to_string() const override{
+			return m_data.to_string();
 		}
 		virtual ~Heap();
 	private:

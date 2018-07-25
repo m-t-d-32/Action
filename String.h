@@ -33,11 +33,11 @@ namespace Action
         Integer find(const String &) const;
         Integer find(const char &) const;
 		inline const char * c_str() const {return m_chars.m_data;}
-		String getName() const override{ return "Action::String";}
-		String toString() const override{ return *this;}
+		String get_name() const override{ return "Action::String";}
+		String to_string() const override{ return *this;}
 		void print(std::ostream & os=std::cout) const override;
-		int hashCode() const override;
-		Boolean compareTo(const Object &) const override;
+		int hash_code() const override;
+		Boolean compare_to(const Object &) const override;
 		Boolean operator ==(const Object &) const override;
 		friend Boolean operator ==(const String & s1,const String & s2){
 			return s1.m_chars==s2.m_chars;

@@ -101,7 +101,7 @@ namespace Action
 		}
 	}
 
-	int String::hashCode() const
+	int String::hash_code() const
 	{
 		return ::_str_hashCode(m_chars.m_data, length().get_int());
 	}
@@ -119,7 +119,7 @@ namespace Action
 		}
 	}
 
-	Boolean String::compareTo(const Object & arg) const
+	Boolean String::compare_to(const Object & arg) const
 	{
 		try
 		{

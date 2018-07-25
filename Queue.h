@@ -25,8 +25,8 @@ namespace Action
         virtual void clear();
 
         virtual Boolean operator ==(const Object &) const override;
-		virtual String getName() const override;
-		virtual String toString() const override;
+		virtual String get_name() const override;
+		virtual String to_string() const override;
 
         virtual ~Queue();
     private:
