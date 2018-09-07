@@ -4,6 +4,12 @@
 
 namespace Action
 {
-	String DividedByZero::get_name()const {return "Action::DividedByZero";}
-	String DividedByZero::to_string() const {return "A number's divided by zero.";}
+    String DividedByZero::get_name() const
+    {
+        return "Action::DividedByZero";
+    }
+    String DividedByZero::to_string() const
+    {
+        return "A number's divided by zero.";
+    }
 }

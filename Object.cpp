@@ -14,8 +14,8 @@ namespace Action
     {
         return get_name();
     }
-	Integer Object::get_version() const
-	{
+    Integer Object::get_version() const
+    {
         return __MY__VERSION__98;
     }
     void Object::print(std::ostream & os) const
@@ -32,16 +32,16 @@ namespace Action
     }
     int Object::hash_code() const
     {
-		return ::_hashCode((INT64)this);
+        return ::_hashCode((INT64)this);
     }
-	Boolean Object::operator ==(const Object & arg) const
-	{
-		return Boolean(this==(&arg));
-	}
-	Boolean Object::operator !=(const Object & arg) const
-	{
-		return NOT operator ==(arg);
-	}
+    Boolean Object::operator ==(const Object & arg) const
+    {
+        return Boolean(this==(&arg));
+    }
+    Boolean Object::operator !=(const Object & arg) const
+    {
+        return NOT operator ==(arg);
+    }
     Object::~Object()
     {
     }

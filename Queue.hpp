@@ -28,10 +28,10 @@ namespace Action
     {
         m_iBegin=qArgOfAnother.m_iBegin;
         m_iSize=qArgOfAnother.m_iSize;
-		int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
-		m_alloc.set_capacity(iCapacity);
-		m_data=m_alloc.get_space();
-        for (int i=0;i<m_iSize;++i)
+        int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
+        m_alloc.set_capacity(iCapacity);
+        m_data=m_alloc.get_space();
+        for (int i=0; i<m_iSize; ++i)
         {
             m_alloc.construct((i+m_iBegin)%iCapacity,qArgOfAnother.m_data[(i+m_iBegin)%iCapacity]);
         }
@@ -40,12 +40,12 @@ namespace Action
     template <class T>
     Queue<T> & Queue<T>::operator =(const Queue & qArgOfAnother)
     {
-		if (this==&qArgOfAnother)
-			return *this;
+        if (this==&qArgOfAnother)
+            return *this;
         clear();
         m_iBegin=qArgOfAnother.m_iBegin;
         m_iSize=qArgOfAnother.m_iSize;
-		int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
+        int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
         if (iCapacity>m_alloc.get_capacity())
         {
             m_alloc.set_capacity(iCapacity);
@@ -53,17 +53,17 @@ namespace Action
             free(m_data);
             m_data=tmp_data;
         }
-        for (int i=0;i<m_iSize;++i)
+        for (int i=0; i<m_iSize; ++i)
         {
             m_alloc.construct((i+m_iBegin)%iCapacity,qArgOfAnother.m_data[(i+m_iBegin)%iCapacity]);
         }
-		return *this;
+        return *this;
     }
 
     template <class T>
     void Queue<T>::push(const T & tArg)
     {
-		int iCapacity=m_alloc.get_capacity().get_int();
+        int iCapacity=m_alloc.get_capacity().get_int();
         if (m_iSize>=iCapacity)
         {
             T * tmp_data=m_alloc.get_space();
@@ -113,7 +113,7 @@ namespace Action
     template <class T>
     void Queue<T>::clear()
     {
-        for (int i=0;i<m_iSize;++i)
+        for (int i=0; i<m_iSize; ++i)
         {
             m_alloc.destruct((m_iBegin+i)%m_alloc.get_capacity().get_int());
         }
@@ -129,10 +129,10 @@ namespace Action
             const Queue & queArg=dynamic_cast<const Queue &>(objArg);
             if (m_iSize!=queArg.m_iSize)
                 return Boolean::False;
-            for (int i=0;i<m_iSize;++i)
+            for (int i=0; i<m_iSize; ++i)
             {
                 if (m_data[(m_iBegin+i)%m_alloc.get_capacity().get_int()]!=
-                    queArg.m_data[(queArg.m_iBegin+i)%queArg.m_alloc.get_capacity().get_int()])
+                        queArg.m_data[(queArg.m_iBegin+i)%queArg.m_alloc.get_capacity().get_int()])
                     return Boolean::False;
             }
             return Boolean::True;
@@ -153,7 +153,7 @@ namespace Action
     String Queue<T>::to_string() const
     {
         String rtn="[";
-        for (int i=0;i<m_iSize;++i)
+        for (int i=0; i<m_iSize; ++i)
         {
             const Object & objTmpRef=(const Object &)m_data[(m_iBegin+i)%m_alloc.get_capacity().get_int()];
             rtn+=objTmpRef.to_string();
@@ -166,6 +166,6 @@ namespace Action
     template <class T>
     Queue<T>::~Queue()
     {
-	    clear();
+        clear();
     }
 }

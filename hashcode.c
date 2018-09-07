@@ -7,19 +7,21 @@ int _hashCode(int key)
     key ^=  (key >> 6);
     key += ~(key << 11);
     key ^=  (key >> 16);
-	if (key<0) key=-key;
+    if (key<0)
+        key=-key;
     return key;
 }
 
 int _str_hashCode(char * begin, int len)
 {
-	int key = 1;
-	int i;
-	for (i = 0; i < len; ++i)
-	{
-		key += _hashCode(*(begin + i));
-	}
-	if (key<0) key=-key;
-	return key;
+    int key = 1;
+    int i;
+    for (i = 0; i < len; ++i)
+    {
+        key += _hashCode(*(begin + i));
+    }
+    if (key<0)
+        key=-key;
+    return key;
 }
 

@@ -34,22 +34,22 @@ int _str_hashCode(char *, int);
 
 namespace Action
 {
-	class String;
-	class Boolean;
-	class Integer;
+    class String;
+    class Boolean;
+    class Integer;
     class Object
     {
-    public:
-        virtual void print(std::ostream & os=std::cout) const;
-        virtual void println(std::ostream & os=std::cout) const;
-        inline Integer get_version() const;
-        virtual String get_name() const;
-        virtual String to_string() const;
-        virtual Boolean compare_to(const Object &) const;
-		virtual Boolean operator ==(const Object &) const;
-		virtual Boolean operator !=(const Object &) const;
-        virtual int hash_code() const;
-        virtual ~Object();
+        public:
+            virtual void print(std::ostream & os=std::cout) const;
+            virtual void println(std::ostream & os=std::cout) const;
+            inline Integer get_version() const;
+            virtual String get_name() const;
+            virtual String to_string() const;
+            virtual Boolean compare_to(const Object &) const;
+            virtual Boolean operator ==(const Object &) const;
+            virtual Boolean operator !=(const Object &) const;
+            virtual int hash_code() const;
+            virtual ~Object();
     };
 }
 

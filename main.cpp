@@ -58,5 +58,5 @@ int main()
 
     //∏––ª π”√£°
     //Powered By Windows NT Version 6.0 Pre.
-	return 0;
+    return 0;
 }
