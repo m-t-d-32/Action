@@ -23,8 +23,13 @@ int _str_hashCode(char *, int);
 #define override
 #endif
 
+#ifdef _MSC_VER
+#define INT64 __int64
 #if _MSC_VER >= 1400
 #pragma warning(disable:4996)
+#endif
+#else
+#define INT64 long long
 #endif
 
 namespace Action

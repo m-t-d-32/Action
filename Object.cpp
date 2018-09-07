@@ -32,7 +32,7 @@ namespace Action
     }
     int Object::hash_code() const
     {
-		return ::_hashCode((int)this);
+		return ::_hashCode((INT64)this);
     }
 	Boolean Object::operator ==(const Object & arg) const
 	{

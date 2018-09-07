@@ -1,0 +1,368 @@
+# depslib dependency file v1.0
+1536287792 source:d:\action\alloc_outofmemory.cpp
+	<iostream>
+	"String.h"
+	"Alloc_OutOfMemory.h"
+
+1536287792 d:\action\string.h
+	<iostream>
+	"Integer.h"
+	"ArrayList.h"
+	<cstring>
+
+1536287792 d:\action\integer.h
+	<iostream>
+	<limits.h>
+	"Object.h"
+	"Real.h"
+	"Integer_OutOfBound.h"
+	"DividedByZero.h"
+
+1536288016 d:\action\object.h
+	<iostream>
+	<typeinfo>
+	<cstdio>
+	<limits.h>
+
+1536287792 d:\action\real.h
+	<iostream>
+	"Object.h"
+	<cmath>
+	<climits>
+	<cfloat>
+	"DividedByZero.h"
+	"Real_OutOfBound.h"
+	"Real_NotANumber.h"
+	"Boolean.h"
+
+1536287792 d:\action\dividedbyzero.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\exception.h
+	<iostream>
+	"Object.h"
+
+1536287792 d:\action\real_outofbound.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\real_notanumber.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\boolean.h
+	<iostream>
+	"Byte.h"
+	"Type_NotCorrespond.h"
+
+1536287792 d:\action\byte.h
+	<iostream>
+	"Object.h"
+
+1536287792 d:\action\type_notcorrespond.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\integer_outofbound.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\arraylist.h
+	<iostream>
+	"Allocator.h"
+	"Integer.h"
+	"Object.h"
+	<cstdlib>
+	"ArrayList_IndexOutOfRange.h"
+	"ArrayList_IllegalPointer.h"
+	"Boolean.h"
+
+1536287792 d:\action\allocator.h
+	<iostream>
+	<memory.h>
+	<stdlib.h>
+	"Integer.h"
+	"Object.h"
+	"Alloc_OutOfMemory.h"
+
+1536287792 d:\action\alloc_outofmemory.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\arraylist_indexoutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\arraylist_illegalpointer.h
+	<iostream>
+	"Exception.h"
+
+1536287792 source:d:\action\arraylist_illegalpointer.cpp
+	<iostream>
+	"String.h"
+	"ArrayList_IllegalPointer.h"
+
+1536287792 source:d:\action\arraylist_indexoutofrange.cpp
+	<iostream>
+	"String.h"
+	"ArrayList_IndexOutOfRange.h"
+
+1536287792 source:d:\action\bitset_outofrange.cpp
+	<iostream>
+	"String.h"
+	"BitSet_OutOfRange.h"
+
+1536287792 d:\action\bitset_outofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 source:d:\action\boolean.cpp
+	<iostream>
+	"Boolean.h"
+	"String.h"
+
+1536287792 source:d:\action\byte.cpp
+	<iostream>
+	"Byte.h"
+	"String.h"
+	"Boolean.h"
+
+1536287792 source:d:\action\dividedbyzero.cpp
+	<iostream>
+	"String.h"
+	"DividedByZero.h"
+
+1536287792 source:d:\action\exception.cpp
+	<iostream>
+	"String.h"
+	"Exception.h"
+
+1536287792 source:d:\action\hashcode.c
+
+1536287792 source:d:\action\heap_popoutofrange.cpp
+	<iostream>
+	"String.h"
+	"Heap_PopOutOfRange.h"
+
+1536287792 d:\action\heap_popoutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 source:d:\action\integer.cpp
+	<iostream>
+	"Integer.h"
+	"Real.h"
+	"String.h"
+	"Type_NotCorrespond.h"
+	"Boolean.h"
+
+1536287792 source:d:\action\integer_outofbound.cpp
+	<iostream>
+	"String.h"
+	"Integer_OutOfBound.h"
+	"Integer.h"
+
+1536287792 source:d:\action\list_ptroutofrange.cpp
+	<iostream>
+	"String.h"
+	"List_PtrOutOfRange.h"
+
+1536287792 d:\action\list_ptroutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 source:d:\action\main.cpp
+	"Action.h"
+
+1536287792 d:\action\action.h
+	"Object.h"
+	"Allocator.hpp"
+	"ArrayList.hpp"
+	"BitSet.h"
+	"Boolean.h"
+	"Byte.h"
+	"Exception.h"
+	"HashMap.hpp"
+	"HashSet.hpp"
+	"Heap.hpp"
+	"LinkedList.hpp"
+	"Queue.hpp"
+	"Real.h"
+	"Stack.hpp"
+	"String.h"
+
+1536287792 d:\action\allocator.hpp
+	<iostream>
+	"Allocator.h"
+	"Object.h"
+	"String.h"
+
+1536287792 d:\action\arraylist.hpp
+	<iostream>
+	"ArrayList.h"
+	"Object.h"
+	"String.h"
+	"Allocator.hpp"
+	"Type_NotCorrespond.h"
+
+1536287792 d:\action\bitset.h
+	<iostream>
+	"Integer.h"
+	"ArrayList.h"
+	"BitSet_OutOfRange.h"
+	"Boolean.h"
+	"String.h"
+
+1536287792 d:\action\hashmap.hpp
+	<iostream>
+	"HashMap.h"
+	"String.h"
+
+1536287792 d:\action\hashmap.h
+	<iostream>
+	"Object.h"
+	"Integer.h"
+	"HashSet.hpp"
+	"LinkedList.h"
+
+1536287792 d:\action\hashset.hpp
+	<iostream>
+	"HashSet.h"
+	"String.h"
+
+1536287792 d:\action\hashset.h
+	<iostream>
+	"Object.h"
+	"LinkedList.hpp"
+	"Integer.h"
+	"Real.h"
+	"Boolean.h"
+	"String.h"
+	"ArrayList.hpp"
+	"Set_PtrOutOfRange.h"
+	"Set_ElementNotExists.h"
+
+1536287792 d:\action\linkedlist.hpp
+	<iostream>
+	"LinkedList.h"
+	"String.h"
+	"Type_NotCorrespond.h"
+
+1536287792 d:\action\linkedlist.h
+	<iostream>
+	"Integer.h"
+	"Object.h"
+	"List_PtrOutOfRange.h"
+	"Boolean.h"
+
+1536287792 d:\action\set_ptroutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\set_elementnotexists.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\heap.hpp
+	<iostream>
+	"Boolean.h"
+	"Integer.h"
+	"Heap.h"
+
+1536287792 d:\action\heap.h
+	<iostream>
+	<typeinfo>
+	"ArrayList.hpp"
+	"Integer.h"
+	"Boolean.h"
+	"Object.h"
+	"String.h"
+	"Type_NotCorrespond.h"
+	"Heap_PopOutOfRange.h"
+
+1536287792 d:\action\queue.hpp
+	<iostream>
+	"Queue.h"
+	"String.h"
+	<cstdlib>
+	"Queue_PopOutOfRange.h"
+
+1536287792 d:\action\queue.h
+	<iostream>
+	"Object.h"
+	"Boolean.h"
+	"Allocator.hpp"
+
+1536287792 d:\action\queue_popoutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 d:\action\stack.hpp
+	<iostream>
+	"Integer.h"
+	"Boolean.h"
+	"Stack.h"
+	"Stack_PopOutOfRange.h"
+
+1536287792 d:\action\stack.h
+	<iostream>
+	"ArrayList.hpp"
+	"Integer.h"
+	"Type_NotCorrespond.h"
+
+1536287792 d:\action\stack_popoutofrange.h
+	<iostream>
+	"Exception.h"
+
+1536287792 source:d:\action\queue_popoutofrange.cpp
+	<iostream>
+	"String.h"
+	"Queue_PopOutOfRange.h"
+
+1536287792 source:d:\action\real.cpp
+	<iostream>
+	<limits.h>
+	"Real.h"
+	"Integer.h"
+	"String.h"
+	"Type_NotCorrespond.h"
+
+1536287792 source:d:\action\real_notanumber.cpp
+	<iostream>
+	"String.h"
+	"Real_NotANumber.h"
+
+1536287792 source:d:\action\real_outofbound.cpp
+	<iostream>
+	"String.h"
+	"Real_OutOfBound.h"
+
+1536287792 source:d:\action\set_elementnotexists.cpp
+	<iostream>
+	"String.h"
+	"Set_ElementNotExists.h"
+
+1536287792 source:d:\action\set_ptroutofrange.cpp
+	<iostream>
+	"String.h"
+	"Set_PtrOutOfRange.h"
+
+1536287792 source:d:\action\stack_popoutofrange.cpp
+	<iostream>
+	"String.h"
+	"Stack_PopOutOfRange.h"
+
+1536287792 source:d:\action\string.cpp
+	<iostream>
+	"Object.h"
+	"String.h"
+	"ArrayList.hpp"
+	"Type_NotCorrespond.h"
+	<cstring>
+
+1536287792 source:d:\action\type_notcorrespond.cpp
+	<iostream>
+	"String.h"
+	"Type_NotCorrespond.h"
+
