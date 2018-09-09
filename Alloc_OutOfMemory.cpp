@@ -4,7 +4,7 @@
 
 namespace Action
 {
-    String Alloc_OutOfMemory::get_name()const
+    String Alloc_OutOfMemory::get_name() const
     {
         return "Action::Alloc_OutOfMemory";
     }

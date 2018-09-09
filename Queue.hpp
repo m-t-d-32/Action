@@ -9,130 +9,138 @@ namespace Action
     template <class T>
     Queue<T>::Queue()
     {
-        m_iBegin=0;
-        m_iSize=0;
-        m_data=m_alloc.get_space();
+        m_begin = 0;
+        m_size = 0;
+        m_data = m_alloc.get_space();
     }
 
     template <class T>
-    Queue<T>::Queue(const Integer & iArg)
+    Queue<T>::Queue (const Integer & capacity)
     {
-        m_iBegin=0;
-        m_iSize=0;
-        m_alloc.set_capacity(iArg);
-        m_data=m_alloc.get_space();
+        m_begin = 0;
+        m_size = 0;
+        m_alloc.set_capacity (capacity);
+        m_data = m_alloc.get_space();
     }
 
     template <class T>
-    Queue<T>::Queue(const Queue & qArgOfAnother)
+    Queue<T>::Queue (const Queue<T> & another)
     {
-        m_iBegin=qArgOfAnother.m_iBegin;
-        m_iSize=qArgOfAnother.m_iSize;
-        int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
-        m_alloc.set_capacity(iCapacity);
-        m_data=m_alloc.get_space();
-        for (int i=0; i<m_iSize; ++i)
-        {
-            m_alloc.construct((i+m_iBegin)%iCapacity,qArgOfAnother.m_data[(i+m_iBegin)%iCapacity]);
-        }
+        operator = (another);
     }
 
     template <class T>
-    Queue<T> & Queue<T>::operator =(const Queue & qArgOfAnother)
+    Queue<T> & Queue<T>::operator = (const Queue & another)
     {
-        if (this==&qArgOfAnother)
+        if (this == &another)
             return *this;
-        clear();
-        m_iBegin=qArgOfAnother.m_iBegin;
-        m_iSize=qArgOfAnother.m_iSize;
-        int iCapacity=qArgOfAnother.m_alloc.get_capacity().get_int();
-        if (iCapacity>m_alloc.get_capacity())
+        int another_capacity = another.m_alloc.get_capacity().get_int();
+        if (m_size >= another.m_size)
         {
-            m_alloc.set_capacity(iCapacity);
-            T * tmp_data=m_alloc.get_space();
-            free(m_data);
-            m_data=tmp_data;
+            for (int i = 0; i < another.m_size; ++i)
+            {
+                m_data[ (m_begin + i) % m_alloc.get_capacity().get_int()] = another.m_data[ (another.m_begin + i) % another_capacity];
+            }
+            for (int i = another.m_size; i < m_size; ++i)
+            {
+                m_alloc.destruct ( (m_begin + i) % m_alloc.get_capacity().get_int() );
+            }
+            m_size = another.m_size;
         }
-        for (int i=0; i<m_iSize; ++i)
+        else
         {
-            m_alloc.construct((i+m_iBegin)%iCapacity,qArgOfAnother.m_data[(i+m_iBegin)%iCapacity]);
+            if (another_capacity > m_alloc.get_capacity() )
+            {
+                clear();
+                m_alloc.set_capacity (another_capacity);
+                m_data = m_alloc.get_space();
+            }
+            for (int i = 0; i < m_size; ++i)
+            {
+                m_data[ (m_begin + i) % m_alloc.get_capacity().get_int()] = another.m_data[ (another.m_begin + i) % another_capacity];
+            }
+            for (int i = m_size; i < another.m_size; ++i)
+            {
+                m_alloc.construct ( (m_begin + m_size) % m_alloc.get_capacity().get_int(), another.m_data[ (another.m_begin + i) % another_capacity]);
+            }
+            m_size = another.m_size;
         }
         return *this;
     }
 
     template <class T>
-    void Queue<T>::push(const T & tArg)
+    void Queue<T>::push (const T & value)
     {
-        int iCapacity=m_alloc.get_capacity().get_int();
-        if (m_iSize>=iCapacity)
+        int now_capacity = m_alloc.get_capacity().get_int();
+        if (m_size >= now_capacity)
         {
-            T * tmp_data=m_alloc.get_space();
-            memcpy(tmp_data,m_data+m_iBegin,(iCapacity-m_iBegin)*sizeof(T));
-            memcpy(tmp_data+iCapacity-m_iBegin,m_data,m_iBegin*sizeof(T));
-            m_iBegin=0;
-            free(m_data);
-            m_data=tmp_data;
+            T * new_data = m_alloc.get_space();
+            memcpy (new_data, m_data + m_begin, (now_capacity - m_begin) *sizeof (T) );
+            memcpy (new_data + now_capacity - m_begin, m_data, m_begin * sizeof (T) );
+            m_begin = 0;
+            free (m_data);
+            m_data = new_data;
         }
-        m_alloc.construct((m_iBegin+m_iSize)%m_alloc.get_capacity(),tArg);
-        ++m_iSize;
+        m_alloc.construct ( (m_begin + m_size) % m_alloc.get_capacity(), value);
+        ++m_size;
     }
 
     template <class T>
     T Queue<T>::pop()
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw Queue_PopOutOfRange();
         else
         {
-            T rtn=m_data[m_iBegin];
-            m_alloc.destruct(m_iBegin);
-            m_iBegin=(m_iBegin+1)%m_alloc.get_capacity().get_int();
-            --m_iSize;
-            return rtn;
+            T return_value = m_data[m_begin];
+            m_alloc.destruct (m_begin);
+            m_begin = (m_begin + 1) % m_alloc.get_capacity().get_int();
+            --m_size;
+            return return_value;
         }
     }
 
     template <class T>
     T Queue<T>::front() const
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw Queue_PopOutOfRange();
         else
-            return m_data[m_iBegin%m_alloc.get_capacity().get_int()];
+            return m_data[m_begin % m_alloc.get_capacity().get_int()];
     }
 
     template <class T>
     T Queue<T>::back() const
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw Queue_PopOutOfRange();
         else
-            return m_data[(m_iBegin+m_iSize-1)%m_alloc.get_capacity().get_int()];
+            return m_data[ (m_begin + m_size - 1) % m_alloc.get_capacity().get_int()];
     }
 
     template <class T>
     void Queue<T>::clear()
     {
-        for (int i=0; i<m_iSize; ++i)
+        for (int i = 0; i < m_size; ++i)
         {
-            m_alloc.destruct((m_iBegin+i)%m_alloc.get_capacity().get_int());
+            m_alloc.destruct ( (m_begin + i) % m_alloc.get_capacity().get_int() );
         }
-        m_iBegin=0;
-        m_iSize=0;
+        m_begin = 0;
+        m_size = 0;
     }
 
     template <class T>
-    Boolean Queue<T>::operator ==(const Object & objArg) const
+    Boolean Queue<T>::operator == (const Object & another_one) const
     {
         try
         {
-            const Queue & queArg=dynamic_cast<const Queue &>(objArg);
-            if (m_iSize!=queArg.m_iSize)
+            const Queue & another_queue = dynamic_cast<const Queue &> (another_one);
+            if (m_size != another_queue.m_size)
                 return Boolean::False;
-            for (int i=0; i<m_iSize; ++i)
+            for (int i = 0; i < m_size; ++i)
             {
-                if (m_data[(m_iBegin+i)%m_alloc.get_capacity().get_int()]!=
-                        queArg.m_data[(queArg.m_iBegin+i)%queArg.m_alloc.get_capacity().get_int()])
+                if (m_data[ (m_begin + i) % m_alloc.get_capacity().get_int()] !=
+                        another_queue.m_data[ (another_queue.m_begin + i) % another_queue.m_alloc.get_capacity().get_int()])
                     return Boolean::False;
             }
             return Boolean::True;
@@ -152,15 +160,15 @@ namespace Action
     template <class T>
     String Queue<T>::to_string() const
     {
-        String rtn="[";
-        for (int i=0; i<m_iSize; ++i)
+        String rtn = "[";
+        for (int i = 0; i < m_size; ++i)
         {
-            const Object & objTmpRef=(const Object &)m_data[(m_iBegin+i)%m_alloc.get_capacity().get_int()];
-            rtn+=objTmpRef.to_string();
-            if (i!=m_iSize-1)
-                rtn+=",";
+            const Object & temp_reference = (const Object &) m_data[ (m_begin + i) % m_alloc.get_capacity().get_int()];
+            rtn += temp_reference.to_string();
+            if (i != m_size - 1)
+                rtn += ",";
         }
-        return rtn+"]";
+        return rtn + "]";
     }
 
     template <class T>

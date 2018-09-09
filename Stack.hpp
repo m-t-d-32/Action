@@ -9,18 +9,18 @@
 namespace Action
 {
     template <class T>
-    Stack<T> & Stack<T>::operator =(const Stack & stkArg)
+    Stack<T> & Stack<T>::operator = (const Stack & another)
     {
-        if (this==&stkArg)
+        if (this == &another)
             return *this;
-        m_array=stkArg.m_array;
+        m_array = another.m_array;
         return *this;
     }
 
     template <class T>
-    void Stack<T>::push(const T & tArgOfElement)
+    void Stack<T>::push (const T & element)
     {
-        m_array.push_back(tArgOfElement);
+        m_array.push_back (element);
     }
 
     template <class T>
@@ -28,9 +28,9 @@ namespace Action
     {
         try
         {
-            T rtn=m_array.back();
+            T return_value = m_array.back();
             m_array.pop_back();
-            return rtn;
+            return return_value;
         }
         catch (ArrayList_IndexOutOfRange)
         {

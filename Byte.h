@@ -6,42 +6,42 @@
 namespace Action
 {
     class Boolean;
-    class Byte :public Object
+    class Byte : public Object
     {
         private:
-            char m_bValue;
+            char m_value;
         public:
             Byte()
             {
-                m_bValue = 0;
+                m_value = 0;
             }
-            Byte(char arg)
+            Byte (char value)
             {
-                m_bValue = arg;
+                m_value = value;
             }
-            Byte(const Byte & arg)
+            Byte (const Byte & another)
             {
-                m_bValue = arg.m_bValue;
+                m_value = another.m_value;
             }
-            Byte & operator =(const Byte & arg)
+            Byte & operator = (const Byte & another)
             {
-                m_bValue=arg.m_bValue;
+                m_value = another.m_value;
                 return *this;
             }
             virtual inline char get_val() const
             {
-                return m_bValue;
+                return m_value;
             }
-            virtual inline void set_val(char arg)
+            virtual inline void set_val (char value)
             {
-                m_bValue = arg;
+                m_value = value;
             }
-            virtual Boolean operator ==(const Object & arg) const override;
+            virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override;
             virtual String to_string() const override;
             virtual int hash_code() const override
             {
-                return ::_hashCode(m_bValue);
+                return ::_hashCode (m_value);
             }
     };
 }

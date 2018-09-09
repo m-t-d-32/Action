@@ -12,33 +12,30 @@ namespace Action
     {
         public:
             Queue();
-            Queue(const Integer &);
-            Queue(const Queue &);
-            Queue & operator =(const Queue &);
-
-            virtual void push(const T &);
+            Queue (const Integer &);
+            Queue (const Queue &);
+            Queue & operator = (const Queue &);
+            virtual void push (const T &);
             virtual T pop();
             virtual T front() const;
             virtual T back() const;
             virtual Integer size() const
             {
-                return m_iSize;
+                return m_size;
             }
             virtual Boolean empty() const
             {
-                return Boolean(m_iSize==0);
+                return Boolean (m_size == 0);
             }
             virtual void clear();
-
-            virtual Boolean operator ==(const Object &) const override;
+            virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override;
             virtual String to_string() const override;
-
             virtual ~Queue();
         private:
             T * m_data;
             Allocator<T> m_alloc;
-            int m_iBegin,m_iSize;
+            int m_begin, m_size;
     };
 }
 #endif /* Action__Queue */

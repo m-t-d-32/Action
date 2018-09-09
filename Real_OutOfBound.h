@@ -8,7 +8,7 @@ namespace Action
     class Real_OutOfBound: public Exception
     {
         public:
-            Real_OutOfBound(double fal_value):m_false_value(fal_value) {}
+            Real_OutOfBound (double result_value) : m_false_value (result_value) {}
             String get_name() const override;
             String to_string() const override;
             double get_value() const;

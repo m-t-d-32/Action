@@ -6,12 +6,12 @@
 #include "Type_NotCorrespond.h"
 namespace Action
 {
-    const Real Real::MAX_VALUE=DBL_MAX;
-    const Real Real::MIN_VALUE=DBL_MIN;
-    Real Real::PRECISION=MIN_VALUE;
-    Real::Real(const Integer & iArg)
+    const Real Real::MAX_VALUE = DBL_MAX;
+    const Real Real::MIN_VALUE = DBL_MIN;
+    Real Real::PRECISION = MIN_VALUE;
+    Real::Real (const Integer & integer_value)
     {
-        m_fValue=iArg.m_iValue;
+        m_value = integer_value.m_value;
     }
     String Real::get_name() const
     {
@@ -19,30 +19,30 @@ namespace Action
     }
     String Real::to_string() const
     {
-        const int _MAX_V=100;
+        const int MAX_LENGTH = 100;
 
-        char _str[_MAX_V]= {0};
-        sprintf(_str,"%lf",m_fValue);
-        return _str;
+        char return_string[MAX_LENGTH] = {0};
+        sprintf (return_string, "%lf", m_value);
+        return return_string;
     }
-    Boolean Real::compare_to(const Object & arg) const
+    Boolean Real::compare_to (const Object & another_one) const
     {
         try
         {
-            const Real & _my_str=dynamic_cast<const Real &> (arg);
-            return *this<_my_str;
+            const Real & another_real = dynamic_cast<const Real &> (another_one);
+            return *this < another_real;
         }
         catch (std::bad_cast)
         {
             throw Type_NotCorrespond();
         }
     }
-    Boolean Real::operator ==(const Object & Arg) const
+    Boolean Real::operator == (const Object & another_one) const
     {
         try
         {
-            const Real & my_real=dynamic_cast<const Real &>(Arg);
-            return Boolean(fabs(m_fValue-my_real.m_fValue)<=PRECISION);
+            const Real & another_real = dynamic_cast<const Real &> (another_one);
+            return Boolean (fabs (m_value - another_real.m_value) <= PRECISION);
         }
         catch (std::bad_cast)
         {

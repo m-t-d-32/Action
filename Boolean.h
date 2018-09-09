@@ -10,65 +10,60 @@ namespace Action
 #define OR ||
 #define NOT !
 #define XOR ^
-    class Boolean:public Byte
+    class Boolean: public Byte
     {
         public:
             const static Boolean True;
             const static Boolean False;
-            Boolean()
+            Boolean() {}
+            Boolean (const Boolean & another) : Byte (another) {}
+            Boolean & operator = (const Boolean & another)
             {
-                set_val(0);
-            }
-            Boolean(const Boolean & arg):Byte(arg) {}
-            Boolean & operator =(const Boolean & arg)
-            {
-                if (arg.get_val())
-                    *this=True;
-                else *this=False;
+                another.get_val() ? (*this = True) : (*this = False);
                 return *this;
             }
-            explicit Boolean(char t)
+            explicit Boolean (char value)
             {
-                if (t)
-                    set_val(-1);
+                if (value)
+                    set_val (-1);
                 else
-                    set_val(0);
+                    set_val (0);
             }
-            inline friend Boolean operator AND(const Boolean & b1,const Boolean & b2)
+            inline friend Boolean operator AND (const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean(b1.get_val() && b2.get_val());
+                return Boolean (value_1.get_val() && value_2.get_val() );
             }
-            inline friend Boolean operator OR(const Boolean & b1,const Boolean & b2)
+            inline friend Boolean operator OR (const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean(b1.get_val() || b2.get_val());
+                return Boolean (value_1.get_val() || value_2.get_val() );
             }
-            inline friend Boolean operator XOR(const Boolean & b1,const Boolean & b2)
+            inline friend Boolean operator XOR (const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean(b1.get_val() ^ b2.get_val());
+                return Boolean (value_1.get_val() ^ value_2.get_val() );
             }
-            inline friend Boolean operator NOT(const Boolean & b)
+            inline friend Boolean operator NOT (const Boolean & value)
             {
-                return Boolean(!b.get_val());
+                return Boolean (!value.get_val() );
             }
-            Boolean operator ==(const Object & Arg) const override
+            Boolean operator == (const Object & another_one) const override
             {
                 try
                 {
-                    const Boolean & my_bool=dynamic_cast<const Boolean &>(Arg);
-                    return Boolean((get_val() && my_bool.get_val()) || (!get_val() && !my_bool.get_val()));
+                    const Boolean & another_boolean = dynamic_cast<const Boolean &> (another_one);
+                    return Boolean ( (get_val() && another_boolean.get_val() ) || (!get_val() && !another_boolean.get_val() ) );
                 }
                 catch (std::bad_cast)
                 {
                     throw Type_NotCorrespond();
                 }
             }
-            inline friend Boolean operator ==(const Boolean & b1,const Boolean & b2)
+            inline friend Boolean operator == (const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean((b1.get_val() && b2.get_val()) || (!b1.get_val() && !b2.get_val()));
+                return Boolean ( (value_1.get_val() && value_2.get_val() ) || (!value_1.get_val() && !value_2.get_val() ) );
             }
             operator bool() const
             {
-                return get_val()?true:false;
+                return get_val() ? true : false;
             }
             String get_name() const override;
             String to_string() const override;

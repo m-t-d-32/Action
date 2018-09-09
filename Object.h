@@ -12,8 +12,8 @@ extern "C"
 {
 #endif
 
-int _hashCode(int);
-int _str_hashCode(char *, int);
+int _hashCode (int);
+int _str_hashCode (char *, int);
 
 #ifdef __cplusplus
 }
@@ -40,14 +40,14 @@ namespace Action
     class Object
     {
         public:
-            virtual void print(std::ostream & os=std::cout) const;
-            virtual void println(std::ostream & os=std::cout) const;
+            virtual void print (std::ostream & os = std::cout) const;
+            virtual void println (std::ostream & os = std::cout) const;
             inline Integer get_version() const;
             virtual String get_name() const;
             virtual String to_string() const;
-            virtual Boolean compare_to(const Object &) const;
-            virtual Boolean operator ==(const Object &) const;
-            virtual Boolean operator !=(const Object &) const;
+            virtual Boolean compare_to (const Object &) const;
+            virtual Boolean operator == (const Object &) const;
+            virtual Boolean operator != (const Object &) const;
             virtual int hash_code() const;
             virtual ~Object();
     };

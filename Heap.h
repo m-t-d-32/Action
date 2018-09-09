@@ -20,31 +20,31 @@ namespace Action
     template <class T>
     struct DefaultCompare
     {
-        Boolean operator()(const T & tArg1,const T & tArg2)
+        Boolean operator() (const T & element1, const T & element2)
         {
             try
             {
-                const Object & obj_arg1=dynamic_cast
-                                        <const Object &>(tArg1);
-                const Object & obj_arg2=dynamic_cast
-                                        <const Object &>(tArg2);
-                return tArg1.compareTo(tArg2);
+                const Object & obj_arg1 = dynamic_cast
+                                          <const Object &> (element1);
+                const Object & obj_arg2 = dynamic_cast
+                                          <const Object &> (element2);
+                return element1.compareTo (element2);
             }
-            catch(std::bad_cast)
+            catch (std::bad_cast)
             {
                 throw Type_NotCorrespond();
             }
         }
     };
 
-    template <class T,class Compare=DefaultCompare<T> >
+    template <class T, class Compare = DefaultCompare<T> >
     class Heap: public Object
     {
         public:
             Heap();
-            Heap(const Heap &);
-            Heap(const ArrayList<T> &);
-            Heap & operator =(const Heap &);
+            Heap (const Heap &);
+            Heap (const ArrayList<T> &);
+            Heap & operator = (const Heap &);
 
             virtual Integer size() const
             {
@@ -53,12 +53,12 @@ namespace Action
             virtual T front() const;
             virtual Boolean empty() const
             {
-                return Boolean(m_data.size()<=0);
+                return Boolean (m_data.size() <= 0);
             }
-            virtual void insert(const T &);
+            virtual void insert (const T &);
             virtual void clear();
             virtual T pop();
-            virtual Boolean operator ==(const Object & Arg) const override;
+            virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override
             {
                 return "Action::Heap";

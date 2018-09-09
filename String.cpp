@@ -8,110 +8,107 @@ namespace Action
 {
     String::String()
     {
-        m_chars.push_back('\0');
+        m_chars.push_back ('\0');
     }
 
-    String::String(const char * chsOfstr)
+    String::String (const char * chars_value)
     {
-        while (*chsOfstr)
+        while (*chars_value)
         {
-            m_chars.push_back(*chsOfstr);
-            ++chsOfstr;
+            m_chars.push_back (*chars_value);
+            ++chars_value;
         }
-        m_chars.push_back('\0');
+        m_chars.push_back ('\0');
     }
 
 
-    String::String(const String & strArg) :m_chars(strArg.m_chars) {}
+    String::String (const String & string_value) : m_chars (string_value.m_chars) {}
 
-    void String::append(const char & chArg)
+    void String::append (const char & char_value)
     {
-        m_chars.insert(m_chars.size(),chArg);
+        m_chars.insert (m_chars.size(), char_value);
     }
 
-    void String::append(const String & strArg)
+    void String::append (const String & string_value)
     {
-        m_chars.insert(length(),strArg.m_chars,0,strArg.length());
+        m_chars.insert (length(), string_value.m_chars, 0, string_value.length() );
     }
 
-    String String::operator +(const char & chArg) const
+    String String::operator + (const char & char_value) const
     {
-        String tmp_str=*this;
-        tmp_str.append(chArg);
-        return tmp_str;
+        String return_string = *this;
+        return_string.append (char_value);
+        return return_string;
     }
 
-    String String::operator +(const String & strArg) const
+    String String::operator + (const String & string_value) const
     {
-        String tmp_str=*this;
-        tmp_str.append(strArg);
-        return tmp_str;
+        String return_string = *this;
+        return_string.append (string_value);
+        return return_string;
     }
 
-    String String::operator+=(const char & chArg)
+    String String::operator += (const char & char_value)
     {
-        *this=*this+chArg;
+        *this = *this + char_value;
         return *this;
     }
 
-    String String::operator+=(const String & strArg)
+    String String::operator += (const String & string_value)
     {
-        *this=*this+strArg;
+        *this = *this + string_value;
         return *this;
     }
 
     void String::clear()
     {
         m_chars.clear();
-        m_chars.push_back('\0');
+        m_chars.push_back ('\0');
     }
 
-    void String::insert(const Integer & iArgOfPos,const char & chArg)
+    void String::insert (const Integer & position, const char & char_value)
     {
-        m_chars.insert(iArgOfPos,chArg);
+        m_chars.insert (position, char_value);
     }
 
-    void String::insert(const Integer & iArgOfPos,const String & strArg)
+    void String::insert (const Integer & position, const String & string_value)
     {
-        m_chars.insert(iArgOfPos,strArg.m_chars,0,strArg.length());
+        m_chars.insert (position, string_value.m_chars, 0, string_value.length() );
     }
 
-    Integer String::find(const char & chFind) const
+    Integer String::find (const char & char_value) const
     {
-        return m_chars.find(chFind);
+        return m_chars.find (char_value);
     }
 
-    Integer String::find(const String & strFind) const
+    Integer String::find (const String & string_value) const
     {
         //KMP Algorithm
         return 0;
     }
 
-    String & String::operator=(const String & strArg)
+    String & String::operator= (const String & another_string)
     {
-        m_chars=strArg.m_chars;
+        m_chars = another_string.m_chars;
         return *this;
     }
 
-    void String::print(std::ostream & os) const
+    void String::print (std::ostream & print_stream) const
     {
-        for (int i=0; i<length(); ++i)
-        {
-            os<<m_chars.m_data[i];
-        }
+        print_stream << m_chars.m_data;
     }
 
     int String::hash_code() const
     {
-        return ::_str_hashCode(m_chars.m_data, length().get_int());
+        return ::_str_hashCode (m_chars.m_data, length().get_int() );
     }
 
-    Boolean String::operator ==(const Action::Object & arg) const
+    Boolean String::operator == (const Action::Object & another_one) const
     {
         try
         {
-            const String & _my_str=dynamic_cast<const String &> (arg);
-            return Boolean(strcmp(m_chars.m_data,_my_str.m_chars.m_data)==0);
+            const String & another_string = dynamic_cast<const String &> (another_one);
+            return Boolean (strcmp (m_chars.m_data, another_string.m_chars.m_data) == 0);
         }
         catch (std::bad_cast)
         {
@@ -119,12 +116,12 @@ namespace Action
         }
     }
 
-    Boolean String::compare_to(const Object & arg) const
+    Boolean String::compare_to (const Object & another_one) const
     {
         try
         {
-            const String & _my_str=dynamic_cast<const String &> (arg);
-            return Boolean(strcmp(m_chars.m_data,_my_str.m_chars.m_data)>0);
+            const String & another_string = dynamic_cast<const String &> (another_one);
+            return Boolean (strcmp (m_chars.m_data, another_string.m_chars.m_data) > 0);
         }
         catch (std::bad_cast)
         {

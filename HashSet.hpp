@@ -7,86 +7,82 @@
 namespace Action
 {
     template <class T>
-    const Integer HashSet<T>::BEGIN_SPACE=10;
+    const Integer HashSet<T>::BEGIN_SPACE = 10;
     template <class T>
-    const Integer HashSet<T>::EVERY_INCREASE=2;
+    const Integer HashSet<T>::EVERY_INCREASE = 2;
     template <class T>
-    const Real HashSet<T>::INCREASE_CAPACITY=0.65;
+    const Real HashSet<T>::INCREASE_CAPACITY = 0.65;
 
     template <class T>
     HashSet<T>::HashSet()
     {
-        m_iSize=0;
-        m_iCapacity=BEGIN_SPACE.get_int();
-        m_links=new LinkedList<T> [m_iCapacity];
+        m_size = 0;
+        m_link_capacity = BEGIN_SPACE.get_int();
+        m_links = new LinkedList<T> [m_link_capacity];
     }
 
     template <class T>
-    HashSet<T>::HashSet(const HashSet<T> & hsetArg)
+    HashSet<T>::HashSet (const HashSet<T> & another)
     {
-        operator =(hsetArg);
+        operator = (another);
     }
 
     template <class T>
-    HashSet<T> & HashSet<T>::operator =(const HashSet & hsetArg)
+    HashSet<T> & HashSet<T>::operator = (const HashSet & another)
     {
-        if (this==&hsetArg)
+        if (this == &another)
             return *this;
-        m_iSize=hsetArg.m_iSize;
-        m_iCapacity=hsetArg.iCapacity;
-        m_links=new LinkedList<T> [m_iCapacity];
-        for (int i=0; i<m_iCapacity; ++i)
-            m_links[i]=hsetArg.m_links[i];
+        m_size = another.m_size;
+        m_link_capacity = another.iCapacity;
+        m_links = new LinkedList<T> [m_link_capacity];
+        for (int i = 0; i < m_link_capacity; ++i)
+            m_links[i] = another.m_links[i];
         return *this;
     }
 
     template <class T>
-    void HashSet<T>::insert(const T & arg)
+    void HashSet<T>::insert (const T & element)
     {
-        Object & my_obj=(Object &)(arg);
-        int my_hash=my_obj.hash_code();
-        my_hash = my_hash % m_iCapacity;
-
-        for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin(); it!=m_links[my_hash].end(); ++it)
+        Object & temp_object = (Object &) (element);
+        int element_hash = temp_object.hash_code();
+        element_hash = element_hash % m_link_capacity;
+        for (typename LinkedList<T>::Pointer it = m_links[element_hash].begin(); it != m_links[element_hash].end(); ++it)
         {
-            if (*it==my_obj)
+            if (*it == temp_object)
                 return;
         }
-
-        m_links[my_hash].push_back(arg);
-        ++m_iSize;
-
-        if (m_iCapacity*INCREASE_CAPACITY.get_double()<m_iSize)
+        m_links[element_hash].push_back (element);
+        ++m_size;
+        if (m_link_capacity * INCREASE_CAPACITY.get_double() < m_size)
             auto_increase();
     }
 
     template <class T>
-    void HashSet<T>::erase(const T & arg)
+    void HashSet<T>::erase (const T & element)
     {
-        Object & my_obj=(Object &)(arg);
-        int my_hash=my_obj.hash_code();
-        my_hash = my_hash % m_iCapacity;
-        for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin(); it!=m_links[my_hash].end(); ++it)
+        Object & temp_object = (Object &) (element);
+        int my_hash = temp_object.hash_code();
+        my_hash = my_hash % m_link_capacity;
+        for (typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
         {
-            Object & tmp_obj=(Object &)(*it);
-            if (tmp_obj==my_obj)
+            if (*it == temp_object)
             {
                 it.erase();
-                --m_iSize;
+                --m_size;
                 return;
             }
         }
     }
 
     template <class T>
-    Boolean HashSet<T>::contains(const T & arg) const
+    Boolean HashSet<T>::contains (const T & element) const
     {
-        Object & my_obj=(Object &)(arg);
-        int my_hash=my_obj.hash_code();
-        my_hash = my_hash % m_iCapacity;
-        for (typename LinkedList<T>::Pointer it=m_links[my_hash].begin(); it!=m_links[my_hash].end(); ++it)
+        Object & temp_object = (Object &) (element);
+        int my_hash = temp_object.hash_code();
+        my_hash = my_hash % m_link_capacity;
+        for (typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
         {
-            if (*it==my_obj)
+            if (*it == temp_object)
             {
                 return Boolean::True;
             }
@@ -97,85 +93,85 @@ namespace Action
     template <class T>
     ArrayList<T> HashSet<T>::to_array() const
     {
-        ArrayList<T> rtn;
-        for (int i=0; i<m_iCapacity; ++i)
+        ArrayList<T> result_arraylist;
+        for (int i = 0; i < m_link_capacity; ++i)
         {
-            for (typename LinkedList<T>::Pointer it=m_links[i].begin(); it!=m_links[i].end(); ++it)
+            for (typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
             {
-                rtn.push_back(*it);
+                result_arraylist.push_back (*it);
             }
         }
-        return rtn;
+        return result_arraylist;
     }
 
     template <class T>
     void HashSet<T>::clear()
     {
-        for (int i=0; i<m_iCapacity; ++i)
+        for (int i = 0; i < m_link_capacity; ++i)
         {
             m_links[i].clear();
         }
-        m_iSize=0;
+        m_size = 0;
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::begin() const
     {
-        if (m_iSize==0)
+        if (m_size == 0)
             return end();
         int i;
-        for (i=0; i<m_iCapacity; ++i)
+        for (i = 0; i < m_link_capacity; ++i)
         {
-            if (m_links[i].size()!=0)
+            if (m_links[i].size() != 0)
                 break;
         }
-        return Pointer(this,m_links[i].begin());
+        return Pointer (this, m_links[i].begin() );
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::end() const
     {
-        return Pointer(this,m_links[0].end());
+        return Pointer (this, m_links[0].end() );
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::v_begin() const
     {
-        return Pointer(NULL,m_links[1].end());
+        return Pointer (NULL, m_links[1].end() );
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::v_end() const
     {
-        if (m_iSize==0)
+        if (m_size == 0)
             return end();
         int i;
-        for (i=m_iCapacity-1; i>=0; --i)
+        for (i = m_link_capacity - 1; i >= 0; --i)
         {
-            if (m_links[i].size()!=0)
+            if (m_links[i].size() != 0)
                 break;
         }
-        return Pointer(this,m_links[i].v_end());
+        return Pointer (this, m_links[i].v_end() );
     }
 
     template <class T>
     void HashSet<T>::auto_increase()
     {
-        int tmp_Capacity=EVERY_INCREASE.get_int()*m_iCapacity;
-        LinkedList<T> *tmp_links=new LinkedList<T>[tmp_Capacity];
-        for (int i=0; i<m_iCapacity; ++i)
+        int temp_capacity = EVERY_INCREASE.get_int() * m_link_capacity;
+        LinkedList<T> *new_links = new LinkedList<T>[temp_capacity];
+        for (int i = 0; i < m_link_capacity; ++i)
         {
-            for (typename LinkedList<T>::Pointer it=m_links[i].begin(); it!=m_links[i].end(); ++it)
+            for (typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
             {
-                Object & my_obj=(Object &)(*it);
-                int my_hash=my_obj.hash_code();
-                my_hash = my_hash % tmp_Capacity;
-                tmp_links[my_hash].push_back(*it);
+                Object & temp_object = (Object &) (*it);
+                int temp_object_hash = temp_object.hash_code();
+                temp_object_hash = temp_object_hash % temp_capacity;
+                new_links[temp_object_hash].push_back (*it);
             }
         }
         delete []m_links;
-        m_iCapacity=tmp_Capacity;
-        m_links=tmp_links;
+        m_link_capacity = temp_capacity;
+        m_links = new_links;
     }
 
     template <class T>

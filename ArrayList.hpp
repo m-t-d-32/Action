@@ -12,36 +12,36 @@ namespace Action
     template <class T>
     ArrayList<T>::ArrayList()
     {
-        m_data=m_alloc.get_space();
-        m_iSize=0;
+        m_data = m_alloc.get_space();
+        m_size = 0;
     }
 
     template <class T>
-    ArrayList<T>::ArrayList(const Integer & iArgOfSpace)
+    ArrayList<T>::ArrayList (const Integer & capacity)
     {
-        if (iArgOfSpace<=0)
+        if (capacity <= 0)
             throw ArrayList_IndexOutOfRange();
-        m_alloc.set_capacity(iArgOfSpace);
-        m_data=m_alloc.get_space();
-        m_iSize=0;
+        m_alloc.set_capacity (capacity);
+        m_data = m_alloc.get_space();
+        m_size = 0;
     }
 
     template <class T>
-    ArrayList<T>::ArrayList(const ArrayList<T> & arrArgOfAnother)
+    ArrayList<T>::ArrayList (const ArrayList<T> & another)
     {
-        m_alloc.set_capacity(arrArgOfAnother.m_alloc.get_capacity());
-        m_data=m_alloc.get_space();
-        m_iSize=arrArgOfAnother.m_iSize;
-        for (int i=0; i<m_iSize; ++i)
+        m_alloc.set_capacity (another.m_alloc.get_capacity() );
+        m_data = m_alloc.get_space();
+        m_size = another.m_size;
+        for (int i = 0; i < m_size; ++i)
         {
-            m_alloc.construct(i,arrArgOfAnother.m_data[i]);
+            m_alloc.construct (i, another.m_data[i]);
         }
     }
 
     template <class T>
     T ArrayList<T>::front() const
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw ArrayList_IndexOutOfRange();
         return m_data[0];
     }
@@ -49,173 +49,173 @@ namespace Action
     template <class T>
     T ArrayList<T>::back() const
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw ArrayList_IndexOutOfRange();
-        return m_data[m_iSize-1];
+        return m_data[m_size - 1];
     }
 
     template <class T>
     void ArrayList<T>::clear()
     {
-        for (int i=0; i<m_iSize; ++i)
+        for (int i = 0; i < m_size; ++i)
         {
-            m_alloc.destruct(i);
+            m_alloc.destruct (i);
         }
-        m_iSize=0;
+        m_size = 0;
     }
 
     template <class T>
-    void ArrayList<T>::push_back(const T & tArgOfElement)
+    void ArrayList<T>::push_back (const T & element)
     {
-        if (m_iSize>=m_alloc.get_capacity())
+        if (m_size >= m_alloc.get_capacity() )
         {
-            T * temp_tDataSpace=m_alloc.get_space();
-            memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
-            free(m_data);
-            m_data=temp_tDataSpace;
+            T * new_data = m_alloc.get_space();
+            memcpy (new_data, m_data, (m_size) *sizeof (T) );
+            free (m_data);
+            m_data = new_data;
         }
-        m_alloc.construct(m_iSize,tArgOfElement);
-        ++m_iSize;
+        m_alloc.construct (m_size, element);
+        ++m_size;
     }
 
     template <class T>
     void ArrayList<T>::pop_back()
     {
-        if (m_iSize<=0)
+        if (m_size <= 0)
             throw ArrayList_IndexOutOfRange();
-        m_alloc.destruct(--m_iSize);
+        m_alloc.destruct (--m_size);
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & iArgOfPos,const T & tArgOfElement)
+    void ArrayList<T>::insert (const Integer & position, const T & element)
     {
-        if (iArgOfPos>m_iSize || iArgOfPos<0)
+        if (position > m_size || position < 0)
             throw ArrayList_IndexOutOfRange();
-        if (m_iSize>=m_alloc.get_capacity())
+        if (m_size >= m_alloc.get_capacity() )
         {
-            T * temp_tDataSpace=m_alloc.get_space();
-            memcpy(temp_tDataSpace,m_data,(iArgOfPos*sizeof(T)).get_int());
-            memcpy(temp_tDataSpace+(iArgOfPos+1).get_int(),m_data+iArgOfPos.get_int(),((m_iSize-iArgOfPos).get_int()*sizeof(T)));
-            m_alloc.construct(iArgOfPos,tArgOfElement);
-            free(m_data);
-            m_data=temp_tDataSpace;
+            T * new_data = m_alloc.get_space();
+            memcpy (new_data, m_data, (position * sizeof (T) ).get_int() );
+            memcpy (new_data + (position + 1).get_int(), m_data + position.get_int(), ( (m_size - position).get_int() *sizeof (T) ) );
+            m_alloc.construct (position, element);
+            free (m_data);
+            m_data = new_data;
         }
         else
         {
-            memmove(m_data+(iArgOfPos+1).get_int(),m_data+iArgOfPos.get_int(),((m_iSize-iArgOfPos).get_int()*sizeof(T)));
-            m_alloc.construct(iArgOfPos,tArgOfElement);
+            memmove (m_data + (position + 1).get_int(), m_data + position.get_int(), ( (m_size - position).get_int() *sizeof (T) ) );
+            m_alloc.construct (position, element);
         }
-        ++m_iSize;
+        ++m_size;
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & iArgOfPos,const ArrayList & ArrAno,const Integer & iBegin,
-                              const Integer & iEnd)
+    void ArrayList<T>::insert (const Integer & position, const ArrayList & another, const Integer & begin,
+                               const Integer & end)
     {
-        if (iBegin<0 || iBegin>iEnd || iEnd > ArrAno.size())
+        if (begin < 0 || begin > end || end > another.size() )
             throw ArrayList_IndexOutOfRange();
-        else if (iBegin == iEnd)
+        else if (begin == end)
             return;
-        int cpy_size=(iEnd-iBegin).get_int();
-        int tmp_size=m_iSize;
-        resize(size()+cpy_size);
-        memmove(m_data+(iArgOfPos+cpy_size).get_int(),m_data+iArgOfPos.get_int(),((tmp_size-iArgOfPos).get_int()*sizeof(T)));
-        for (int i=0; i<cpy_size; ++i)
-            m_data[(iArgOfPos+i).get_int()]=ArrAno.at(iBegin+i);
+        int cpy_size = (end - begin).get_int();
+        int tmp_size = m_size;
+        resize (size() + cpy_size);
+        memmove (m_data + (position + cpy_size).get_int(), m_data + position.get_int(), ( (tmp_size - position).get_int() *sizeof (T) ) );
+        for (int i = 0; i < cpy_size; ++i)
+            m_data[ (position + i).get_int()] = another.at (begin + i);
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & iArgOfPos,const ArrayList & ArrAno)
+    void ArrayList<T>::insert (const Integer & position, const ArrayList & another)
     {
-        insert(iArgOfPos,ArrAno,0,ArrAno.size());
+        insert (position, another, 0, another.size() );
     }
 
     template <class T>
-    void ArrayList<T>::erase(const Integer & iArgOfPos)
+    void ArrayList<T>::erase (const Integer & position)
     {
-        if (iArgOfPos>=m_iSize || iArgOfPos<0)
+        if (position >= m_size || position < 0)
             throw ArrayList_IndexOutOfRange();
-        m_alloc.destruct(iArgOfPos);
-        memmove(m_data+iArgOfPos.get_int(),m_data+(iArgOfPos+1).get_int(),(m_iSize-iArgOfPos-1).get_int()*sizeof(T));
-        --m_iSize;
+        m_alloc.destruct (position);
+        memmove (m_data + position.get_int(), m_data + (position + 1).get_int(), (m_size - position - 1).get_int() *sizeof (T) );
+        --m_size;
     }
 
     template <class T>
-    void ArrayList<T>::erase(const Integer & iBegin,const Integer & iEnd)
+    void ArrayList<T>::erase (const Integer & begin, const Integer & end)
     {
-        if (iBegin<0 || iEnd>m_iSize || iEnd<=iBegin)
+        if (begin < 0 || end > m_size || end <= begin)
             throw ArrayList_IndexOutOfRange();
-        for (Integer i=iBegin; i<iEnd; ++i)
-            m_alloc.destruct(i);
-        memmove(m_data+iBegin.get_int(),m_data+iEnd.get_int(),(m_iSize-iEnd).get_int()*sizeof(T));
-        m_iSize-=(iEnd-iBegin).get_int();
+        for (Integer i = begin; i < end; ++i)
+            m_alloc.destruct (i);
+        memmove (m_data + begin.get_int(), m_data + end.get_int(), (m_size - end).get_int() *sizeof (T) );
+        m_size -= (end - begin).get_int();
     }
 
     template <class T>
-    ArrayList<T> & ArrayList<T>::operator =(const ArrayList<T> & arrArgOfAnother)
+    ArrayList<T> & ArrayList<T>::operator = (const ArrayList<T> & another)
     {
-        if (this==&arrArgOfAnother)
+        if (this == &another)
             return *this;
-        resize(arrArgOfAnother.m_iSize);
-        for (int i = 0; i<m_iSize; ++i)
+        resize (another.m_size);
+        for (int i = 0; i < m_size; ++i)
         {
-            m_data[i] = arrArgOfAnother.m_data[i];
+            m_data[i] = another.m_data[i];
         }
         return *this;
     }
 
     template <class T>
-    T & ArrayList<T>::operator[](const Integer & iArgOfIndex)
+    T & ArrayList<T>::operator[] (const Integer & index)
     {
-        if (iArgOfIndex<0 || iArgOfIndex>=m_iSize)
+        if (index < 0 || index >= m_size)
             throw ArrayList_IndexOutOfRange();
-        return m_data[iArgOfIndex.get_int()];
+        return m_data[index.get_int()];
     }
 
     template <class T>
-    T ArrayList<T>::at(const Integer & iArgOfIndex) const
+    T ArrayList<T>::at (const Integer & index) const
     {
-        if (iArgOfIndex<0 || iArgOfIndex>=m_iSize)
+        if (index < 0 || index >= m_size)
             throw ArrayList_IndexOutOfRange();
-        return m_data[iArgOfIndex.get_int()];
+        return m_data[index.get_int()];
     }
 
     template <class T>
-    void ArrayList<T>::resize(const Integer & iArgOfSpace,const T & Val)
+    void ArrayList<T>::resize (const Integer & new_size, const T & cpy_constructor_arg)
     {
-        if (iArgOfSpace<=0)
+        if (new_size <= 0)
             throw ArrayList_IndexOutOfRange();
-        if (iArgOfSpace<m_iSize)
+        if (new_size < m_size)
         {
-            for (int i=iArgOfSpace.get_int(); i<m_iSize; ++i)
+            for (int i = new_size.get_int(); i < m_size; ++i)
             {
-                m_alloc.destruct(i);
+                m_alloc.destruct (i);
             }
         }
         else
         {
-            if (iArgOfSpace>=m_alloc.get_capacity())
+            if (new_size >= m_alloc.get_capacity() )
             {
-                m_alloc.set_capacity(iArgOfSpace);
-                T * temp_tDataSpace=m_alloc.get_space();
-                memcpy(temp_tDataSpace,m_data,(m_iSize)*sizeof(T));
-                free(m_data);
-                m_data=temp_tDataSpace;
+                m_alloc.set_capacity (new_size);
+                T * new_data = m_alloc.get_space();
+                memcpy (new_data, m_data, (m_size) *sizeof (T) );
+                free (m_data);
+                m_data = new_data;
             }
-            for (int i=m_iSize; i<iArgOfSpace; ++i)
+            for (int i = m_size; i < new_size; ++i)
             {
-                m_alloc.construct(i,Val);
+                m_alloc.construct (i, cpy_constructor_arg);
             }
         }
-        m_iSize=iArgOfSpace.get_int();
+        m_size = new_size.get_int();
     }
 
     template <class T>
-    Integer ArrayList<T>::find(const T & iArgOfObject) const
+    Integer ArrayList<T>::find (const T & element) const
     {
-        for (int i=0; i<m_iSize; ++i)
+        for (int i = 0; i < m_size; ++i)
         {
-            if (iArgOfObject==m_data[i])
+            if (element == m_data[i])
             {
                 return i;
             }
@@ -224,17 +224,17 @@ namespace Action
     }
 
     template <class T>
-    Boolean ArrayList<T>::operator ==(const Object & oArgOfAnother) const
+    Boolean ArrayList<T>::operator == (const Object & another_one) const
     {
         try
         {
-            const ArrayList<T> & arrArgOfAnother=dynamic_cast<const ArrayList<T>& >(oArgOfAnother);
-            if (m_iSize!=arrArgOfAnother.m_iSize)
+            const ArrayList<T> & another_arraylist = dynamic_cast<const ArrayList<T>& > (another_one);
+            if (m_size != another_arraylist.m_size)
                 return Boolean::False;
 
-            for (int i=0; i<m_iSize; ++i)
+            for (int i = 0; i < m_size; ++i)
             {
-                if (m_data[i]!=arrArgOfAnother.m_data[i])
+                if (m_data[i] != another_arraylist.m_data[i])
                     return Boolean::False;
             }
             return Boolean::True;
@@ -254,23 +254,23 @@ namespace Action
     template <class T>
     String ArrayList<T>::to_string() const
     {
-        String rtn="[";
-        for (int i=0; i<m_iSize; ++i)
+        String return_value = "[";
+        for (int i = 0; i < m_size; ++i)
         {
             try
             {
-                const Object & my_ref=(const Object &)(m_data[i]);
-                rtn+=my_ref.to_string();
-                if (i!=m_iSize-1)
-                    rtn+=",";
+                const Object & temp_reference = (const Object &) (m_data[i]);
+                return_value += temp_reference.to_string();
+                if (i != m_size - 1)
+                    return_value += ",";
             }
             catch (std::bad_cast)
             {
                 throw Type_NotCorrespond();
             }
         }
-        rtn+="]";
-        return rtn;
+        return_value += "]";
+        return return_value;
     }
 
     template <class T>

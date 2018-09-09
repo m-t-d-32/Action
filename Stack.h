@@ -12,16 +12,16 @@
 namespace Action
 {
     template <class T>
-    class Stack:public Object
+    class Stack: public Object
     {
         private:
             ArrayList<T> m_array;
         public:
             Stack() {}
-            Stack(const Stack & stkArgOfCopy):m_array(stkArgOfCopy.m_array) {}
-            Stack & operator =(const Stack &);
+            Stack (const Stack & another) : m_array (another.m_array) {}
+            Stack & operator = (const Stack &);
 
-            virtual void push(const T &);
+            virtual void push (const T &);
             virtual T pop();
             virtual T top() const ;
             virtual void clear()
@@ -36,14 +36,14 @@ namespace Action
             {
                 return m_array.size();
             }
-            virtual Boolean operator ==(const Object & oArgOfAno)
+            virtual Boolean operator == (const Object & another_one)
             {
                 try
                 {
-                    const Stack<T> & stkArgOfAno=dynamic_cast<const Stack<T> &>(oArgOfAno);
-                    return m_array==stkArgOfAno.m_array;
+                    const Stack<T> & another_stack = dynamic_cast<const Stack<T> &> (another_one);
+                    return m_array == another_stack.m_array;
                 }
-                catch(std::bad_cast)
+                catch (std::bad_cast)
                 {
                     throw Type_NotCorrespond();
                 }
@@ -55,10 +55,6 @@ namespace Action
             virtual String to_string() const override
             {
                 return m_array.to_string();
-            }
-            virtual void print(std::ostream & os=std::cout) const override
-            {
-                m_array.print(os);
             }
             virtual ~Stack() {}
     };

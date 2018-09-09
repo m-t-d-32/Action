@@ -8,7 +8,7 @@ namespace Action
     {
         return m_false_value;
     }
-    String Integer_OutOfBound::get_name()const
+    String Integer_OutOfBound::get_name() const
     {
         return "Action::Integer_OutOfBound";
     }

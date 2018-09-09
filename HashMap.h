@@ -8,8 +8,8 @@
 #define Action__HashMap
 namespace Action
 {
-    template <class K,class V>
-    class HashMap:public Object
+    template <class K, class V>
+    class HashMap: public Object
     {
         public:
             struct Pair: public Object
@@ -18,17 +18,17 @@ namespace Action
                     V value;
                 public:
                     Pair() {}
-                    Pair(K _key, V _value) :key(_key), value(_value) {}
+                    Pair (K _key, V _value) : key (_key), value (_value) {}
                     virtual int hash_code() const override
                     {
-                        return ((Object &)(key)).hash_code();
+                        return ( (Object &) (key) ).hash_code();
                     }
-                    virtual Boolean operator ==(const Object & obj) const override
+                    virtual Boolean operator == (const Object & another_one) const override
                     {
                         try
                         {
-                            const Pair my_pair=dynamic_cast<const Pair &> (obj);
-                            return Boolean(key==my_pair.key);
+                            const Pair & another_pair = dynamic_cast<const Pair &> (another_one);
+                            return Boolean (key == another_pair.key);
                         }
                         catch (std::bad_cast)
                         {
@@ -41,23 +41,22 @@ namespace Action
                     }
                     virtual String to_string() const override
                     {
-                        return ((Object &)key).to_string()+":"+((Object &)value).to_string();
+                        return ( (Object &) key).to_string() + ":" + ( (Object &) value).to_string();
                     }
             };
 
             class PairSet: public HashSet<Pair>
             {
                 public:
-                    virtual Pair & get(const Pair & arg) const
+                    virtual Pair & get (const Pair & another_key) const
                     {
-                        Object & my_obj = (Object &)(arg);
-                        int my_hash = my_obj.hash_code() % this->m_iCapacity;
-
+                        Object & temp_object = (Object &) (another_key);
+                        int my_hash = temp_object.hash_code() % this->m_link_capacity;
                         for (typename LinkedList<Pair>::Pointer it = this->m_links[my_hash].begin();
                                 it != this->m_links[my_hash].end();
                                 ++it)
                         {
-                            if (*it == my_obj)
+                            if (*it == temp_object)
                             {
                                 return *it;
                             }
@@ -71,62 +70,62 @@ namespace Action
                 private:
                     typename HashSet<Pair>::Pointer m_ptr;
                 public:
-                    Pointer(typename HashSet<Pair>::Pointer ptr) :m_ptr(ptr) {}
+                    Pointer (typename HashSet<Pair>::Pointer ptr) : m_ptr (ptr) {}
                     Pair & operator *()
                     {
                         return *m_ptr;
                     }
                     Pair * operator ->()
                     {
-                        return &(*m_ptr);
+                        return & (*m_ptr);
                     }
                     Pointer & operator ++()
                     {
                         ++m_ptr;
                         return *this;
                     }
-                    Pointer operator ++(int)
+                    Pointer operator ++ (int)
                     {
-                        return Pointer(m_ptr++);
+                        return Pointer (m_ptr++);
                     }
                     Pointer & operator --()
                     {
                         --m_ptr;
                         return *this;
                     }
-                    Pointer operator --(int)
+                    Pointer operator -- (int)
                     {
-                        return Pointer(m_ptr--);
+                        return Pointer (m_ptr--);
                     }
                     Pointer next() const
                     {
-                        return Pointer(m_ptr.next());
+                        return Pointer (m_ptr.next() );
                     }
                     Pointer last() const
                     {
-                        return Pointer(m_ptr.last());
+                        return Pointer (m_ptr.last() );
                     }
-                    Boolean operator ==(const Pointer & ptrArgOfAnother) const
+                    Boolean operator == (const Pointer & ptrArgOfAnother) const
                     {
                         return m_ptr == ptrArgOfAnother.m_ptr;
                     }
-                    Boolean operator !=(const Pointer & ptrArgOfAnother) const
+                    Boolean operator != (const Pointer & ptrArgOfAnother) const
                     {
-                        return NOT operator ==(ptrArgOfAnother);
+                        return NOT operator == (ptrArgOfAnother);
                     }
             };
 
             friend struct Pointer;
         public:
             HashMap() {}
-            HashMap(const HashMap &);
-            HashMap & operator =(const HashMap &);
-            virtual void insert(K,V );
-            virtual V get(K ) const;
-            virtual V & operator [](K );
-            virtual Boolean contains_key(K );
-            virtual Boolean contains_value(V );
-            virtual void erase(K );
+            HashMap (const HashMap &);
+            HashMap & operator = (const HashMap &);
+            virtual void insert (K, V );
+            virtual V get (K ) const;
+            virtual V & operator [] (K );
+            virtual Boolean contains_key (K );
+            virtual Boolean contains_value (V );
+            virtual void erase (K );
             virtual void clear()
             {
                 m_set.clear();

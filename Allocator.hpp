@@ -8,56 +8,56 @@
 namespace Action
 {
     template <class T>
-    const Integer Allocator<T>::EVERY_INCREASE=2;
+    const Integer Allocator<T>::EVERY_INCREASE = 2;
     template <class T>
-    const Integer Allocator<T>::BEGIN_SPACE=10;
+    const Integer Allocator<T>::BEGIN_SPACE = 10;
 
     template <class T>
     Allocator<T>::Allocator()
     {
-        m_tSpace=NULL;
-        m_iCapacity=0;
-        m_iNextCapacity=BEGIN_SPACE.get_int();
+        m_space = NULL;
+        m_capacity = 0;
+        m_next_capacity = BEGIN_SPACE.get_int();
     }
 
     template <class T>
     void Allocator<T>::auto_increase()
     {
-        m_iNextCapacity*=EVERY_INCREASE.get_int();
+        m_next_capacity *= EVERY_INCREASE.get_int();
     }
 
     template <class T>
-    void Allocator<T>::construct(const Integer & iArgOfIndex,const T & tArgOfCopy)
+    void Allocator<T>::construct (const Integer & index, const T & cpy_constructor_arg)
     {
-        new(m_tSpace+iArgOfIndex.get_int()) T(tArgOfCopy);
+        new (m_space + index.get_int() ) T (cpy_constructor_arg);
     }
 
     template <class T>
-    void Allocator<T>::destruct(const Integer & iArgOfIndex)
+    void Allocator<T>::destruct (const Integer & index)
     {
-        (m_tSpace+iArgOfIndex.get_int())->~T();
+        (m_space + index.get_int() )->~T();
     }
 
     template <class T>
-    void Allocator<T>::set_capacity(const Integer & iArgOfSpace)
+    void Allocator<T>::set_capacity (const Integer & new_capacity)
     {
-        m_iNextCapacity=iArgOfSpace.get_int();
+        m_next_capacity = new_capacity.get_int();
     }
 
     template <class T>
     T * Allocator<T>::get_space()
     {
-        if (m_iNextCapacity<=0)
+        if (m_next_capacity <= 0)
             throw Alloc_OutOfMemory();
-        m_tSpace=(T *)malloc(sizeof(T)*m_iNextCapacity);
-        if (!m_tSpace)
+        m_space = (T *) malloc (sizeof (T) * m_next_capacity);
+        if (!m_space)
             throw Alloc_OutOfMemory();
         else
         {
-            m_iCapacity=m_iNextCapacity;
+            m_capacity = m_next_capacity;
             auto_increase();
         }
-        return m_tSpace;
+        return m_space;
     }
 
     template <class T>
@@ -69,7 +69,7 @@ namespace Action
     template <class T>
     Allocator<T>::~Allocator()
     {
-        free(m_tSpace);
+        free (m_space);
     }
 }
 #endif

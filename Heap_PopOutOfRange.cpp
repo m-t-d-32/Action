@@ -4,7 +4,7 @@
 
 namespace Action
 {
-    String Heap_PopOutOfRange::get_name()const
+    String Heap_PopOutOfRange::get_name() const
     {
         return "Action::Heap_PopOutOfRange";
     }

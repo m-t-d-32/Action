@@ -24,30 +24,30 @@ namespace Action
             const static Integer BEGIN_SPACE;
 
             Allocator();
-            virtual void set_capacity(const Integer &);
+            virtual void set_capacity (const Integer &);
             virtual inline Integer get_capacity() const
             {
-                return m_iCapacity;
+                return m_capacity;
             }
-            virtual void construct(const Integer &,const T &);
-            virtual void destruct(const Integer &);
+            virtual void construct (const Integer &, const T &);
+            virtual void destruct (const Integer &);
             virtual T * get_space();
             virtual String get_name() const;
             virtual ~Allocator();
 
 #if __cplusplus < 201103L
         private:
-            Allocator & operator =(const Allocator &);
-            Allocator(const Allocator &);
+            Allocator & operator = (const Allocator &);
+            Allocator (const Allocator &);
 #else
-            void operator =(const Allocator &)=delete;
-            Allocator(const Allocator &)=delete;
+            void operator = (const Allocator &) = delete;
+            Allocator (const Allocator &) = delete;
 #endif
 
         private:
-            T * m_tSpace;
-            int m_iCapacity;
-            int m_iNextCapacity;
+            T * m_space;
+            int m_capacity;
+            int m_next_capacity;
     };
 }
 #endif /* Action__Allocator */

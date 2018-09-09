@@ -29,229 +29,229 @@ namespace Action
 
             Integer()
             {
-                m_iValue=0;
+                m_value = 0;
             }
-            Integer(int iArg)
+            Integer (int value)
             {
-                m_iValue=iArg;
+                m_value = value;
             }
-            Integer(const Integer & iArg)
+            Integer (const Integer & value)
             {
-                m_iValue=iArg.m_iValue;
+                m_value = value.m_value;
             }
-            explicit Integer(const Real & fArg)
+            explicit Integer (const Real & value)
             {
-                m_iValue=(int)fArg.get_double();
+                m_value = (int) value.get_double();
             }
 
             String get_name() const override;
             String to_string() const override;
-            Boolean compare_to(const Object & arg) const override;
+            Boolean compare_to (const Object &) const override;
 
             inline int get_int() const
             {
-                return m_iValue;
+                return m_value;
             }
 
-            inline friend Integer operator -(const Integer & Arg)
+            inline friend Integer operator - (const Integer & value)
             {
-                if (Arg==MIN_VALUE)
-                    throw Integer_OutOfBound(-Arg.m_iValue);
-                return -Arg.m_iValue;
+                if (value == MIN_VALUE)
+                    throw Integer_OutOfBound (-value.m_value);
+                return -value.m_value;
             }
-            inline friend Integer operator +(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator + (const Integer & value_1, const Integer & value_2)
             {
-                int iResult=Arg1.m_iValue+Arg2.m_iValue;
-                if (Arg1.m_iValue>0 && Arg2.m_iValue>0 && iResult<=0)
-                    throw Integer_OutOfBound(iResult);
-                else if (Arg1.m_iValue<0 && Arg2.m_iValue<0 && iResult>=0)
-                    throw Integer_OutOfBound(iResult);
-                return iResult;
+                int result = value_1.m_value + value_2.m_value;
+                if (value_1.m_value > 0 && value_2.m_value > 0 && result <= 0)
+                    throw Integer_OutOfBound (result);
+                else if (value_1.m_value < 0 && value_2.m_value < 0 && result >= 0)
+                    throw Integer_OutOfBound (result);
+                return result;
             }
-            inline friend Integer operator -(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator - (const Integer & value_1, const Integer & value_2)
             {
-                return Arg1+(-Arg2);
+                return value_1 + (-value_2);
             }
-            inline friend Integer operator *(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator * (const Integer & value_1, const Integer & value_2)
             {
-                int iResult=Arg1.m_iValue*Arg2.m_iValue;
+                int result = value_1.m_value * value_2.m_value;
 
-                if (!Arg2.m_iValue)
-                    return iResult;
+                if (!value_2.m_value)
+                    return result;
                 else
                 {
-                    int chk_back=iResult/Arg2.m_iValue;
-                    if (chk_back!=Arg1.m_iValue)
-                        throw Integer_OutOfBound(iResult);
-                    else if (Arg1==MIN_VALUE && Arg2.m_iValue==-1)
-                        throw Integer_OutOfBound(iResult);
-                    return iResult;
+                    int chk_back = result / value_2.m_value;
+                    if (chk_back != value_1.m_value)
+                        throw Integer_OutOfBound (result);
+                    else if (value_1 == MIN_VALUE && value_2.m_value == -1)
+                        throw Integer_OutOfBound (result);
+                    return result;
                 }
             }
-            inline friend Real operator / (const Integer & Arg1,const Integer & Arg2)
+            inline friend Real operator / (const Integer & value_1, const Integer & value_2)
             {
-                Real rArg1=Arg1.m_iValue,rArg2=Arg2.m_iValue;
-                return rArg1/rArg2;
+                Real value_real_1 = value_1.m_value, value_real_2 = value_2.m_value;
+                return value_real_1 / value_real_2;
             }
-            inline friend Integer operator MOD(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator MOD (const Integer & value_1, const Integer & value_2)
             {
-                if (!Arg2.m_iValue)
+                if (!value_2.m_value)
                     throw DividedByZero();
                 else
                 {
-                    int iResult=Arg1.m_iValue%Arg2.m_iValue;
-                    if (Arg1==MIN_VALUE && Arg2.m_iValue==-1)
-                        throw Integer_OutOfBound(iResult);
-                    return iResult;
+                    int result = value_1.m_value % value_2.m_value;
+                    if (value_1 == MIN_VALUE && value_2.m_value == -1)
+                        throw Integer_OutOfBound (result);
+                    return result;
                 }
             }
-            inline friend Integer operator DIV(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator DIV (const Integer & value_1, const Integer & value_2)
             {
-                if (!Arg2.m_iValue)
+                if (!value_2.m_value)
                     throw DividedByZero();
                 else
                 {
-                    int iResult=Arg1.m_iValue/Arg2.m_iValue;
-                    if (Arg1==MIN_VALUE && Arg2.m_iValue==-1)
-                        throw Integer_OutOfBound(iResult);
-                    return iResult;
+                    int result = value_1.m_value / value_2.m_value;
+                    if (value_1 == MIN_VALUE && value_2.m_value == -1)
+                        throw Integer_OutOfBound (result);
+                    return result;
                 }
             }
-            inline friend Integer operator ^(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer operator ^ (const Integer & value_1, const Integer & value_2)
             {
-                int iBase=Arg1.m_iValue,iRadix=Arg2.m_iValue;
-                if (iRadix<0)
+                int base = value_1.m_value, radix = value_2.m_value;
+                if (radix < 0)
                     return 0;
 
-                int iResult=1;
-                while (iRadix)
+                int result = 1;
+                while (radix)
                 {
-                    if (iRadix & 1)
+                    if (radix & 1)
                     {
-                        iResult*=iBase;
+                        result *= base;
                     }
-                    iRadix>>=1;
-                    iResult<<=1;
+                    radix >>= 1;
+                    result <<= 1;
                 }
-                return iResult;
+                return result;
             }
-            inline friend Integer bit_and(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer bit_and (const Integer & value_1, const Integer & value_2)
             {
-                return Arg1.m_iValue & Arg2.m_iValue;
+                return value_1.m_value & value_2.m_value;
             }
-            inline friend Integer bit_or(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer bit_or (const Integer & value_1, const Integer & value_2)
             {
-                return Arg1.m_iValue | Arg2.m_iValue;
+                return value_1.m_value | value_2.m_value;
             }
-            inline friend Integer bit_xor(const Integer & Arg1,const Integer & Arg2)
+            inline friend Integer bit_xor (const Integer & value_1, const Integer & value_2)
             {
-                return Arg1.m_iValue ^ Arg2.m_iValue;
+                return value_1.m_value ^ value_2.m_value;
             }
-            inline friend Integer bit_not(const Integer & Arg)
+            inline friend Integer bit_not (const Integer & value)
             {
-                return	~Arg.m_iValue;
+                return	~value.m_value;
             }
-            inline friend Integer bit_left(const Integer & Arg,const Integer & iCount)
+            inline friend Integer bit_left (const Integer & value, const Integer & count)
             {
-                if (iCount.m_iValue>=sizeof(int)*8 ||
-                        iCount.m_iValue<0)
-                    throw Integer_OutOfBound(((unsigned int)Arg.m_iValue)<<iCount.m_iValue);
-                return ((unsigned int)Arg.m_iValue)<<iCount.m_iValue;
+                if (count.m_value >= sizeof (int) * 8 ||
+                        count.m_value < 0)
+                    throw Integer_OutOfBound ( ( (unsigned int) value.m_value) << count.m_value);
+                return ( (unsigned int) value.m_value) << count.m_value;
             }
-            inline friend Integer bit_right(const Integer & Arg,const Integer & iCount)
+            inline friend Integer bit_right (const Integer & value, const Integer & count)
             {
-                if (iCount.m_iValue>=sizeof(int)*8 ||
-                        iCount.m_iValue<0)
-                    throw Integer_OutOfBound(((unsigned int)Arg.m_iValue)>>iCount.m_iValue);
-                return ((unsigned int)Arg.m_iValue)>>iCount.m_iValue;
+                if (count.m_value >= sizeof (int) * 8 ||
+                        count.m_value < 0)
+                    throw Integer_OutOfBound ( ( (unsigned int) value.m_value) >> count.m_value);
+                return ( (unsigned int) value.m_value) >> count.m_value;
             }
-            inline friend Integer algorithm_bit_left(const Integer & Arg,const Integer & iCount)
+            inline friend Integer algorithm_bit_left (const Integer & value, const Integer & count)
             {
-                if (iCount.m_iValue>=sizeof(int)*8 ||
-                        iCount.m_iValue<0)
-                    throw Integer_OutOfBound(Arg.m_iValue<<iCount.m_iValue);
-                return Arg.m_iValue<<iCount.m_iValue;
+                if (count.m_value >= sizeof (int) * 8 ||
+                        count.m_value < 0)
+                    throw Integer_OutOfBound (value.m_value << count.m_value);
+                return value.m_value << count.m_value;
             }
-            inline friend Integer algorithm_bit_right(const Integer & Arg,const Integer & iCount)
+            inline friend Integer algorithm_bit_right (const Integer & value, const Integer & count)
             {
-                if (iCount.m_iValue>=sizeof(int)*8 ||
-                        iCount.m_iValue<0)
-                    throw Integer_OutOfBound(Arg.m_iValue>>iCount.m_iValue);
-                return Arg.m_iValue>>iCount.m_iValue;
+                if (count.m_value >= sizeof (int) * 8 ||
+                        count.m_value < 0)
+                    throw Integer_OutOfBound (value.m_value >> count.m_value);
+                return value.m_value >> count.m_value;
             }
-            inline Integer & operator +=(const Integer & Arg)
+            inline Integer & operator += (const Integer & value)
             {
-                *this=*this+Arg;
+                *this = *this + value;
                 return *this;
             }
-            inline Integer & operator -=(const Integer & Arg)
+            inline Integer & operator -= (const Integer & value)
             {
-                *this=*this-Arg;
+                *this = *this - value;
                 return *this;
             }
-            inline Integer & operator *=(const Integer & Arg)
+            inline Integer & operator *= (const Integer & value)
             {
-                *this=*this*Arg;
+                *this = *this * value;
                 return *this;
             }
             inline Integer & operator ++()
             {
-                *this+=1;
+                *this += 1;
                 return *this;
             }
             inline Integer & operator --()
             {
-                *this-=1;
+                *this -= 1;
                 return *this;
             }
-            inline Integer operator ++(int)
+            inline Integer operator ++ (int)
             {
-                Integer iResult=*this;
-                *this+=1;
-                return iResult;
+                Integer result = *this;
+                *this += 1;
+                return result;
             }
-            inline Integer operator --(int)
+            inline Integer operator -- (int)
             {
-                Integer iResult=*this;
-                *this-=1;
-                return iResult;
+                Integer result = *this;
+                *this -= 1;
+                return result;
             }
-            inline Integer & operator =(const Integer & iArg)
+            inline Integer & operator = (const Integer & value)
             {
-                m_iValue=iArg.m_iValue;
+                m_value = value.m_value;
                 return *this;
             }
-            Boolean operator ==(const Object &) const override;
+            Boolean operator == (const Object &) const override;
             int hash_code() const override
             {
-                return ::_hashCode(m_iValue);
+                return ::_hashCode (m_value);
             }
-            inline friend Boolean operator ==(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator == (const Integer value_1, const Integer & value_2)
             {
-                return Boolean(Arg1.m_iValue==Arg2.m_iValue);
+                return Boolean (value_1.m_value == value_2.m_value);
             }
-            inline friend Boolean operator !=(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator != (const Integer value_1, const Integer & value_2)
             {
-                return NOT (Arg1==Arg2);
+                return NOT (value_1 == value_2);
             }
-            inline friend Boolean operator >(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator > (const Integer value_1, const Integer & value_2)
             {
-                return Boolean(Arg1.m_iValue>Arg2.m_iValue);
+                return Boolean (value_1.m_value > value_2.m_value);
             }
-            inline friend Boolean operator <(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator < (const Integer value_1, const Integer & value_2)
             {
-                return Boolean(Arg1.m_iValue<Arg2.m_iValue);
+                return Boolean (value_1.m_value < value_2.m_value);
             }
-            inline friend Boolean operator >=(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator >= (const Integer value_1, const Integer & value_2)
             {
-                return NOT (Arg1<Arg2);
+                return NOT (value_1 < value_2);
             }
-            inline friend Boolean operator <=(const Integer Arg1,const Integer & Arg2)
+            inline friend Boolean operator <= (const Integer value_1, const Integer & value_2)
             {
-                return NOT (Arg1>Arg2);
+                return NOT (value_1 > value_2);
             }
         private:
-            int m_iValue;
+            int m_value;
     };
 }
 #endif /* Action__Integer */

@@ -9,7 +9,7 @@ namespace Action
         public:
             Exception();
             virtual Exception * get_cause() const;
-            virtual void init_cause(Exception *);
+            virtual void init_cause (Exception *);
             virtual String get_name() const override;
             virtual String to_string() const override;
             virtual ~Exception();

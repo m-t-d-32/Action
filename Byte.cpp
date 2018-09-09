@@ -10,16 +10,16 @@ namespace Action
     }
     String Byte::to_string() const
     {
-        String rtn;
-        rtn.append(m_bValue);
-        return rtn;
+        String return_string;
+        return_string.append (m_value);
+        return return_string;
     }
-    Boolean Byte::operator ==(const Object & Arg) const
+    Boolean Byte::operator == (const Object & another_one) const
     {
         try
         {
-            const Byte & my_byte=dynamic_cast<const Byte &>(Arg);
-            return Boolean(get_val()==my_byte.get_val());
+            const Byte & another_byte = dynamic_cast<const Byte &> (another_one);
+            return Boolean (get_val() == another_byte.get_val() );
         }
         catch (std::bad_cast)
         {
