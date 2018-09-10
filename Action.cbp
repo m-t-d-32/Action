@@ -51,6 +51,12 @@
 		<Unit filename="Boolean.h" />
 		<Unit filename="Byte.cpp" />
 		<Unit filename="Byte.h" />
+		<Unit filename="Deque.h" />
+		<Unit filename="Deque.hpp" />
+		<Unit filename="Deque_IndexOutOfRange.cpp" />
+		<Unit filename="Deque_IndexOutOfRange.h" />
+		<Unit filename="Deque_PopOutOfRange.cpp" />
+		<Unit filename="Deque_PopOutOfRange.h" />
 		<Unit filename="DividedByZero.cpp" />
 		<Unit filename="DividedByZero.h" />
 		<Unit filename="Exception.cpp" />
@@ -102,7 +108,9 @@
 		<Extensions>
 			<code_completion />
 			<envvars />
-			<debugger />
+			<debugger>
+				<search_path add="..\TDM-GCC-64\bin" />
+			</debugger>
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

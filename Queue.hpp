@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include "Queue_PopOutOfRange.h"
 
+#ifndef QUEUE__CPP
+#define QUEUE__CPP
 namespace Action
 {
     template <class T>
@@ -26,11 +28,13 @@ namespace Action
     template <class T>
     Queue<T>::Queue (const Queue<T> & another)
     {
+        m_size = 0;
+        m_data = NULL;
         operator = (another);
     }
 
     template <class T>
-    Queue<T> & Queue<T>::operator = (const Queue & another)
+    Queue<T> & Queue<T>::operator = (const Queue<T> & another)
     {
         if (this == &another)
             return *this;
@@ -53,6 +57,7 @@ namespace Action
             {
                 clear();
                 m_alloc.set_capacity (another_capacity);
+                free (m_data);
                 m_data = m_alloc.get_space();
             }
             for (int i = 0; i < m_size; ++i)
@@ -61,7 +66,7 @@ namespace Action
             }
             for (int i = m_size; i < another.m_size; ++i)
             {
-                m_alloc.construct ( (m_begin + m_size) % m_alloc.get_capacity().get_int(), another.m_data[ (another.m_begin + i) % another_capacity]);
+                m_alloc.construct ( (m_begin + i) % m_alloc.get_capacity().get_int(), another.m_data[ (another.m_begin + i) % another_capacity]);
             }
             m_size = another.m_size;
         }
@@ -69,19 +74,27 @@ namespace Action
     }
 
     template <class T>
-    void Queue<T>::push (const T & value)
+    void Queue<T>::auto_increase()
+    {
+        int now_capacity = m_alloc.get_capacity().get_int();
+        T * new_data = m_alloc.get_space();
+        memcpy (new_data, m_data + m_begin, (now_capacity - m_begin) *sizeof (T) );
+        memcpy (new_data + now_capacity - m_begin, m_data, m_begin * sizeof (T) );
+        m_begin = 0;
+        free (m_data);
+        m_data = new_data;
+    }
+
+    template <class T>
+    void Queue<T>::push (const T & element)
     {
         int now_capacity = m_alloc.get_capacity().get_int();
         if (m_size >= now_capacity)
         {
-            T * new_data = m_alloc.get_space();
-            memcpy (new_data, m_data + m_begin, (now_capacity - m_begin) *sizeof (T) );
-            memcpy (new_data + now_capacity - m_begin, m_data, m_begin * sizeof (T) );
-            m_begin = 0;
-            free (m_data);
-            m_data = new_data;
+            auto_increase();
         }
-        m_alloc.construct ( (m_begin + m_size) % m_alloc.get_capacity(), value);
+        now_capacity = m_alloc.get_capacity().get_int();
+        m_alloc.construct ( (m_begin + m_size) % now_capacity, element);
         ++m_size;
     }
 
@@ -177,3 +190,4 @@ namespace Action
         clear();
     }
 }
+#endif

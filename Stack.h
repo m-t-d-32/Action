@@ -4,7 +4,8 @@
 #include "Type_NotCorrespond.h"
 
 /*
-    我们在黑暗里坚守光明
+    想去了解你
+    了解你光芒以外的地方
 */
 
 #ifndef Action__Stack

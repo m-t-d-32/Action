@@ -7,6 +7,7 @@
 #include "BitSet.h"
 #include "Boolean.h"
 #include "Byte.h"
+#include "Deque.hpp"
 #include "Exception.h"
 #include "HashMap.hpp"
 #include "HashSet.hpp"

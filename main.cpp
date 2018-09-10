@@ -48,10 +48,22 @@ int main()
     my_que.pop();   //移除队头的元素
     my_que.println();   //再看一次，里面只有一个元素了
 
+    Deque<Integer> my_dqe;  //双端队列可以在两端插入或者取出元素
+    my_dqe.push_back(5);
+    my_dqe.push_back(6);
+    my_dqe.push_front(7);
+    my_dqe.push_front(8);
+    my_dqe.println();
+    my_dqe[2].println();    //下标访问某个元素
+    my_dqe.pop_back().println();
+    my_dqe.pop_front().println();
+    my_dqe.println();
+
     Stack<String> my_stk;
     my_stk.push ("Hello");
     my_stk.push ("Bye");
     my_stk.pop().println(); //先入后出哦
+
 
     //堆可以作为优先队列，兼顾时间和空间复杂度。
     //这里不再演示，使用者可以自己试试看！

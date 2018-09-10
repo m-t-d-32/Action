@@ -8,8 +8,12 @@
 namespace Action
 {
     template <class T>
+    class Deque;
+
+    template <class T>
     class Queue: public Object
     {
+            friend class Deque<T>;
         public:
             Queue();
             Queue (const Integer &);
@@ -36,6 +40,7 @@ namespace Action
             T * m_data;
             Allocator<T> m_alloc;
             int m_begin, m_size;
+            void auto_increase();
     };
 }
 #endif /* Action__Queue */
