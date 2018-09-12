@@ -5,66 +5,66 @@ using namespace Action;
 
 int main()
 {
-    //ÏÖÔÚÊ¹ÓÃÎÒÃÇµÄ¿â¿ªÊ¼¹¤×÷£¡
-    srand(time(NULL));  //×öÒ»Ğ©Ëæ»úÊıµÄ×¼±¸
+    //ç°åœ¨ä½¿ç”¨æˆ‘ä»¬çš„åº“å¼€å§‹å·¥ä½œï¼
+    srand(time(NULL));  //åšä¸€äº›éšæœºæ•°çš„å‡†å¤‡
 
-    //Ê×ÏÈÊä³ö×î¼òµ¥µÄHello World£¡
+    //é¦–å…ˆè¾“å‡ºæœ€ç®€å•çš„Hello Worldï¼
     String hello = "Hello World!";
     hello.println();
-    (hello + " We are coding now!").println();   //ÕıÏñÄãÏëµÄÄÇÑù£¬Á½¸ö×Ö·û´®¿ÉÒÔÆ´½Ó¡£
+    (hello + " We are coding now!").println();   //æ­£åƒä½ æƒ³çš„é‚£æ ·ï¼Œä¸¤ä¸ªå­—ç¬¦ä¸²å¯ä»¥æ‹¼æ¥ã€‚
 
-    //ÏÖÔÚÑ§»áÊ¹ÓÃÕûÊıºÍÊµÊı£¡
+    //ç°åœ¨å­¦ä¼šä½¿ç”¨æ•´æ•°å’Œå®æ•°ï¼
     Integer a = 3, b = 4;
     (a + b).println();
     (a - b).println();
     (a * b).println();
-    (a / b).println();  //ÕâÀï»áÊä³öÊµÊı£¡
-    (a DIV b).println();    //Õâ¾ä»°ÄÜ´ïµ½Ô­±¾C++ÓïÑÔÀïÁ½¸öÕûÊıÏà³ıµÄĞ§¹û¡£
-    (a MOD b).println();    //»¹¼ÇµÃ%È¡Óà·ûºÅÂğ£¿ÕâÀïÓÃMOD´úÌæÁË¡£
+    (a / b).println();  //è¿™é‡Œä¼šè¾“å‡ºå®æ•°ï¼
+    (a DIV b).println();    //è¿™å¥è¯èƒ½è¾¾åˆ°åŸæœ¬C++è¯­è¨€é‡Œä¸¤ä¸ªæ•´æ•°ç›¸é™¤çš„æ•ˆæœã€‚
+    (a MOD b).println();    //è¿˜è®°å¾—%å–ä½™ç¬¦å·å—ï¼Ÿè¿™é‡Œç”¨MODä»£æ›¿äº†ã€‚
 
-    //ÏÖÔÚÑ§»áÊ¹ÓÃÊı×é£¡
-    ArrayList<Integer> my_array;    //Ö±½Ó´´½¨Ò»¸ö¶¯Ì¬Êı×é£¬¾ÍÏñÊ¹ÓÃvectorÒ»Ñù¡£
-    my_array.push_back(100);  //ÔÚÊı×éµÄ×îºó×·¼ÓÔªËØ
-    my_array.println(); //Êä³ö
-    my_array.insert(0, 4);  //ÔÚµÚ0¸öÎ»ÖÃ²åÈëÕûÊı4
-    my_array.erase(1);  //ÒÆ³ıµÚ1¸öÎ»ÖÃµÄÊı£¨100£©
+    //ç°åœ¨å­¦ä¼šä½¿ç”¨æ•°ç»„ï¼
+    ArrayList<Integer> my_array;    //ç›´æ¥åˆ›å»ºä¸€ä¸ªåŠ¨æ€æ•°ç»„ï¼Œå°±åƒä½¿ç”¨vectorä¸€æ ·ã€‚
+    my_array.push_back(100);  //åœ¨æ•°ç»„çš„æœ€åè¿½åŠ å…ƒç´ 
+    my_array.println(); //è¾“å‡º
+    my_array.insert(0, 4);  //åœ¨ç¬¬0ä¸ªä½ç½®æ’å…¥æ•´æ•°4
+    my_array.erase(1);  //ç§»é™¤ç¬¬1ä¸ªä½ç½®çš„æ•°ï¼ˆ100ï¼‰
     my_array.println();
 
-    //Á´±íºÍÊı×é¶¼ÊÇÏßĞÔ½á¹¹£¬Á´±í¿ÉÒÔ×î´ó³Ì¶ÈµØÀûÓÃ¿Õ¼ä¡£
+    //é“¾è¡¨å’Œæ•°ç»„éƒ½æ˜¯çº¿æ€§ç»“æ„ï¼Œé“¾è¡¨å¯ä»¥æœ€å¤§ç¨‹åº¦åœ°åˆ©ç”¨ç©ºé—´ã€‚
     LinkedList<Integer> my_links;
     my_links.push_back(1);
     my_links.push_back(3);
     my_links.println();
     for(LinkedList<Integer>::Pointer it = my_links.begin(); it != my_links.end(); ++it)
     {
-        (*it).println();    //ÈÃÎÒÃÇÓÃµü´úÆ÷°ÑÔªËØ±éÀúÊä³ö°É£¡
+        (*it).println();    //è®©æˆ‘ä»¬ç”¨è¿­ä»£å™¨æŠŠå…ƒç´ éå†è¾“å‡ºå§ï¼
     }
     String("The following operation is deprecated!").println();
-    my_links[1].println();  //²»µ½ÆÈ²»µÃÒÑµÄÊ±ºò²»ÒªÏÂ±ê·ÃÎÊ£¬Èç¹ûÕæµÄĞèÒª£¬ÇëÊ¹ÓÃArrayList£¡
+    my_links[1].println();  //ä¸åˆ°è¿«ä¸å¾—å·²çš„æ—¶å€™ä¸è¦ä¸‹æ ‡è®¿é—®ï¼Œå¦‚æœçœŸçš„éœ€è¦ï¼Œè¯·ä½¿ç”¨ArrayListï¼
 
-    //ÏÖÔÚ´´½¨Ò»¸ö¼¯ºÏ£¬¼¯ºÏÀïÃæµÄÔªËØÊÇ²»ÖØ¸´µÄ¡£
+    //ç°åœ¨åˆ›å»ºä¸€ä¸ªé›†åˆï¼Œé›†åˆé‡Œé¢çš„å…ƒç´ æ˜¯ä¸é‡å¤çš„ã€‚
     HashSet<String> my_set;
     my_set.insert("Bye");
     my_set.insert("Hello");
     my_set.insert("Bye");
-    my_set.println();   //³¢ÊÔÊä³öËüÃÇ£¬ÕâĞ©ÔªËØ¶¼ÊÇÎŞĞòµÄ¡£
+    my_set.println();   //å°è¯•è¾“å‡ºå®ƒä»¬ï¼Œè¿™äº›å…ƒç´ éƒ½æ˜¯æ— åºçš„ã€‚
 
-    //ÓĞĞòµÄ¼¯ºÏTreeSet¿ÉÒÔ°ïÎÒÃÇÅÅĞòÅ¶£¬ÈÃÎÒÃÇÊÔÒ»ÊÔ£¡
+    //æœ‰åºçš„é›†åˆTreeSetå¯ä»¥å¸®æˆ‘ä»¬æ’åºå“¦ï¼Œè®©æˆ‘ä»¬è¯•ä¸€è¯•ï¼
     TreeSet<Integer> another_set;
     for(int i = 0; i < 100; ++i)
     {
         another_set.insert(rand() % 50);
     }
-    another_set.println();  //¿ÉÒÔ¿´³öTreeSet²»½öÈ¥µôÁËÖØ¸´ÔªËØ£¬¶øÇÒÅÅºÃÁËĞò¡£
+    another_set.println();  //å¯ä»¥çœ‹å‡ºTreeSetä¸ä»…å»æ‰äº†é‡å¤å…ƒç´ ï¼Œè€Œä¸”æ’å¥½äº†åºã€‚
 
-    //×ÖµäÊÇÊ¹ÓÃ¹şÏ£½á¹¹ÊµÏÖµÄ£¬Ê¹ÓÃ×Öµä¿ÉÒÔÌá¸ß²éÕÒĞ§ÂÊ¡£
-    HashMap<String, Integer> my_map; //´´½¨×Öµä£¬¼üÊÇString£¬ÖµÊÇInteger
+    //å­—å…¸æ˜¯ä½¿ç”¨å“ˆå¸Œç»“æ„å®ç°çš„ï¼Œä½¿ç”¨å­—å…¸å¯ä»¥æé«˜æŸ¥æ‰¾æ•ˆç‡ã€‚
+    HashMap<String, Integer> my_map; //åˆ›å»ºå­—å…¸ï¼Œé”®æ˜¯Stringï¼Œå€¼æ˜¯Integer
     my_map.insert("China", 1);
-    my_map["America"] = 2;  //ÕâÊÇÁíÒ»ÖÖ²åÈë·½Ê½
-    my_map.insert("China", 2);  //Èç¹û²åÈëÖØ¸´µÄ¼ü£¬ÄÇÃ´¶ÔÓ¦µÄÖµ»á±»Ìæ»»
-    my_map.println();   //ÏÖÔÚ´òÓ¡Ò»ÏÂ½á¹û
-    my_map.clear();     //Èç¹ûÒªÇå¿ÕÕû¸ö×Öµä£¬¿ÉÒÔÊ¹ÓÃclear·½·¨¡£
-    for(int i = 0; i < 100; ++i)    //ÏÖÔÚÓÃËæ»úÊıÊÔÊÔËüÃÇÊÇ·ñÓĞĞò
+    my_map["America"] = 2;  //è¿™æ˜¯å¦ä¸€ç§æ’å…¥æ–¹å¼
+    my_map.insert("China", 2);  //å¦‚æœæ’å…¥é‡å¤çš„é”®ï¼Œé‚£ä¹ˆå¯¹åº”çš„å€¼ä¼šè¢«æ›¿æ¢
+    my_map.println();   //ç°åœ¨æ‰“å°ä¸€ä¸‹ç»“æœ
+    my_map.clear();     //å¦‚æœè¦æ¸…ç©ºæ•´ä¸ªå­—å…¸ï¼Œå¯ä»¥ä½¿ç”¨clearæ–¹æ³•ã€‚
+    for(int i = 0; i < 100; ++i)    //ç°åœ¨ç”¨éšæœºæ•°è¯•è¯•å®ƒä»¬æ˜¯å¦æœ‰åº
     {
         String temp;
         for(int j = 0; j < 5; ++j)
@@ -73,11 +73,11 @@ int main()
         }
         my_map.insert(temp, rand());
     }
-    my_map.println();   //¿ÉÒÔ·¢ÏÖ£¬ËüÃÇÊÇÎŞĞòµÄ¡£
+    my_map.println();   //å¯ä»¥å‘ç°ï¼Œå®ƒä»¬æ˜¯æ— åºçš„ã€‚
 
-    //´øÅÅĞòµÄ×ÖµäÄÚ²¿Ê¹ÓÃ¶ş²æÊ÷ÊµÏÖ£¬Òò´ËËüÃÇÓĞĞò£¬ÈÃÎÒÃÇÔÙ°Ñ¸Õ²ÅµÄÊµÑé×öÒ»±é¡£
+    //å¸¦æ’åºçš„å­—å…¸å†…éƒ¨ä½¿ç”¨äºŒå‰æ ‘å®ç°ï¼Œå› æ­¤å®ƒä»¬æœ‰åºï¼Œè®©æˆ‘ä»¬å†æŠŠåˆšæ‰çš„å®éªŒåšä¸€éã€‚
     TreeMap<String, Integer> another_map;
-    for(int i = 0; i < 100; ++i)    //Á½ÖÖ×ÖµäµÄ·½·¨¼¸ºõÍêÈ«ÏàÍ¬¡£
+    for(int i = 0; i < 100; ++i)    //ä¸¤ç§å­—å…¸çš„æ–¹æ³•å‡ ä¹å®Œå…¨ç›¸åŒã€‚
     {
         String temp;
         for(int j = 0; j < 5; ++j)
@@ -86,23 +86,23 @@ int main()
         }
         another_map.insert(temp, rand());
     }
-    another_map.println();   //¿ÉÒÔ·¢ÏÖ£¬ËüÃÇÊÇÓĞĞòµÄ¡£
+    another_map.println();   //å¯ä»¥å‘ç°ï¼Œå®ƒä»¬æ˜¯æœ‰åºçš„ã€‚
 
-    //¶ÓÁĞºÍÕ»»á¸ø³ÌĞòÉè¼Æ´øÀ´·½±ã£¬ÏÖÔÚ³¢ÊÔÊ¹ÓÃËüÃÇ£¡
+    //é˜Ÿåˆ—å’Œæ ˆä¼šç»™ç¨‹åºè®¾è®¡å¸¦æ¥æ–¹ä¾¿ï¼Œç°åœ¨å°è¯•ä½¿ç”¨å®ƒä»¬ï¼
     Queue<Integer> my_que;
     my_que.push(3);
     my_que.push(2);
     my_que.front().println();
-    my_que.pop();   //ÒÆ³ı¶ÓÍ·µÄÔªËØ
-    my_que.println();   //ÔÙ¿´Ò»´Î£¬ÀïÃæÖ»ÓĞÒ»¸öÔªËØÁË
+    my_que.pop();   //ç§»é™¤é˜Ÿå¤´çš„å…ƒç´ 
+    my_que.println();   //å†çœ‹ä¸€æ¬¡ï¼Œé‡Œé¢åªæœ‰ä¸€ä¸ªå…ƒç´ äº†
 
-    Deque<Integer> my_dqe;  //Ë«¶Ë¶ÓÁĞ¿ÉÒÔÔÚÁ½¶Ë²åÈë»òÕßÈ¡³öÔªËØ
+    Deque<Integer> my_dqe;  //åŒç«¯é˜Ÿåˆ—å¯ä»¥åœ¨ä¸¤ç«¯æ’å…¥æˆ–è€…å–å‡ºå…ƒç´ 
     my_dqe.push_back(5);
     my_dqe.push_back(6);
     my_dqe.push_front(7);
     my_dqe.push_front(8);
     my_dqe.println();
-    my_dqe[2].println();    //ÏÂ±ê·ÃÎÊÄ³¸öÔªËØ
+    my_dqe[2].println();    //ä¸‹æ ‡è®¿é—®æŸä¸ªå…ƒç´ 
     my_dqe.pop_back().println();
     my_dqe.pop_front().println();
     my_dqe.println();
@@ -110,18 +110,18 @@ int main()
     Stack<String> my_stk;
     my_stk.push("Hello");
     my_stk.push("Bye");
-    my_stk.pop().println(); //ÏÈÈëºó³öÅ¶
+    my_stk.pop().println(); //å…ˆå…¥åå‡ºå“¦
 
-    //Ê¹ÓÃ¶Ñ£¨Heap£©¿ÉÒÔÊµÏÖÓÅÏÈ¶ÓÁĞµÄ¹¦ÄÜ£¬ÎÒÃÇ¿ÉÒÔÓÃHeapÀà¹¹½¨Ò»¸ö×îĞ¡¶Ñ¡£
+    //ä½¿ç”¨å †ï¼ˆHeapï¼‰å¯ä»¥å®ç°ä¼˜å…ˆé˜Ÿåˆ—çš„åŠŸèƒ½ï¼Œæˆ‘ä»¬å¯ä»¥ç”¨Heapç±»æ„å»ºä¸€ä¸ªæœ€å°å †ã€‚
     ArrayList<Integer> temp_array;
     for(int i = 0; i < 10; ++i)
     {
         temp_array.push_back(rand());
     }
     Heap<Integer> my_heap(temp_array);
-    my_heap.println();  //¸ù¾İ´òÓ¡µÄÊı¾İ£¬ÄãÄÜ·ñ»­³öÒ»¸ö×îĞ¡¶ÑÄØ£¿ÊÔÊÔ¿´°É£¡
+    my_heap.println();  //æ ¹æ®æ‰“å°çš„æ•°æ®ï¼Œä½ èƒ½å¦ç”»å‡ºä¸€ä¸ªæœ€å°å †å‘¢ï¼Ÿè¯•è¯•çœ‹å§ï¼
 
-    //¸ĞĞ»Ê¹ÓÃ£¡
+    //æ„Ÿè°¢ä½¿ç”¨ï¼
     //Powered By Windows NT Version 6.0 Pre.
     return 0;
 }

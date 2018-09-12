@@ -6,8 +6,8 @@
 #include "Alloc_OutOfMemory.h"
 
 /*
-	�����ڰ���������ƶ��ﴩ��
-	���紵��һ�����ֵĸ���
+	月亮在白莲花般的云朵里穿行
+	晚风吹来一阵阵欢乐的歌声
 */
 
 #ifndef Action__Allocator

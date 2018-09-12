@@ -2,8 +2,8 @@
 #include "Object.h"
 
 /*
-    每一次发奋努力的背后
-    必有加倍的赏赐
+    姣忎竴娆″彂濂嬪姫鍔涚殑鑳屽悗
+    蹇呮湁鍔犲�嶇殑璧忚祼
 */
 
 #ifndef Action__Byte

@@ -8,8 +8,8 @@
 #include "Boolean.h"
 
 /*
-	ÄÄÀïÓÐÊ²Ã´ËêÔÂ¾²ºÃ
-	Ö»²»¹ýÊÇÓÐÈËÔÚÎªÎÒÃÇ¸ºÖØÇ°ÐÐ
+	å“ªé‡Œæœ‰ä»€ä¹ˆå²æœˆé™å¥½
+	åªä¸è¿‡æ˜¯æœ‰äººåœ¨ä¸ºæˆ‘ä»¬è´Ÿé‡å‰è¡Œ
 */
 
 #ifndef Action__ArrayList

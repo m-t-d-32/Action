@@ -3,8 +3,8 @@
 #include "Type_NotCorrespond.h"
 
 /*
-    我颠覆了整个世界
-    只为摆正你的倒影
+    鎴戦瑕嗕簡鏁翠釜涓栫晫
+    鍙负鎽嗘浣犵殑鍊掑奖
 */
 
 #ifndef Action__Boolean

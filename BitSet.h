@@ -6,9 +6,9 @@
 #include "String.h"
 
 /*
-    ÎÒÏ£Íû
-    ÄãÔÚÕâÀïµÄ»ØÒä
-    ¶¼ÊÇÃÀºÃµÄ
+    æˆ‘å¸Œæœ›
+    ä½ åœ¨è¿™é‡Œçš„å›žå¿†
+    éƒ½æ˜¯ç¾Žå¥½çš„
 */
 
 #ifndef Action__BitSet

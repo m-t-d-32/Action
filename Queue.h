@@ -4,8 +4,8 @@
 #include "Allocator.hpp"
 
 /*
-    ÎÒ´æÔÚ
-    ÊÇÉúÃüÃàÑÓ²»¶ÏµÄ¾«²Ê
+    æˆ‘å­˜åœ¨
+    æ˜¯ç”Ÿå‘½ç»µå»¶ä¸æ–­çš„ç²¾å½©
 */
 
 #ifndef Action__Queue

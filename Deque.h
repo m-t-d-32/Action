@@ -6,8 +6,8 @@
 #include "Queue.hpp"
 
 /*
-    这个世界苦不堪言
-    你是我唯一的甜
+    杩欎釜涓栫晫鑻︿笉鍫█
+    浣犳槸鎴戝敮涓�鐨勭敎
 */
 
 #ifndef Action__Deque

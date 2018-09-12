@@ -2,11 +2,11 @@
 #include <typeinfo>
 #include <cstdio>
 #include <limits.h>
-#define __MY__VERSION__98 0
+#define __MY__VERSION__98 1
 
 /*
-	Ã¿Ò»¸öÎ¢²»×ãµÀµÄÃÎÏë
-	¶¼ÖµµÃ È¥³ö·¢
+	æ¯ä¸€ä¸ªå¾®ä¸è¶³é“çš„æ¢¦æƒ³
+	éƒ½å€¼å¾— å»å‡ºå‘
 */
 
 #ifndef Action__Object
