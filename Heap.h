@@ -7,6 +7,7 @@
 #include "String.h"
 #include "Type_NotCorrespond.h"
 #include "Heap_PopOutOfRange.h"
+#include "DefaultCompare.h"
 
 /*
 	愿你走出半生
@@ -17,26 +18,6 @@
 #define Action__Heap
 namespace Action
 {
-    template <class T>
-    struct DefaultCompare
-    {
-        Boolean operator() (const T & element1, const T & element2)
-        {
-            try
-            {
-                const Object & obj_arg1 = dynamic_cast
-                                          <const Object &> (element1);
-                const Object & obj_arg2 = dynamic_cast
-                                          <const Object &> (element2);
-                return element1.compareTo (element2);
-            }
-            catch (std::bad_cast)
-            {
-                throw Type_NotCorrespond();
-            }
-        }
-    };
-
     template <class T, class Compare = DefaultCompare<T> >
     class Heap: public Object
     {

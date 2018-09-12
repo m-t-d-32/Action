@@ -28,9 +28,9 @@ namespace Action
             while (j * 2 + 1 < size)
             {
                 int next = j * 2 + 1;
-                if (next + 1 < size && compare (m_data[next + 1], m_data[next]) )
+                if (next + 1 < size && compare (m_data[next + 1], m_data[next]) < 0 )
                     ++next;
-                if (compare (now_value, m_data[next]) )
+                if (compare (now_value, m_data[next]) < 0 )
                     break;
                 else
                 {
@@ -80,7 +80,7 @@ namespace Action
         m_data.resize (m_data.size() + 1);
         while (insert_point)
         {
-            if (compare (element, m_data[ (insert_point - 1) / 2]) )
+            if (compare (element, m_data[ (insert_point - 1) / 2]) < 0 )
             {
                 m_data[insert_point] = m_data[ (insert_point - 1) / 2];
                 insert_point = (insert_point - 1) / 2;
@@ -111,9 +111,9 @@ namespace Action
         while (i * 2 + 1 < size)
         {
             int next = i * 2 + 1;
-            if (next + 1 < size && compare (m_data[next + 1], m_data[next]) )
+            if (next + 1 < size && compare (m_data[next + 1], m_data[next]) < 0 )
                 ++next;
-            if (compare (saved_value, m_data[next]) )
+            if (compare (saved_value, m_data[next]) < 0 )
                 break;
             m_data[i] = m_data[next];
             i = next;

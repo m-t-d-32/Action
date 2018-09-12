@@ -17,6 +17,7 @@
 #include "Real.h"
 #include "Stack.hpp"
 #include "String.h"
+#include "TreeSet.hpp"
 
 #endif /* Action_EasyInclude */
 

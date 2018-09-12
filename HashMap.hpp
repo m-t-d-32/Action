@@ -24,13 +24,13 @@ namespace Action
     template<class K, class V>
     void HashMap<K, V>::insert (K key, V value)
     {
-        try
+        Pair put_pair(key, value);
+        if (m_set.contains(put_pair))
         {
-            m_set.get (Pair (key, V() ) ).value = value;
+            m_set.get(put_pair).value = value;
         }
-        catch (Set_ElementNotExists e)
+        else
         {
-            Pair put_pair (key, value);
             m_set.insert (put_pair);
         }
     }
@@ -44,16 +44,12 @@ namespace Action
     template<class K, class V>
     V & HashMap<K, V>::operator[] (K key)
     {
-        try
+        Pair put_pair(key, V());
+        if (!m_set.contains(put_pair))
         {
-            return m_set.get (Pair (key, V() ) ).value;
+            m_set.insert(put_pair);
         }
-        catch (Set_ElementNotExists e)
-        {
-            Pair put_pair (key, V() );
-            m_set.insert (put_pair);
-            return m_set.get (Pair (key, V() ) ).value;
-        }
+        return m_set.get(put_pair).value;
     }
 
     template<class K, class V>

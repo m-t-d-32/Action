@@ -32,6 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AVLTree.h" />
+		<Unit filename="AVLTree_IllegalPointer.cpp" />
+		<Unit filename="AVLTree_IllegalPointer.h" />
 		<Unit filename="Action.h" />
 		<Unit filename="Alloc_OutOfMemory.cpp" />
 		<Unit filename="Alloc_OutOfMemory.h" />
@@ -51,6 +54,7 @@
 		<Unit filename="Boolean.h" />
 		<Unit filename="Byte.cpp" />
 		<Unit filename="Byte.h" />
+		<Unit filename="DefaultCompare.h" />
 		<Unit filename="Deque.h" />
 		<Unit filename="Deque.hpp" />
 		<Unit filename="Deque_IndexOutOfRange.cpp" />
@@ -99,6 +103,8 @@
 		<Unit filename="Stack_PopOutOfRange.h" />
 		<Unit filename="String.cpp" />
 		<Unit filename="String.h" />
+		<Unit filename="TreeSet.h" />
+		<Unit filename="TreeSet.hpp" />
 		<Unit filename="Type_NotCorrespond.cpp" />
 		<Unit filename="Type_NotCorrespond.h" />
 		<Unit filename="hashcode.c">
