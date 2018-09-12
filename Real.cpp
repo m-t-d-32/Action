@@ -4,12 +4,13 @@
 #include "Integer.h"
 #include "String.h"
 #include "Type_NotCorrespond.h"
+
 namespace Action
 {
     const Real Real::MAX_VALUE = DBL_MAX;
     const Real Real::MIN_VALUE = DBL_MIN;
     Real Real::PRECISION = MIN_VALUE;
-    Real::Real (const Integer & integer_value)
+    Real::Real(const Integer & integer_value)
     {
         m_value = integer_value.m_value;
     }
@@ -22,17 +23,17 @@ namespace Action
         const int MAX_LENGTH = 100;
 
         char return_string[MAX_LENGTH] = {0};
-        sprintf (return_string, "%lf", m_value);
+        sprintf(return_string, "%lf", m_value);
         return return_string;
     }
-    Boolean Real::compare_to (const Object & another_one) const
+    Boolean Real::compare_to(const Object & another_one) const
     {
         try
         {
-            const Real & another_real = dynamic_cast<const Real &> (another_one);
+            const Real & another_real = dynamic_cast<const Real &>(another_one);
             return *this < another_real;
         }
-        catch (std::bad_cast)
+        catch(std::bad_cast)
         {
             throw Type_NotCorrespond();
         }
@@ -41,10 +42,10 @@ namespace Action
     {
         try
         {
-            const Real & another_real = dynamic_cast<const Real &> (another_one);
-            return Boolean (fabs (m_value - another_real.m_value) <= PRECISION);
+            const Real & another_real = dynamic_cast<const Real &>(another_one);
+            return Boolean(fabs(m_value - another_real.m_value) <= PRECISION);
         }
-        catch (std::bad_cast)
+        catch(std::bad_cast)
         {
             throw Type_NotCorrespond();
         }

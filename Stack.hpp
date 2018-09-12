@@ -11,16 +11,16 @@ namespace Action
     template <class T>
     Stack<T> & Stack<T>::operator = (const Stack & another)
     {
-        if (this == &another)
+        if(this == &another)
             return *this;
         m_array = another.m_array;
         return *this;
     }
 
     template <class T>
-    void Stack<T>::push (const T & element)
+    void Stack<T>::push(const T & element)
     {
-        m_array.push_back (element);
+        m_array.push_back(element);
     }
 
     template <class T>
@@ -32,7 +32,7 @@ namespace Action
             m_array.pop_back();
             return return_value;
         }
-        catch (ArrayList_IndexOutOfRange)
+        catch(ArrayList_IndexOutOfRange)
         {
             throw Stack_PopOutOfRange();
         }
@@ -45,7 +45,7 @@ namespace Action
         {
             return m_array.back();
         }
-        catch (ArrayList_IndexOutOfRange)
+        catch(ArrayList_IndexOutOfRange)
         {
             throw Stack_PopOutOfRange();
         }

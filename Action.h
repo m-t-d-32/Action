@@ -17,7 +17,9 @@
 #include "Real.h"
 #include "Stack.hpp"
 #include "String.h"
-#include "TreeSet.hpp"
+#include "Pair.h"
+#include "TreeSet.h"
+#include "TreeMap.hpp"
 
 #endif /* Action_EasyInclude */
 

@@ -9,7 +9,7 @@ namespace Action
     class Integer_OutOfBound: public Exception
     {
         public:
-            Integer_OutOfBound (int result_value) : m_false_value (result_value) {}
+            Integer_OutOfBound(int result_value) : m_false_value(result_value) {}
             Integer get_value() const;
             String get_name() const override;
             String to_string() const override;

@@ -1,6 +1,11 @@
 #include <iostream>
 #include "Object.h"
 
+/*
+    每一次发奋努力的背后
+    必有加倍的赏赐
+*/
+
 #ifndef Action__Byte
 #define Action__Byte
 namespace Action
@@ -15,11 +20,11 @@ namespace Action
             {
                 m_value = 0;
             }
-            Byte (char value)
+            Byte(char value)
             {
                 m_value = value;
             }
-            Byte (const Byte & another)
+            Byte(const Byte & another)
             {
                 m_value = another.m_value;
             }
@@ -32,7 +37,7 @@ namespace Action
             {
                 return m_value;
             }
-            virtual inline void set_val (char value)
+            virtual inline void set_val(char value)
             {
                 m_value = value;
             }
@@ -41,7 +46,7 @@ namespace Action
             virtual String to_string() const override;
             virtual int hash_code() const override
             {
-                return ::_hashCode (m_value);
+                return ::_hashCode(m_value);
             }
     };
 }

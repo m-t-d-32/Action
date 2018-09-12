@@ -1,49 +1,47 @@
 #include <iostream>
+#include "AVLTree.h"
+#include "Pair.h"
 #include "Object.h"
 #include "Integer.h"
-#include "HashSet.hpp"
-#include "LinkedList.h"
-#include "Pair.h"
+#include "Boolean.h"
+#include "Set_ElementNotExists.h"
 
 /*
-    命运馈赠的礼物
-    背后都有明码标价。
+    回忆凝结成力量
+    随风奔向你
 */
 
-#ifndef Action__HashMap
-#define Action__HashMap
+#ifndef Action__TreeMap
+#define Action__TreeMap
 namespace Action
 {
-    template <class K, class V>
-    class HashMap: public Object
+    template <class K, class V, class Tree = AVLTree<Pair<K, V> > >
+    class TreeMap: public Object
     {
         public:
-            class PairSet: public HashSet<Pair<K, V> >
+            class PairSet: public Tree
             {
                 public:
                     virtual Pair<K, V> & get(const Pair<K, V> & another_key) const
                     {
-                        Object & temp_object = (Object &)(another_key);
-                        int my_hash = temp_object.hash_code() % this->m_link_capacity;
-                        for(typename LinkedList<Pair<K, V> >::Pointer it = this->m_links[my_hash].begin();
-                                it != this->m_links[my_hash].end();
-                                ++it)
+                        typename Tree::Node * element_address = this->find(another_key);
+                        if(!element_address)
                         {
-                            if(*it == temp_object)
-                            {
-                                return *it;
-                            }
+                            throw Set_ElementNotExists();
                         }
-                        throw Set_ElementNotExists();
+                        else
+                        {
+                            return element_address->m_value;
+                        }
                     }
             };
 
             struct Pointer
             {
                 private:
-                    typename HashSet<Pair<K, V> >::Pointer m_ptr;
+                    typename Tree::Pointer m_ptr;
                 public:
-                    Pointer(typename HashSet<Pair<K, V> >::Pointer ptr) : m_ptr(ptr) {}
+                    Pointer(typename Tree::Pointer ptr) : m_ptr(ptr) {}
                     Pair<K, V>  & operator *()
                     {
                         return *m_ptr;
@@ -90,9 +88,9 @@ namespace Action
 
             friend struct Pointer;
         public:
-            HashMap() {}
-            HashMap(const HashMap &);
-            HashMap & operator = (const HashMap &);
+            TreeMap() {}
+            TreeMap(const TreeMap &);
+            TreeMap & operator = (const TreeMap &);
             virtual void insert(K, V);
             virtual V get(K) const;
             virtual V & operator [](K);
@@ -109,7 +107,7 @@ namespace Action
             }
             virtual Boolean empty()
             {
-                return m_set.empty();
+                return (m_set.size() == 0);
             }
             virtual ArrayList<Pair<K, V> > to_array()
             {
@@ -132,19 +130,17 @@ namespace Action
             {
                 return m_set.v_end();
             }
-
             virtual String get_name() const override
             {
-                return "Action::HashMap";
+                return "Action::TreeMap";
             }
             virtual String to_string() const override
             {
-                return m_set.to_string();
+                return m_set.to_array().to_string();
             }
-            virtual ~HashMap() {}
+            virtual ~TreeMap() {}
         private:
             PairSet m_set;
     };
 }
-
-#endif /* Action__HashMap */
+#endif /* Action__TreeMap */

@@ -4,6 +4,11 @@
 #include <limits.h>
 #define __MY__VERSION__98 0
 
+/*
+	每一个微不足道的梦想
+	都值得 去出发
+*/
+
 #ifndef Action__Object
 #define Action__Object
 
@@ -12,8 +17,8 @@ extern "C"
 {
 #endif
 
-int _hashCode (int);
-int _str_hashCode (char *, int);
+int _hashCode(int);
+int _str_hashCode(char *, int);
 
 #ifdef __cplusplus
 }
@@ -32,6 +37,11 @@ int _str_hashCode (char *, int);
 #define INT64 long long
 #endif
 
+#define BAD_MEMORY_0 0x00
+#define BAD_MEMORY_1 0x01
+#define BAD_MEMORY_2 0x02
+#define BAD_MEMORY_3 0x03
+
 namespace Action
 {
     class String;
@@ -40,12 +50,12 @@ namespace Action
     class Object
     {
         public:
-            virtual void print (std::ostream & os = std::cout) const;
-            virtual void println (std::ostream & os = std::cout) const;
+            virtual void print(std::ostream & os = std::cout) const;
+            virtual void println(std::ostream & os = std::cout) const;
             inline Integer get_version() const;
             virtual String get_name() const;
             virtual String to_string() const;
-            virtual Boolean compare_to (const Object &) const;
+            virtual Boolean compare_to(const Object &) const;
             virtual Boolean operator == (const Object &) const;
             virtual Boolean operator != (const Object &) const;
             virtual int hash_code() const;

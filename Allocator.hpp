@@ -27,19 +27,19 @@ namespace Action
     }
 
     template <class T>
-    void Allocator<T>::construct (const Integer & index, const T & cpy_constructor_arg)
+    void Allocator<T>::construct(const Integer & index, const T & cpy_constructor_arg)
     {
-        new (m_space + index.get_int() ) T (cpy_constructor_arg);
+        new(m_space + index.get_int()) T(cpy_constructor_arg);
     }
 
     template <class T>
-    void Allocator<T>::destruct (const Integer & index)
+    void Allocator<T>::destruct(const Integer & index)
     {
-        (m_space + index.get_int() )->~T();
+        (m_space + index.get_int())->~T();
     }
 
     template <class T>
-    void Allocator<T>::set_capacity (const Integer & new_capacity)
+    void Allocator<T>::set_capacity(const Integer & new_capacity)
     {
         m_next_capacity = new_capacity.get_int();
     }
@@ -47,10 +47,10 @@ namespace Action
     template <class T>
     T * Allocator<T>::get_space()
     {
-        if (m_next_capacity <= 0)
+        if(m_next_capacity <= 0)
             throw Alloc_OutOfMemory();
-        m_space = (T *) malloc (sizeof (T) * m_next_capacity);
-        if (!m_space)
+        m_space = (T *) malloc(sizeof(T) * m_next_capacity);
+        if(!m_space)
             throw Alloc_OutOfMemory();
         else
         {
@@ -69,7 +69,7 @@ namespace Action
     template <class T>
     Allocator<T>::~Allocator()
     {
-        free (m_space);
+        free(m_space);
     }
 }
-#endif
+#endif /* ALLOCATOR__CPP */

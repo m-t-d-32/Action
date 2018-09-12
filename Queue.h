@@ -3,6 +3,11 @@
 #include "Boolean.h"
 #include "Allocator.hpp"
 
+/*
+    我存在
+    是生命绵延不断的精彩
+*/
+
 #ifndef Action__Queue
 #define Action__Queue
 namespace Action
@@ -16,10 +21,10 @@ namespace Action
             friend class Deque<T>;
         public:
             Queue();
-            Queue (const Integer &);
-            Queue (const Queue &);
+            Queue(const Integer &);
+            Queue(const Queue &);
             Queue & operator = (const Queue &);
-            virtual void push (const T &);
+            virtual void push(const T &);
             virtual T pop();
             virtual T front() const;
             virtual T back() const;
@@ -29,7 +34,7 @@ namespace Action
             }
             virtual Boolean empty() const
             {
-                return Boolean (m_size == 0);
+                return Boolean(m_size == 0);
             }
             virtual void clear();
             virtual Boolean operator == (const Object &) const override;

@@ -5,6 +5,11 @@
 #include "Boolean.h"
 #include "Queue.hpp"
 
+/*
+    这个世界苦不堪言
+    你是我唯一的甜
+*/
+
 #ifndef Action__Deque
 #define Action__Deque
 namespace Action
@@ -14,11 +19,11 @@ namespace Action
     {
         public:
             Deque();
-            Deque (const Integer &);
-            Deque (const Deque &);
+            Deque(const Integer &);
+            Deque(const Deque &);
 
-            virtual void push_back (const T &);
-            virtual void push_front (const T &);
+            virtual void push_back(const T &);
+            virtual void push_front(const T &);
             virtual T pop_back();
             virtual T pop_front();
             virtual T back() const;
@@ -29,9 +34,9 @@ namespace Action
             }
             virtual Boolean empty() const
             {
-                return Boolean (m_data.m_size == 0);
+                return Boolean(m_data.m_size == 0);
             }
-            virtual T & operator [] (const Integer &);
+            virtual T & operator [](const Integer &);
             virtual void clear();
             virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override

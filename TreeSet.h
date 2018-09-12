@@ -4,6 +4,13 @@
 #include "Boolean.h"
 #include "Integer.h"
 
+/*
+    我希望
+    年年此时都能和你一起看星空
+*/
+
+#ifndef Action__TreeSet
+#define Action__TreeSet
 namespace Action
 {
     template <class T, class Tree = AVLTree<T> >
@@ -13,12 +20,12 @@ namespace Action
             struct Pointer
             {
                 private:
-                    typename Tree::Pointer m_pointer;
+                    typename Tree::Pointer m_ptr;
                 public:
-                    Pointer (typename Tree::Pointer pointer) : m_pointer (pointer) {}
+                    Pointer(typename Tree::Pointer pointer) : m_ptr(pointer) {}
                     Boolean operator == (const Pointer & another) const
                     {
-                        return Boolean (m_pointer == another.m_pointer);
+                        return Boolean(m_ptr == another.m_ptr);
                     }
                     Boolean operator != (const Pointer & another) const
                     {
@@ -26,42 +33,42 @@ namespace Action
                     }
                     T & operator *()
                     {
-                        return m_pointer.operator * ();
+                        return m_ptr.operator * ();
                     }
                     T * operator ->()
                     {
-                        return m_pointer.operator ->();
+                        return m_ptr.operator ->();
                     }
                     Pointer next() const
                     {
-                        return m_pointer.next();
+                        return m_ptr.next();
                     }
                     Pointer last() const
                     {
-                        return m_pointer.last();
+                        return m_ptr.last();
                     }
                     Pointer operator ++ (int)
                     {
-                        return m_pointer++;
+                        return m_ptr++;
                     }
                     Pointer & operator ++()
                     {
-                        ++m_pointer;
+                        ++m_ptr;
                         return *this;
                     }
                     Pointer operator -- (int)
                     {
-                        return m_pointer--;
+                        return m_ptr--;
                     }
                     Pointer & operator --()
                     {
-                        --m_pointer;
+                        --m_ptr;
                         return *this;
                     }
             };
 
             TreeSet() {}
-            TreeSet (const TreeSet & another) : m_tree (another.m_tree) {}
+            TreeSet(const TreeSet & another) : m_tree(another.m_tree) {}
             TreeSet & operator = (const TreeSet & another)
             {
                 m_tree = another.m_tree;
@@ -70,17 +77,17 @@ namespace Action
             {
                 return to_array() == another.to_array();
             }
-            virtual void insert (const T & element)
+            virtual void insert(const T & element)
             {
-                m_tree.insert (element);
+                m_tree.insert(element);
             }
-            virtual void erase (const T & element)
+            virtual void erase(const T & element)
             {
-                m_tree.erase (element);
+                m_tree.erase(element);
             }
-            virtual Boolean contains (const T & element) const
+            virtual Boolean contains(const T & element) const
             {
-                return Boolean (m_tree.find (element) != NULL);
+                return Boolean(m_tree.find(element) != NULL);
             }
             virtual Integer size() const
             {
@@ -88,7 +95,7 @@ namespace Action
             }
             virtual Boolean empty() const
             {
-                return Boolean (size() == 0);
+                return Boolean(size() == 0);
             }
             virtual ArrayList<T> to_array() const
             {
@@ -98,21 +105,21 @@ namespace Action
             {
                 m_tree.clear();
             }
-            virtual Pointer begin()
+            virtual Pointer begin() const
             {
-                return Pointer (m_tree.begin() );
+                return Pointer(m_tree.begin());
             }
-            virtual Pointer end()
+            virtual Pointer end() const
             {
-                return Pointer (m_tree.end() );
+                return Pointer(m_tree.end());
             }
-            virtual Pointer v_begin()
+            virtual Pointer v_begin() const
             {
-                return Pointer (m_tree.v_begin() );
+                return Pointer(m_tree.v_begin());
             }
-            virtual Pointer v_end()
+            virtual Pointer v_end() const
             {
-                return Pointer (m_tree.v_end() );
+                return Pointer(m_tree.v_end());
             }
             virtual String get_name() const override
             {
@@ -123,7 +130,8 @@ namespace Action
                 return to_array().to_string();
             }
             virtual ~TreeSet() {}
-        private:
+        protected:
             Tree m_tree;
     };
 }
+#endif /* Action__TreeSet */

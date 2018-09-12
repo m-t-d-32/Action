@@ -22,7 +22,7 @@ namespace Action
     }
 
     template <class T>
-    HashSet<T>::HashSet (const HashSet<T> & another)
+    HashSet<T>::HashSet(const HashSet<T> & another)
     {
         operator = (another);
     }
@@ -30,42 +30,42 @@ namespace Action
     template <class T>
     HashSet<T> & HashSet<T>::operator = (const HashSet & another)
     {
-        if (this == &another)
+        if(this == &another)
             return *this;
         m_size = another.m_size;
         m_link_capacity = another.iCapacity;
         m_links = new LinkedList<T> [m_link_capacity];
-        for (int i = 0; i < m_link_capacity; ++i)
+        for(int i = 0; i < m_link_capacity; ++i)
             m_links[i] = another.m_links[i];
         return *this;
     }
 
     template <class T>
-    void HashSet<T>::insert (const T & element)
+    void HashSet<T>::insert(const T & element)
     {
-        Object & temp_object = (Object &) (element);
+        Object & temp_object = (Object &)(element);
         int element_hash = temp_object.hash_code();
-        element_hash = element_hash % m_link_capacity;
-        for (typename LinkedList<T>::Pointer it = m_links[element_hash].begin(); it != m_links[element_hash].end(); ++it)
+        element_hash %= m_link_capacity;
+        for(typename LinkedList<T>::Pointer it = m_links[element_hash].begin(); it != m_links[element_hash].end(); ++it)
         {
-            if (*it == temp_object)
+            if(*it == temp_object)
                 return;
         }
-        m_links[element_hash].push_back (element);
+        m_links[element_hash].push_back(element);
         ++m_size;
-        if (m_link_capacity * INCREASE_CAPACITY.get_double() < m_size)
+        if(m_link_capacity * INCREASE_CAPACITY.get_double() < m_size)
             auto_increase();
     }
 
     template <class T>
-    void HashSet<T>::erase (const T & element)
+    void HashSet<T>::erase(const T & element)
     {
-        Object & temp_object = (Object &) (element);
+        Object & temp_object = (Object &)(element);
         int my_hash = temp_object.hash_code();
         my_hash = my_hash % m_link_capacity;
-        for (typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
+        for(typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
         {
-            if (*it == temp_object)
+            if(*it == temp_object)
             {
                 it.erase();
                 --m_size;
@@ -75,14 +75,14 @@ namespace Action
     }
 
     template <class T>
-    Boolean HashSet<T>::contains (const T & element) const
+    Boolean HashSet<T>::contains(const T & element) const
     {
-        Object & temp_object = (Object &) (element);
+        Object & temp_object = (Object &)(element);
         int my_hash = temp_object.hash_code();
         my_hash = my_hash % m_link_capacity;
-        for (typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
+        for(typename LinkedList<T>::Pointer it = m_links[my_hash].begin(); it != m_links[my_hash].end(); ++it)
         {
-            if (*it == temp_object)
+            if(*it == temp_object)
             {
                 return Boolean::True;
             }
@@ -94,11 +94,11 @@ namespace Action
     ArrayList<T> HashSet<T>::to_array() const
     {
         ArrayList<T> result_arraylist;
-        for (int i = 0; i < m_link_capacity; ++i)
+        for(int i = 0; i < m_link_capacity; ++i)
         {
-            for (typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
+            for(typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
             {
-                result_arraylist.push_back (*it);
+                result_arraylist.push_back(*it);
             }
         }
         return result_arraylist;
@@ -107,7 +107,7 @@ namespace Action
     template <class T>
     void HashSet<T>::clear()
     {
-        for (int i = 0; i < m_link_capacity; ++i)
+        for(int i = 0; i < m_link_capacity; ++i)
         {
             m_links[i].clear();
         }
@@ -117,41 +117,41 @@ namespace Action
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::begin() const
     {
-        if (m_size == 0)
+        if(m_size == 0)
             return end();
         int i;
-        for (i = 0; i < m_link_capacity; ++i)
+        for(i = 0; i < m_link_capacity; ++i)
         {
-            if (m_links[i].size() != 0)
+            if(m_links[i].size() != 0)
                 break;
         }
-        return Pointer (this, m_links[i].begin() );
+        return Pointer(this, m_links[i].begin());
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::end() const
     {
-        return Pointer (this, m_links[0].end() );
+        return Pointer(this, m_links[0].end());
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::v_begin() const
     {
-        return Pointer (NULL, m_links[1].end() );
+        return Pointer(this, m_links[0].v_begin());
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::v_end() const
     {
-        if (m_size == 0)
+        if(m_size == 0)
             return end();
         int i;
-        for (i = m_link_capacity - 1; i >= 0; --i)
+        for(i = m_link_capacity - 1; i >= 0; --i)
         {
-            if (m_links[i].size() != 0)
+            if(m_links[i].size() != 0)
                 break;
         }
-        return Pointer (this, m_links[i].v_end() );
+        return Pointer(this, m_links[i].v_end());
     }
 
     template <class T>
@@ -159,14 +159,14 @@ namespace Action
     {
         int temp_capacity = EVERY_INCREASE.get_int() * m_link_capacity;
         LinkedList<T> *new_links = new LinkedList<T>[temp_capacity];
-        for (int i = 0; i < m_link_capacity; ++i)
+        for(int i = 0; i < m_link_capacity; ++i)
         {
-            for (typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
+            for(typename LinkedList<T>::Pointer it = m_links[i].begin(); it != m_links[i].end(); ++it)
             {
-                Object & temp_object = (Object &) (*it);
+                Object & temp_object = (Object &)(*it);
                 int temp_object_hash = temp_object.hash_code();
                 temp_object_hash = temp_object_hash % temp_capacity;
-                new_links[temp_object_hash].push_back (*it);
+                new_links[temp_object_hash].push_back(*it);
             }
         }
         delete []m_links;
@@ -180,4 +180,4 @@ namespace Action
         delete []m_links;
     }
 }
-#endif
+#endif /* HASHSET__CPP */

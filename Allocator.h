@@ -6,7 +6,7 @@
 #include "Alloc_OutOfMemory.h"
 
 /*
-	月亮在白莲花般的云朵里穿行,
+	月亮在白莲花般的云朵里穿行
 	晚风吹来一阵阵欢乐的歌声
 */
 
@@ -24,13 +24,13 @@ namespace Action
             const static Integer BEGIN_SPACE;
 
             Allocator();
-            virtual void set_capacity (const Integer &);
+            virtual void set_capacity(const Integer &);
             virtual inline Integer get_capacity() const
             {
                 return m_capacity;
             }
-            virtual void construct (const Integer &, const T &);
-            virtual void destruct (const Integer &);
+            virtual void construct(const Integer &, const T &);
+            virtual void destruct(const Integer &);
             virtual T * get_space();
             virtual String get_name() const;
             virtual ~Allocator();
@@ -38,10 +38,10 @@ namespace Action
 #if __cplusplus < 201103L
         private:
             Allocator & operator = (const Allocator &);
-            Allocator (const Allocator &);
+            Allocator(const Allocator &);
 #else
             void operator = (const Allocator &) = delete;
-            Allocator (const Allocator &) = delete;
+            Allocator(const Allocator &) = delete;
 #endif
 
         private:

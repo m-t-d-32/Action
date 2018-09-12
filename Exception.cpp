@@ -4,12 +4,12 @@
 
 namespace Action
 {
-    Exception::Exception() : m_cause (NULL) {}
+    Exception::Exception() : m_cause(NULL) {}
     Exception * Exception::get_cause() const
     {
         return m_cause;
     }
-    void Exception::init_cause (Exception * cause_exception)
+    void Exception::init_cause(Exception * cause_exception)
     {
         m_cause = cause_exception;
     }

@@ -18,25 +18,25 @@ namespace Action
     {
         return __MY__VERSION__98;
     }
-    void Object::print (std::ostream & os) const
+    void Object::print(std::ostream & os) const
     {
-        to_string().print (os);
+        to_string().print(os);
     }
-    void Object::println (std::ostream & os) const
+    void Object::println(std::ostream & os) const
     {
-        (to_string() + "\n").print (os);
+        (to_string() + "\n").print(os);
     }
-    Boolean Object::compare_to (const Object & os) const
+    Boolean Object::compare_to(const Object & os) const
     {
         return Boolean::False;
     }
     int Object::hash_code() const
     {
-        return ::_hashCode ( (INT64) this);
+        return ::_hashCode((INT64) this);
     }
     Boolean Object::operator == (const Object & arg) const
     {
-        return Boolean (this == (&arg) );
+        return Boolean(this == (&arg));
     }
     Boolean Object::operator != (const Object & arg) const
     {

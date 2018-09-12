@@ -23,8 +23,8 @@ namespace Action
     {
         public:
             Heap();
-            Heap (const Heap &);
-            Heap (const ArrayList<T> &);
+            Heap(const Heap &);
+            Heap(const ArrayList<T> &);
             Heap & operator = (const Heap &);
 
             virtual Integer size() const
@@ -34,9 +34,9 @@ namespace Action
             virtual T front() const;
             virtual Boolean empty() const
             {
-                return Boolean (m_data.size() <= 0);
+                return Boolean(m_data.size() <= 0);
             }
-            virtual void insert (const T &);
+            virtual void insert(const T &);
             virtual void clear();
             virtual T pop();
             virtual Boolean operator == (const Object &) const override;

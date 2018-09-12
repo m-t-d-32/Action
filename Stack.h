@@ -4,8 +4,8 @@
 #include "Type_NotCorrespond.h"
 
 /*
-    想去了解你
-    了解你光芒以外的地方
+    知世故而不世故
+    才是最善良的成熟
 */
 
 #ifndef Action__Stack
@@ -19,10 +19,10 @@ namespace Action
             ArrayList<T> m_array;
         public:
             Stack() {}
-            Stack (const Stack & another) : m_array (another.m_array) {}
+            Stack(const Stack & another) : m_array(another.m_array) {}
             Stack & operator = (const Stack &);
 
-            virtual void push (const T &);
+            virtual void push(const T &);
             virtual T pop();
             virtual T top() const ;
             virtual void clear()
@@ -41,10 +41,10 @@ namespace Action
             {
                 try
                 {
-                    const Stack<T> & another_stack = dynamic_cast<const Stack<T> &> (another_one);
+                    const Stack<T> & another_stack = dynamic_cast<const Stack<T> &>(another_one);
                     return m_array == another_stack.m_array;
                 }
-                catch (std::bad_cast)
+                catch(std::bad_cast)
                 {
                     throw Type_NotCorrespond();
                 }
