@@ -35,9 +35,10 @@ namespace Action
             }
             virtual ~BitSet() {}
         private:
-            const static int BITCOUNT = 8 * sizeof(char);
+            const static int BITCOUNT;
             int m_ptr_byte, m_ptr_bit;
             ArrayList<char> m_data;
     };
+	const int BitSet::BITCOUNT = 8 * sizeof(char);
 }
 #endif /* Action__BitSet */

@@ -8,6 +8,7 @@ int main()
     //现在使用我们的库开始工作！
     srand(time(NULL));  //做一些随机数的准备
 
+	int i;
     //首先输出最简单的Hello World！
     String hello = "Hello World!";
     hello.println();
@@ -51,7 +52,7 @@ int main()
 
     //有序的集合TreeSet可以帮我们排序哦，让我们试一试！
     TreeSet<Integer> another_set;
-    for(int i = 0; i < 100; ++i)
+    for(i = 0; i < 100; ++i)
     {
         another_set.insert(rand() % 50);
     }
@@ -64,7 +65,7 @@ int main()
     my_map.insert("China", 2);  //如果插入重复的键，那么对应的值会被替换
     my_map.println();   //现在打印一下结果
     my_map.clear();     //如果要清空整个字典，可以使用clear方法。
-    for(int i = 0; i < 100; ++i)    //现在用随机数试试它们是否有序
+    for(i = 0; i < 100; ++i)    //现在用随机数试试它们是否有序
     {
         String temp;
         for(int j = 0; j < 5; ++j)
@@ -77,7 +78,7 @@ int main()
 
     //带排序的字典内部使用二叉树实现，因此它们有序，让我们再把刚才的实验做一遍。
     TreeMap<String, Integer> another_map;
-    for(int i = 0; i < 100; ++i)    //两种字典的方法几乎完全相同。
+    for(i = 0; i < 100; ++i)    //两种字典的方法几乎完全相同。
     {
         String temp;
         for(int j = 0; j < 5; ++j)
@@ -114,7 +115,7 @@ int main()
 
     //使用堆（Heap）可以实现优先队列的功能，我们可以用Heap类构建一个最小堆。
     ArrayList<Integer> temp_array;
-    for(int i = 0; i < 10; ++i)
+    for(i = 0; i < 10; ++i)
     {
         temp_array.push_back(rand());
     }
