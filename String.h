@@ -37,8 +37,6 @@ namespace Action
             }
             void append(const char &);
             void append(const String &);
-            String operator + (const char &) const;
-            String operator + (const String &) const;
             String operator += (const char &);
             String operator += (const String &);
             void insert(const Integer &, const char &);
@@ -69,5 +67,7 @@ namespace Action
         private:
             ArrayList<char> m_chars;
     };
+
+    String operator + (const String &, const String &);
 }
 #endif /* Action__String */

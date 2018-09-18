@@ -35,29 +35,15 @@ namespace Action
         m_chars.insert(length(), string_value.m_chars, 0, string_value.length());
     }
 
-    String String::operator + (const char & char_value) const
-    {
-        String return_string = *this;
-        return_string.append(char_value);
-        return return_string;
-    }
-
-    String String::operator + (const String & string_value) const
-    {
-        String return_string = *this;
-        return_string.append(string_value);
-        return return_string;
-    }
-
     String String::operator += (const char & char_value)
     {
-        *this = *this + char_value;
+        append(char_value);
         return *this;
     }
 
     String String::operator += (const String & string_value)
     {
-        *this = *this + string_value;
+        append(string_value);
         return *this;
     }
 
@@ -128,5 +114,12 @@ namespace Action
         {
             throw Type_NotCorrespond();
         }
+    }
+
+    String operator + (const String & str_1, const String & str_2)
+    {
+        String return_value = str_1;
+        return_value.append(str_2);
+        return return_value;
     }
 }

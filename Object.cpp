@@ -42,7 +42,30 @@ namespace Action
     {
         return NOT operator == (arg);
     }
-    Object::~Object()
+    Object::~Object() {}
+
+    String operator + (const Object & obj_arg, const String & str_arg)
     {
+        String return_value = obj_arg.to_string();
+        return_value.append(str_arg);
+        return return_value;
+    }
+    String operator + (const String & str_arg, const Object & obj_arg)
+    {
+        String return_value = str_arg;
+        return_value.append(obj_arg.to_string());
+        return return_value;
+    }
+    String operator + (const Object & obj_arg, const char * cstr_arg)
+    {
+        String return_value = obj_arg.to_string();
+        return_value.append(cstr_arg);
+        return return_value;
+    }
+    String operator + (const char * cstr_arg, const Object & obj_arg)
+    {
+        String return_value = cstr_arg;
+        return_value.append(obj_arg.to_string());
+        return return_value;
     }
 }

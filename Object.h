@@ -61,6 +61,10 @@ namespace Action
             virtual int hash_code() const;
             virtual ~Object();
     };
+    String operator + (const Object &, const String &);
+    String operator + (const String &, const Object &);
+    String operator + (const Object &, const char *);
+    String operator + (const char *, const Object &);
 }
 
 #endif /* Action__Object */

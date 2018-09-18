@@ -12,7 +12,8 @@ int main()
     //首先输出最简单的Hello World！
     String hello = "Hello World!";
     hello.println();
-    (hello + " We are coding now!").println();   //正像你想的那样，两个字符串可以拼接。
+    (hello + " We are coding now!").println();
+    ("We are coding now! " + hello).println();   //正像你想的那样，两个字符串可以拼接。
 
     //现在学会使用整数和实数！
     Integer a = 3, b = 4;
