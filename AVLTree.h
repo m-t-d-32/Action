@@ -22,7 +22,7 @@ namespace Action
         public:
             struct Node
             {
-                Node * m_left, * m_right, * m_parent;
+                Node *m_left, *m_right, *m_parent;
                 int m_height;
                 T m_value;
                 Node(const T & value) : m_value(value)
