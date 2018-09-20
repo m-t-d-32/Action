@@ -46,26 +46,18 @@ namespace Action
 
     String operator + (const Object & obj_arg, const String & str_arg)
     {
-        String return_value = obj_arg.to_string();
-        return_value.append(str_arg);
-        return return_value;
+        return obj_arg.to_string() + str_arg.to_string();
     }
     String operator + (const String & str_arg, const Object & obj_arg)
     {
-        String return_value = str_arg;
-        return_value.append(obj_arg.to_string());
-        return return_value;
+        return str_arg.to_string() + obj_arg.to_string();
     }
     String operator + (const Object & obj_arg, const char * cstr_arg)
     {
-        String return_value = obj_arg.to_string();
-        return_value.append(cstr_arg);
-        return return_value;
+        return obj_arg.to_string() + String(cstr_arg);
     }
     String operator + (const char * cstr_arg, const Object & obj_arg)
     {
-        String return_value = cstr_arg;
-        return_value.append(obj_arg.to_string());
-        return return_value;
+        return String(cstr_arg) + obj_arg.to_string();
     }
 }

@@ -153,28 +153,28 @@ namespace Action
             }
             inline friend Integer bit_left(const Integer & value, const Integer & count)
             {
-                if(count.m_value >= sizeof(int) * 8 ||
+                if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(((unsigned int) value.m_value) << count.m_value);
                 return ((unsigned int) value.m_value) << count.m_value;
             }
             inline friend Integer bit_right(const Integer & value, const Integer & count)
             {
-                if(count.m_value >= sizeof(int) * 8 ||
+                if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(((unsigned int) value.m_value) >> count.m_value);
                 return ((unsigned int) value.m_value) >> count.m_value;
             }
             inline friend Integer algorithm_bit_left(const Integer & value, const Integer & count)
             {
-                if(count.m_value >= sizeof(int) * 8 ||
+                if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(value.m_value << count.m_value);
                 return value.m_value << count.m_value;
             }
             inline friend Integer algorithm_bit_right(const Integer & value, const Integer & count)
             {
-                if(count.m_value >= sizeof(int) * 8 ||
+                if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(value.m_value >> count.m_value);
                 return value.m_value >> count.m_value;

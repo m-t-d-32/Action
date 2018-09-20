@@ -61,55 +61,69 @@ namespace Action
                     }
                     Pointer next() const
                     {
-                        if(!m_node)
+                        if(*this == m_tree->end())
                             throw AVLTree_IllegalPointer();
-                        else if(m_node->m_right)
-                        {
-                            Node * address_cursor = m_node->m_right;
-                            while(address_cursor->m_left)
-                            {
-                                address_cursor = address_cursor->m_left;
-                            }
-                            return Pointer(m_tree, address_cursor);
-                        }
+                        else if(*this == m_tree->v_end())
+                            return m_tree->end();
+                        else if(*this == m_tree->v_begin())
+                            return m_tree->begin();
                         else
                         {
-                            Node * address_cursor = m_node;
-                            while(address_cursor->m_parent)
+                            if(m_node->m_right)
                             {
-                                if(address_cursor == address_cursor->m_parent->m_right)
-                                    address_cursor = address_cursor->m_parent;
-                                else
-                                    return Pointer(m_tree, address_cursor->m_parent);
+                                Node * address_cursor = m_node->m_right;
+                                while(address_cursor->m_left)
+                                {
+                                    address_cursor = address_cursor->m_left;
+                                }
+                                return Pointer(m_tree, address_cursor);
                             }
+                            else
+                            {
+                                Node * address_cursor = m_node;
+                                while(address_cursor->m_parent)
+                                {
+                                    if(address_cursor == address_cursor->m_parent->m_right)
+                                        address_cursor = address_cursor->m_parent;
+                                    else
+                                        return Pointer(m_tree, address_cursor->m_parent);
+                                }
+                            }
+                            return Pointer(m_tree, NULL);
                         }
-                        return Pointer(m_tree, NULL);
                     }
                     Pointer last() const
                     {
-                        if(!m_node)
+                        if(*this == m_tree->v_begin())
                             throw AVLTree_IllegalPointer();
-                        else if(m_node->m_left)
-                        {
-                            Node * address_cursor = m_node->m_left;
-                            while(address_cursor->m_right)
-                            {
-                                address_cursor = address_cursor->m_right;
-                            }
-                            return Pointer(m_tree, address_cursor);
-                        }
+                        else if(*this == m_tree->begin())
+                            return m_tree->v_begin();
+                        else if(*this == m_tree->end())
+                            return m_tree->v_end();
                         else
                         {
-                            Node * address_cursor = m_node;
-                            while(address_cursor->m_parent)
+                            if(m_node->m_left)
                             {
-                                if(address_cursor == address_cursor->m_parent->m_left)
-                                    address_cursor = address_cursor->m_parent;
-                                else
-                                    return Pointer(m_tree, address_cursor->m_parent);
+                                Node * address_cursor = m_node->m_left;
+                                while(address_cursor->m_right)
+                                {
+                                    address_cursor = address_cursor->m_right;
+                                }
+                                return Pointer(m_tree, address_cursor);
                             }
+                            else
+                            {
+                                Node * address_cursor = m_node;
+                                while(address_cursor->m_parent)
+                                {
+                                    if(address_cursor == address_cursor->m_parent->m_left)
+                                        address_cursor = address_cursor->m_parent;
+                                    else
+                                        return Pointer(m_tree, address_cursor->m_parent);
+                                }
+                            }
+                            return Pointer(m_tree, NULL);
                         }
-                        return Pointer(m_tree, NULL);
                     }
                     Pointer & operator ++()
                     {
@@ -234,7 +248,7 @@ namespace Action
             }
             void _to_array(ArrayList<T> * now_array, const Node * _node) const
             {
-                if(_node == NULL)
+                if(!_node)
                     return;
                 _to_array(now_array, _node->m_left);
                 (*now_array).push_back(_node->m_value);
@@ -484,7 +498,7 @@ namespace Action
             }
             ~AVLTree()
             {
-                clear();
+                _clear(m_root);
             }
     };
 }

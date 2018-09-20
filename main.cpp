@@ -37,9 +37,10 @@ int main()
     my_links.push_back(1);
     my_links.push_back(3);
     my_links.println();
-    for(LinkedList<Integer>::Pointer it = my_links.begin(); it != my_links.end(); ++it)
+	LinkedList<Integer>::Pointer link_it = my_links.begin();
+    for(; link_it != my_links.end(); ++link_it)
     {
-        (*it).println();    //让我们用迭代器把元素遍历输出吧！
+        link_it->println();    //让我们用迭代器把元素遍历输出吧！
     }
     String("The following operation is deprecated!").println();
     my_links[1].println();  //不到迫不得已的时候不要下标访问，如果真的需要，请使用ArrayList！
@@ -53,11 +54,24 @@ int main()
 
     //有序的集合TreeSet可以帮我们排序哦，让我们试一试！
     TreeSet<Integer> another_set;
-    for(i = 0; i < 100; ++i)
+    for(i = 0; i < 60; ++i)
     {
         another_set.insert(rand() % 50);
     }
     another_set.println();  //可以看出TreeSet不仅去掉了重复元素，而且排好了序。
+
+	TreeSet<Integer>::Pointer set_it = another_set.begin();
+    String("Print by Pointer!").println(); //可以用迭代器（Pointer）遍历元素
+    for(; set_it != another_set.end(); ++set_it)
+    {
+        set_it->println();
+    }
+    String("Print reserved!").println(); //可以反过来遍历，注意是v_end和v_begin，代表end和begin前面的元素
+
+    for(set_it = another_set.v_end(); set_it != another_set.v_begin(); --set_it)
+    {
+        set_it->println();
+    }
 
     //字典是使用哈希结构实现的，使用字典可以提高查找效率。
     HashMap<String, Integer> my_map; //创建字典，键是String，值是Integer

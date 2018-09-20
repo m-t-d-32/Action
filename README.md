@@ -30,12 +30,17 @@ Action 不断发展，也需要您的支持和贡献。
 
 ## 其他
 
-欢迎给 star 、提 issue 或者 pull request 。
+警告：请勿使用Visual C++ 6.0或者更早的编译器对项目进行编译。
+文件使用Unicode编码，放入Visual C++ 6.0会显示中文乱码。
+如果一定需要使用Visual C++ 6.0，请打开运行时类型转换（RTTI）选项
+否则会造成运行错误。
 
-欢迎发邮件给我。
+** 添加到一个工程时，请不要忘了添加.c文件和.hpp文件。 **
+
+欢迎给 star 、提 issue 或者 pull request。
+
+如果有问题，欢迎发邮件给我。我的邮箱是 blue-maple@foxmail.com
 
 本项目遵守 GNU General Public License v3.0 许可条款。
 
-By NorthBankWalker. All Rights Reserved.
-
-blue-maple@foxmail.com
+By NorthBankWalker. 2008-2018, All Rights Reserved.

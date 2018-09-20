@@ -122,4 +122,12 @@ namespace Action
         return_value.append(str_2);
         return return_value;
     }
+    String operator + (const String & str_1, const char * str_2)
+    {
+        return str_1 + String(str_2);
+    }
+    String operator + (const char * str_1, const String & str_2)
+    {
+        return String(str_1) + str_2;
+    }
 }

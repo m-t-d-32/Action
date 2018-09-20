@@ -69,5 +69,7 @@ namespace Action
     };
 
     String operator + (const String &, const String &);
+    String operator + (const String &, const char *);
+    String operator + (const char *, const String &);
 }
 #endif /* Action__String */
