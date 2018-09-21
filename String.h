@@ -31,6 +31,10 @@ namespace Action
             {
                 return m_chars[index];
             }
+            inline char at(const Integer & index) const
+            {
+                return m_chars.at(index);
+            }
             inline Boolean empty() const
             {
                 return Boolean(length() == 0);
@@ -42,8 +46,8 @@ namespace Action
             void insert(const Integer &, const char &);
             void insert(const Integer &, const String &);
             void clear();
-            Integer find(const String &) const;
-            Integer find(const char &) const;
+            Integer find(const String &, const Integer & begin = 0) const;
+            Integer find(const char &, const Integer & begin = 0) const;
             inline const char * c_str() const
             {
                 return m_chars.m_data;

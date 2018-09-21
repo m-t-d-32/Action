@@ -22,7 +22,6 @@ namespace Action
         m_chars.push_back('\0');
     }
 
-
     String::String(const String & string_value) : m_chars(string_value.m_chars) {}
 
     void String::append(const char & char_value)
@@ -63,15 +62,59 @@ namespace Action
         m_chars.insert(position, string_value.m_chars, 0, string_value.length());
     }
 
-    Integer String::find(const char & char_value) const
+    Integer String::find(const char & char_value, const Integer & begin) const
     {
-        return m_chars.find(char_value);
+        for (int i = begin.get_int(); i < m_chars.size().get_int(); ++i)
+        {
+            if (m_chars.at(i) == char_value)
+                return i;
+        }
+        return -1;
     }
 
-    Integer String::find(const String & string_value) const
+    Integer String::find(const String & string_value, const Integer & begin) const
     {
-        //KMP Algorithm
-        return 0;
+        int this_length = length().get_int(), another_length = string_value.length().get_int();
+        if(another_length == 0 || this_length - begin.get_int() < another_length)
+            return -1;
+        int * nexts = new int[another_length];
+        nexts[0] = 0;
+        int src_index = 0, dest_index = 0;
+        while(dest_index != another_length)
+        {
+            if(string_value.at(src_index) == string_value.at(dest_index + 1))
+            {
+                nexts[++dest_index] = ++src_index;
+            }
+            else if(!src_index)
+            {
+                nexts[++dest_index] = 0;
+            }
+            else
+            {
+                src_index = nexts[src_index - 1];
+            }
+        }
+        for(int i = begin.get_int(); i <= this_length - another_length;)
+        {
+            bool found = true;
+            for(int j = 0; j < another_length; ++j)
+            {
+                if(at(i + j) != string_value.at(j))
+                {
+                    i += (j == 0 ? 1 : j - nexts[j - 1]);
+                    found = false;
+                    break;
+                }
+            }
+            if(found)
+            {
+                delete []nexts;
+                return i;
+            }
+        }
+        delete []nexts;
+        return -1;
     }
 
     String & String::operator= (const String & another_string)
