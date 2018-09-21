@@ -94,6 +94,8 @@
 		<Unit filename="Real_NotANumber.h" />
 		<Unit filename="Real_OutOfBound.cpp" />
 		<Unit filename="Real_OutOfBound.h" />
+		<Unit filename="Scanner.cpp" />
+		<Unit filename="Scanner.h" />
 		<Unit filename="Set_ElementNotExists.cpp" />
 		<Unit filename="Set_ElementNotExists.h" />
 		<Unit filename="Set_PtrOutOfRange.cpp" />

@@ -137,7 +137,14 @@ int main()
     Heap<Integer> my_heap(temp_array);
     my_heap.println();  //根据打印的数据，你能否画出一个最小堆呢？试试看吧！
 
+    //想获得用户的输入吗？Scanner可以解决这个问题。
+    Scanner in;
+    in.next_line().println(); //现在输入一行，看看会不会原样输出来。
+
+    //可以这样将输入的整数转化成一个Integer对象。如果输入的整数太大，会抛出异常。
+    in.next_integer().println();
+
     //感谢使用！
-    //Powered By Windows NT Version 6.0 Pre.
+    //Powered By Windows NT Version 6.0 Insider Preview.
     return 0;
 }

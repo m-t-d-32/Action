@@ -39,6 +39,12 @@ namespace Action
             {
                 m_value = value.m_value;
             }
+            explicit Integer(INT64 value)
+            {
+                if (value > MAX_VALUE.get_int())
+                    throw Integer_OutOfBound((int)value);
+                m_value = (int)value;
+            }
             explicit Integer(const Real & value)
             {
                 m_value = (int) value.get_double();

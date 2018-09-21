@@ -20,6 +20,7 @@
 #include "Pair.h"
 #include "TreeSet.h"
 #include "TreeMap.hpp"
+#include "Scanner.h"
 
 #endif /* Action_EasyInclude */
 
