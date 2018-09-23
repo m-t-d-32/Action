@@ -7,10 +7,12 @@
 #include <cctype>
 
 /*
-    ¼ÈÈ»Ñ¡ÔñÁËÔ¶·½
-    ±ãÖ»¹Ë·çÓê¼æ³Ì
+    æ—¢ç„¶é€‰æ‹©äº†è¿œæ–¹
+    ä¾¿åªé¡¾é£é›¨å…¼ç¨‹
 */
 
+#ifndef Action__Scanner
+#define Action__Scanner
 namespace Action
 {
     class Scanner
@@ -18,6 +20,9 @@ namespace Action
         public:
             Scanner(std::istream & is = std::cin);
             Scanner(const Scanner &);
+            Boolean has_next();
+            Boolean has_next_integer();
+            Boolean has_next_real();
             Integer next_integer();
             Real next_real();
             String next_line();
@@ -27,8 +32,11 @@ namespace Action
             void add_separator(char);
             String next_all();
         private:
-            bool is_separator(char);
+            void clear_separator();
+            void ungets(const ArrayList<char> &);
+            bool is_separator(char) const;
             std::istream & m_istream;
             String m_separators;
     };
 }
+#endif /* Action__Scanner */

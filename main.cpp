@@ -8,7 +8,7 @@ int main()
     //现在使用我们的库开始工作！
     srand(time(NULL));  //做一些随机数的准备
 
-	int i;
+    int i;
     //首先输出最简单的Hello World！
     String hello = "Hello World!";
     hello.println();
@@ -37,7 +37,7 @@ int main()
     my_links.push_back(1);
     my_links.push_back(3);
     my_links.println();
-	LinkedList<Integer>::Pointer link_it = my_links.begin();
+    LinkedList<Integer>::Pointer link_it = my_links.begin();
     for(; link_it != my_links.end(); ++link_it)
     {
         link_it->println();    //让我们用迭代器把元素遍历输出吧！
@@ -60,7 +60,7 @@ int main()
     }
     another_set.println();  //可以看出TreeSet不仅去掉了重复元素，而且排好了序。
 
-	TreeSet<Integer>::Pointer set_it = another_set.begin();
+    TreeSet<Integer>::Pointer set_it = another_set.begin();
     String("Print by Pointer!").println(); //可以用迭代器（Pointer）遍历元素
     for(; set_it != another_set.end(); ++set_it)
     {
@@ -139,10 +139,10 @@ int main()
 
     //想获得用户的输入吗？Scanner可以解决这个问题。
     Scanner in;
-    in.next_line().println(); //现在输入一行，看看会不会原样输出来。
+    in.has_next_real().println(); //现在先检查一下能否从输入中获取一个浮点数。
 
-    //可以这样将输入的整数转化成一个Integer对象。如果输入的整数太大，会抛出异常。
-    in.next_integer().println();
+    //如果是True那么我们就能放心地读入这个输入了。你可以输入3.3或者.3试一试，后者会被读入成0.3。
+    in.next_real().println();
 
     //感谢使用！
     //Powered By Windows NT Version 6.0 Insider Preview.
