@@ -28,7 +28,7 @@ namespace Action
                     const HashSet * m_set;
                     typename LinkedList<T>::Pointer m_ptr;
                 public:
-                    Pointer(const HashSet * set, typename LinkedList<T>::Pointer ptr) :
+                    Pointer(const HashSet * set, const typename LinkedList<T>::Pointer & ptr) :
                         m_set(set), m_ptr(ptr) {}
                     T & operator *()
                     {

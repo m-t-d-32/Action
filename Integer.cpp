@@ -10,13 +10,13 @@ namespace Action
 #ifdef INT_MAX
     const Integer Integer::MAX_VALUE = INT_MAX;
 #else
-    const Integer Integer::MAX_VALUE = ~(1 << (sizeof(int) * 8 - 1));
+    const Integer Integer::MAX_VALUE = ~(((unsigned int) 1) << (sizeof(unsigned int) * 8 - 1));
 #endif
 
 #ifdef INT_MIN
     const Integer Integer::MIN_VALUE = INT_MIN;
 #else
-    const Integer Integer::MIN_VALUE = 1 << (sizeof(int) * 8 - 1);
+    const Integer Integer::MIN_VALUE = ((unsigned int) 1) << (sizeof(unsigned int) * 8 - 1);
 #endif
     Boolean Integer::operator == (const Object & another_one) const
     {

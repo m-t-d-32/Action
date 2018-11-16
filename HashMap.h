@@ -43,7 +43,7 @@ namespace Action
                 private:
                     typename HashSet<Pair<K, V> >::Pointer m_ptr;
                 public:
-                    Pointer(typename HashSet<Pair<K, V> >::Pointer ptr) : m_ptr(ptr) {}
+                    Pointer(const typename HashSet<Pair<K, V> >::Pointer & ptr) : m_ptr(ptr) {}
                     Pair<K, V>  & operator *()
                     {
                         return *m_ptr;

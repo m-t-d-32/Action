@@ -9,8 +9,8 @@
 #include "Boolean.h"
 
 /*
-    秋天短到没有
-    你我短到不能回头
+    祝你岁月无波澜
+	敬我余生不悲欢
 */
 
 #ifndef Action__Real

@@ -7,10 +7,8 @@
 namespace Action
 {
     template<class K, class V, class Tree>
-    TreeMap<K, V, Tree>::TreeMap(const TreeMap & another)
-    {
-        m_set = another.m_set;
-    }
+    TreeMap<K, V, Tree>::TreeMap(const TreeMap & another):
+		m_set(another.m_set){}
 
     template<class K, class V, class Tree>
     TreeMap<K, V, Tree> & TreeMap<K, V, Tree>::operator = (const TreeMap & another)

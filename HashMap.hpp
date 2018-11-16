@@ -7,10 +7,8 @@
 namespace Action
 {
     template<class K, class V>
-    HashMap<K, V>::HashMap(const HashMap & another)
-    {
-        m_set = another.m_set;
-    }
+    HashMap<K, V>::HashMap(const HashMap & another):
+		m_set(another.m_set){}
 
     template<class K, class V>
     HashMap<K, V> & HashMap<K, V>::operator = (const HashMap & another)
