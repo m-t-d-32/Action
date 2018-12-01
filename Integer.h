@@ -6,8 +6,8 @@
 #include "DividedByZero.h"
 
 /*
-	春水初生，春林初盛
-	春风十里，不如你
+    春水初生，春林初盛
+    春风十里，不如你
 */
 
 #ifndef Action__Integer
@@ -155,7 +155,7 @@ namespace Action
             }
             inline friend Integer bit_not(const Integer & value)
             {
-                return	~value.m_value;
+                return    ~value.m_value;
             }
             inline friend Integer bit_left(const Integer & value, const Integer & count)
             {

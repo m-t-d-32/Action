@@ -10,7 +10,7 @@
 
 /*
     祝你岁月无波澜
-	敬我余生不悲欢
+    敬我余生不悲欢
 */
 
 #ifndef Action__Real
@@ -201,4 +201,4 @@ namespace Action
             static Real PRECISION;
     };
 }
-#endif	/* Action__Real */
+#endif    /* Action__Real */

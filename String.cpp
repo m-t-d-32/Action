@@ -123,17 +123,17 @@ namespace Action
         return *this;
     }
 
-    void String::print(std::ostream & print_stream) const override
+    void String::print(std::ostream & print_stream) const
     {
         print_stream << m_chars.m_data;
     }
 
-    int String::hash_code() const override
+    int String::hash_code() const
     {
         return ::_str_hashCode(m_chars.m_data, length().get_int());
     }
 
-    Boolean String::operator == (const Action::Object & another_one) const override
+    Boolean String::operator == (const Action::Object & another_one) const
     {
         try
         {
@@ -146,7 +146,7 @@ namespace Action
         }
     }
 
-    Boolean String::compare_to(const Object & another_one) const override
+    Boolean String::compare_to(const Object & another_one) const
     {
         try
         {

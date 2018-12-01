@@ -23,7 +23,7 @@ namespace Action
         const int MAX_LENGTH = 100;
 
         char return_string[MAX_LENGTH] = {0};
-        sprintf(return_string, "%lf", m_value);
+        sprintf(return_string, "%f", m_value);
         return return_string;
     }
     Boolean Real::compare_to(const Object & another_one) const

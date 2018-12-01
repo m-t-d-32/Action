@@ -24,7 +24,7 @@ namespace Action
             Boolean(const Boolean & another) : Byte(another) {}
             Boolean & operator = (const Boolean & another)
             {
-                another.get_val() ? (*this = True) : (*this = False);
+                another.get_val() ? (set_val(-1)) : (set_val(0));
                 return *this;
             }
             explicit Boolean(char value)

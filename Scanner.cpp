@@ -14,12 +14,22 @@ namespace Action
         return (m_separators.find(value).get_int() != -1);
     }
 
+    char Scanner::peek() const
+    {
+        return m_istream.peek();
+    }
+
+    char Scanner::get()
+    {
+        return m_istream.get();
+    }
+
     void Scanner::clear_separator()
     {
         while(true)
         {
             char read_value = m_istream.peek();
-            if(!is_separator(read_value))
+            if(read_value == EOF || !is_separator(read_value))
                 break;
             m_istream.get();
         }

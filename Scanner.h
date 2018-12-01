@@ -31,8 +31,10 @@ namespace Action
             void add_separators(const String &);
             void add_separator(char);
             String next_all();
-        private:
             void clear_separator();
+            char peek() const;
+            char get();
+        private:
             void ungets(const ArrayList<char> &);
             bool is_separator(char) const;
             std::istream & m_istream;

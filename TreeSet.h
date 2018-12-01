@@ -72,7 +72,7 @@ namespace Action
             TreeSet & operator = (const TreeSet & another)
             {
                 m_tree = another.m_tree;
-				return *this;
+                return *this;
             }
             Boolean operator == (const TreeSet & another)
             {
