@@ -6,7 +6,7 @@ namespace Action
 {
     String Deque_IndexOutOfRange::get_name() const
     {
-        return "Action::ArrayList_IndexOutOfRange";
+        return "Action::Deque_IndexOutOfRange";
     }
     String Deque_IndexOutOfRange::to_string() const
     {

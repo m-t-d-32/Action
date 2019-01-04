@@ -4,41 +4,38 @@
 #include "Integer.h"
 #include "Boolean.h"
 #include "DefaultCompare.h"
-#include "AVLTree_IllegalPointer.h"
+#include "BinTree_IllegalPointer.h"
 #include "ArrayList.h"
 
 /*
-    æƒ³åŽ»äº†è§£ä½ 
-    äº†è§£ä½ å…‰èŠ’ä»¥å¤–çš„åœ°æ–¹
+    ÏëÈ¥ÁË½âÄã
+    ÁË½âÄã¹âÃ¢ÒÔÍâµÄµØ·½
 */
 
-#ifndef Action__AVLTree
-#define Action__AVLTree
-
+#ifndef Action__BinTree
+#define Action__BinTree
 namespace Action
 {
     template <class T, class Compare = DefaultCompare<T> >
-    class AVLTree: public Object
+    class BinTree: public Object
     {
         public:
             struct Node
             {
                 Node * m_left, * m_right, * m_parent;
-                int m_height;
                 T m_value;
                 Node(const T & value) : m_value(value)
                 {
                     m_left = m_right = m_parent = NULL;
-                    m_height = 0;
                 }
             };
             struct Pointer
             {
                 private:
-                    const AVLTree * m_tree;
+                    const BinTree * m_tree;
                     Node * m_node;
                 public:
-                    Pointer(const AVLTree * tree, Node * node) :
+                    Pointer(const BinTree * tree, Node * node) :
                         m_tree(tree), m_node(node) {}
                     Boolean operator == (const Pointer & another) const
                     {
@@ -51,19 +48,19 @@ namespace Action
                     T & operator *()
                     {
                         if(!m_node)
-                            throw AVLTree_IllegalPointer();
+                            throw BinTree_IllegalPointer();
                         return m_node->m_value;
                     }
                     T * operator ->()
                     {
                         if(!m_node)
-                            throw AVLTree_IllegalPointer();
+                            throw BinTree_IllegalPointer();
                         return & (m_node->m_value);
                     }
                     Pointer next() const
                     {
                         if(*this == m_tree->end())
-                            throw AVLTree_IllegalPointer();
+                            throw BinTree_IllegalPointer();
                         else if(*this == m_tree->v_end())
                             return m_tree->end();
                         else if(*this == m_tree->v_begin())
@@ -96,7 +93,7 @@ namespace Action
                     Pointer last() const
                     {
                         if(*this == m_tree->v_begin())
-                            throw AVLTree_IllegalPointer();
+                            throw BinTree_IllegalPointer();
                         else if(*this == m_tree->begin())
                             return m_tree->v_begin();
                         else if(*this == m_tree->end())
@@ -161,108 +158,6 @@ namespace Action
                 _clear(_node->m_right);
                 delete _node;
             }
-			void recal_height(Node * address_cursor)
-			{
-				if (!address_cursor)
-					return;
-				int left_height = address_cursor->m_left ? address_cursor->m_left->m_height : -1;
-				int right_height = address_cursor->m_right ? address_cursor->m_right->m_height : -1;
-				address_cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
-			}
-            Node * R_rotate(Node * future_root)
-            {
-                future_root->m_parent->m_left = future_root->m_right;
-                if(future_root->m_right)
-                {
-                    future_root->m_right->m_parent = future_root->m_parent;
-                }
-                future_root->m_right = future_root->m_parent;
-                future_root->m_parent = future_root->m_right->m_parent;
-                if(future_root->m_right->m_parent)
-                {
-                    if(future_root->m_right->m_parent->m_left == future_root->m_right)
-                    {
-                        future_root->m_right->m_parent->m_left = future_root;
-                    }
-                    else
-                    {
-                        future_root->m_right->m_parent->m_right = future_root;
-                    }
-                }
-                else
-                {
-                    m_root = future_root;
-                }
-                future_root->m_right->m_parent = future_root;
-				recal_height(future_root->m_right);
-				recal_height(future_root);
-                return future_root;
-            }
-            Node * L_rotate(Node * future_root)
-            {
-                future_root->m_parent->m_right = future_root->m_left;
-                if(future_root->m_left)
-                {
-                    future_root->m_left->m_parent = future_root->m_parent;
-                }
-                future_root->m_left = future_root->m_parent;
-                future_root->m_parent = future_root->m_left->m_parent;
-                if(future_root->m_left->m_parent)
-                {
-                    if(future_root->m_left->m_parent->m_left == future_root->m_left)
-                    {
-                        future_root->m_left->m_parent->m_left = future_root;
-                    }
-                    else
-                    {
-                        future_root->m_left->m_parent->m_right = future_root;
-                    }
-                }
-                else
-                {
-                    m_root = future_root;
-                }
-                future_root->m_left->m_parent = future_root;
-				recal_height(future_root->m_left);
-				recal_height(future_root);
-                return future_root;
-            }
-            void adjust(Node * address_cursor)
-            {
-                while(address_cursor)
-                {
-                    int left_height = address_cursor->m_left ? address_cursor->m_left->m_height : -1;
-                    int right_height = address_cursor->m_right ? address_cursor->m_right->m_height : -1;
-					address_cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
-					if(left_height - right_height >= 2)
-                    {
-                        int left_left_height = address_cursor->m_left->m_left ? address_cursor->m_left->m_left->m_height : -1;
-                        int left_right_height = address_cursor->m_left->m_right ? address_cursor->m_left->m_right->m_height : -1;
-                        if(left_left_height < left_right_height)
-                        {
-                            L_rotate(address_cursor->m_left->m_right);
-                        }
-                        address_cursor = R_rotate(address_cursor->m_left);
-						break;
-                    }
-                    else if(left_height - right_height <= -2)
-                    {
-                        int right_right_height = address_cursor->m_right->m_right ? address_cursor->m_right->m_right->m_height : -1;
-                        int right_left_height = address_cursor->m_right->m_left ? address_cursor->m_right->m_left->m_height : -1;
-                        if(right_right_height < right_left_height)
-                        {
-                            R_rotate(address_cursor->m_right->m_left);
-                        }
-                        address_cursor = L_rotate(address_cursor->m_right);
-						break;
-                    }
-					else if (left_height == right_height)
-					{
-						break;
-					}
-                    address_cursor = address_cursor->m_parent;
-                }
-            }
             void _to_array(ArrayList<T> * now_array, const Node * _node) const
             {
                 if(!_node)
@@ -287,15 +182,15 @@ namespace Action
                 }
             }
         public:
-            AVLTree() : m_root(NULL), m_size(0) {}
-            AVLTree(const AVLTree & another)
+            BinTree() : m_root(NULL), m_size(0) {}
+            BinTree(const BinTree & another)
             {
                 if(!another.m_root)
                     return;
                 m_root = new Node((another.m_root)->m_value);
                 _copy(m_root, another.m_root);
             }
-            AVLTree & operator = (const AVLTree & another)
+            BinTree & operator = (const BinTree & another)
             {
                 if(this == &another)
                     return *this;
@@ -393,7 +288,7 @@ namespace Action
                             else
                             {
                                 address_cursor->m_right = new Node(element);
-                                address_cursor->m_right->m_parent = address_cursor;
+								address_cursor->m_right->m_parent = address_cursor;
                                 break;
                             }
                         }
@@ -406,12 +301,11 @@ namespace Action
                             else
                             {
                                 address_cursor->m_left = new Node(element);
-                                address_cursor->m_left->m_parent = address_cursor;
+								address_cursor->m_left->m_parent = address_cursor;
                                 break;
                             }
                         }
                     }
-                    adjust(address_cursor);
                 }
                 ++m_size;
             }
@@ -494,13 +388,12 @@ namespace Action
                             delete temp_node_address;
                         }
                     }
-                    adjust(address_cursor);
                 }
                 --m_size;
             }
             virtual String get_name() const override
             {
-                return "Action::AVLTree";
+                return "Action::BinTree";
             }
             virtual ArrayList<T> to_array() const
             {
@@ -508,35 +401,15 @@ namespace Action
                 _to_array(&return_value, m_root);
                 return return_value;
             }
-			void _check(Node * proot){
-				if (proot->m_left && proot->m_right && abs(proot->m_left->m_height - proot->m_left->m_height) < 2){
-					_check(proot->m_left);
-					_check(proot->m_right);
-				}
-				else if (proot->m_left && proot->m_left->m_height < 1){
-					_check(proot->m_left);
-				}
-				else if (proot->m_right && proot->m_right->m_height < 1){
-					_check(proot->m_right);
-				}
-				else if (!proot->m_left && !proot->m_right){
-
-				}
-				else
-					throw (-1);
-			}
-			void check() {
-				_check(m_root);
-			}
             void clear()
             {
                 _clear(m_root);
                 m_root = NULL;
             }
-            ~AVLTree()
+            ~BinTree()
             {
                 _clear(m_root);
             }
     };
 }
-#endif /* Action__AVLTree */
+#endif /* Action__BinTree */
