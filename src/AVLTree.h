@@ -243,7 +243,6 @@ namespace Action
                             L_rotate(address_cursor->m_left->m_right);
                         }
                         address_cursor = R_rotate(address_cursor->m_left);
-						break;
                     }
                     else if(left_height - right_height <= -2)
                     {
@@ -254,12 +253,7 @@ namespace Action
                             R_rotate(address_cursor->m_right->m_left);
                         }
                         address_cursor = L_rotate(address_cursor->m_right);
-						break;
                     }
-					else if (left_height == right_height)
-					{
-						break;
-					}
                     address_cursor = address_cursor->m_parent;
                 }
             }

@@ -38,7 +38,9 @@ int main(){
        my_set.erase(array_ints[i]);
     }
 	my_set.println();
+	
     Integer end = clock();
     (end-begin).println();
+	system("pause");
     return 0;
 }
