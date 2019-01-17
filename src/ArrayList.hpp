@@ -87,6 +87,12 @@ namespace Action
     }
 
     template <class T>
+    void ArrayList<T>::insert(Pointer position, const T & element)
+    {
+        position.insert(element);
+    }
+
+    template <class T>
     void ArrayList<T>::insert(const Integer & position, const T & element)
     {
         if(position > m_size || position < 0)

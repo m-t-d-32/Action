@@ -21,7 +21,6 @@ namespace Action
     {
         public:
             friend class String;
-
             struct Pointer
             {
                 private:
@@ -136,13 +135,13 @@ namespace Action
             virtual void push_back(const T &);
             virtual void pop_back();
             virtual void insert(const Integer &, const T &);
+            virtual void insert(Pointer, const T &);
             virtual void insert(const Integer &, const ArrayList<T> &,
                                 const Integer &, const Integer &);
             virtual void insert(const Integer &, const ArrayList<T> &);
             virtual void erase(const Integer &);
             virtual void erase(const Integer &, const Integer &);
             virtual void clear();
-
             virtual Boolean operator == (const Object &) const override;
             virtual inline Integer size() const
             {
@@ -153,7 +152,6 @@ namespace Action
                 return Boolean(size() <= 0);
             }
             virtual Integer find(const T &) const;
-
             virtual String get_name() const override;
             virtual String to_string() const override;
             virtual ~ArrayList();

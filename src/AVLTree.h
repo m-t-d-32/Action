@@ -31,7 +31,7 @@ namespace Action
                     m_left = m_right = m_parent = NULL;
                     m_height = 0;
                 }
-            };
+            };            
             struct Pointer
             {
                 private:
@@ -48,13 +48,13 @@ namespace Action
                     {
                         return NOT operator == (another);
                     }
-                    T & operator *()
+                    T operator *()
                     {
                         if(!m_node)
                             throw AVLTree_IllegalPointer();
                         return m_node->m_value;
                     }
-                    T * operator ->()
+                    const T * operator ->()
                     {
                         if(!m_node)
                             throw AVLTree_IllegalPointer();
@@ -72,22 +72,22 @@ namespace Action
                         {
                             if(m_node->m_right)
                             {
-                                Node * address_cursor = m_node->m_right;
-                                while(address_cursor->m_left)
+                                Node * floating_cursor = m_node->m_right;
+                                while(floating_cursor->m_left)
                                 {
-                                    address_cursor = address_cursor->m_left;
+                                    floating_cursor = floating_cursor->m_left;
                                 }
-                                return Pointer(m_tree, address_cursor);
+                                return Pointer(m_tree, floating_cursor);
                             }
                             else
                             {
-                                Node * address_cursor = m_node;
-                                while(address_cursor->m_parent)
+                                Node * floating_cursor = m_node;
+                                while(floating_cursor->m_parent)
                                 {
-                                    if(address_cursor == address_cursor->m_parent->m_right)
-                                        address_cursor = address_cursor->m_parent;
+                                    if(floating_cursor == floating_cursor->m_parent->m_right)
+                                        floating_cursor = floating_cursor->m_parent;
                                     else
-                                        return Pointer(m_tree, address_cursor->m_parent);
+                                        return Pointer(m_tree, floating_cursor->m_parent);
                                 }
                             }
                             return Pointer(m_tree, NULL);
@@ -105,22 +105,22 @@ namespace Action
                         {
                             if(m_node->m_left)
                             {
-                                Node * address_cursor = m_node->m_left;
-                                while(address_cursor->m_right)
+                                Node * floating_cursor = m_node->m_left;
+                                while(floating_cursor->m_right)
                                 {
-                                    address_cursor = address_cursor->m_right;
+                                    floating_cursor = floating_cursor->m_right;
                                 }
-                                return Pointer(m_tree, address_cursor);
+                                return Pointer(m_tree, floating_cursor);
                             }
                             else
                             {
-                                Node * address_cursor = m_node;
-                                while(address_cursor->m_parent)
+                                Node * floating_cursor = m_node;
+                                while(floating_cursor->m_parent)
                                 {
-                                    if(address_cursor == address_cursor->m_parent->m_left)
-                                        address_cursor = address_cursor->m_parent;
+                                    if(floating_cursor == floating_cursor->m_parent->m_left)
+                                        floating_cursor = floating_cursor->m_parent;
                                     else
-                                        return Pointer(m_tree, address_cursor->m_parent);
+                                        return Pointer(m_tree, floating_cursor->m_parent);
                                 }
                             }
                             return Pointer(m_tree, NULL);
@@ -161,14 +161,14 @@ namespace Action
                 _clear(_node->m_right);
                 delete _node;
             }
-			void recal_height(Node * address_cursor)
-			{
-				if (!address_cursor)
-					return;
-				int left_height = address_cursor->m_left ? address_cursor->m_left->m_height : -1;
-				int right_height = address_cursor->m_right ? address_cursor->m_right->m_height : -1;
-				address_cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
-			}
+            void recal_height(Node * cursor)
+            {
+                if (!cursor)
+                    return;
+                int left_height = cursor->m_left ? cursor->m_left->m_height : -1;
+                int right_height = cursor->m_right ? cursor->m_right->m_height : -1;
+                cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
+            }
             Node * R_rotate(Node * future_root)
             {
                 future_root->m_parent->m_left = future_root->m_right;
@@ -194,8 +194,8 @@ namespace Action
                     m_root = future_root;
                 }
                 future_root->m_right->m_parent = future_root;
-				recal_height(future_root->m_right);
-				recal_height(future_root);
+                recal_height(future_root->m_right);
+                recal_height(future_root);
                 return future_root;
             }
             Node * L_rotate(Node * future_root)
@@ -223,38 +223,38 @@ namespace Action
                     m_root = future_root;
                 }
                 future_root->m_left->m_parent = future_root;
-				recal_height(future_root->m_left);
-				recal_height(future_root);
+                recal_height(future_root->m_left);
+                recal_height(future_root);
                 return future_root;
             }
-            void adjust(Node * address_cursor)
+            void adjust(Node * floating_cursor)
             {
-                while(address_cursor)
+                while(floating_cursor)
                 {
-                    int left_height = address_cursor->m_left ? address_cursor->m_left->m_height : -1;
-                    int right_height = address_cursor->m_right ? address_cursor->m_right->m_height : -1;
-					address_cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
-					if(left_height - right_height >= 2)
+                    int left_height = floating_cursor->m_left ? floating_cursor->m_left->m_height : -1;
+                    int right_height = floating_cursor->m_right ? floating_cursor->m_right->m_height : -1;
+                    floating_cursor->m_height = left_height > right_height ? (left_height + 1) : (right_height + 1);
+                    if(left_height - right_height >= 2)
                     {
-                        int left_left_height = address_cursor->m_left->m_left ? address_cursor->m_left->m_left->m_height : -1;
-                        int left_right_height = address_cursor->m_left->m_right ? address_cursor->m_left->m_right->m_height : -1;
+                        int left_left_height = floating_cursor->m_left->m_left ? floating_cursor->m_left->m_left->m_height : -1;
+                        int left_right_height = floating_cursor->m_left->m_right ? floating_cursor->m_left->m_right->m_height : -1;
                         if(left_left_height < left_right_height)
                         {
-                            L_rotate(address_cursor->m_left->m_right);
+                            L_rotate(floating_cursor->m_left->m_right);
                         }
-                        address_cursor = R_rotate(address_cursor->m_left);
+                        floating_cursor = R_rotate(floating_cursor->m_left);
                     }
                     else if(left_height - right_height <= -2)
                     {
-                        int right_right_height = address_cursor->m_right->m_right ? address_cursor->m_right->m_right->m_height : -1;
-                        int right_left_height = address_cursor->m_right->m_left ? address_cursor->m_right->m_left->m_height : -1;
+                        int right_right_height = floating_cursor->m_right->m_right ? floating_cursor->m_right->m_right->m_height : -1;
+                        int right_left_height = floating_cursor->m_right->m_left ? floating_cursor->m_right->m_left->m_height : -1;
                         if(right_right_height < right_left_height)
                         {
-                            R_rotate(address_cursor->m_right->m_left);
+                            R_rotate(floating_cursor->m_right->m_left);
                         }
-                        address_cursor = L_rotate(address_cursor->m_right);
+                        floating_cursor = L_rotate(floating_cursor->m_right);
                     }
-                    address_cursor = address_cursor->m_parent;
+                    floating_cursor = floating_cursor->m_parent;
                 }
             }
             void _to_array(ArrayList<T> * now_array, const Node * _node) const
@@ -278,6 +278,42 @@ namespace Action
                     dest->m_right = new Node(src->m_right->m_value);
                     dest->m_right->m_parent = dest;
                     _copy(dest->m_right, src->m_right);
+                }
+            }
+            Node * _find(const T & element) const
+            {
+                if(!m_root)
+                    return NULL;
+                Node * floating_cursor = m_root;
+                while(true)
+                {
+                    int compare_value = compare(element, floating_cursor->m_value);
+                    if(compare_value < 0)
+                    {
+                        if(!floating_cursor->m_left)
+                        {
+                            return NULL;
+                        }
+                        else
+                        {
+                            floating_cursor = floating_cursor->m_left;
+                        }
+                    }
+                    else if(compare_value > 0)
+                    {
+                        if(!floating_cursor->m_right)
+                        {
+                            return NULL;
+                        }
+                        else
+                        {
+                            floating_cursor = floating_cursor->m_right;
+                        }
+                    }
+                    else
+                    {
+                        return floating_cursor;
+                    }
                 }
             }
         public:
@@ -326,41 +362,8 @@ namespace Action
                     max_node = max_node->m_right;
                 return Pointer(this, max_node);
             }
-            Node * find(const T & element) const
-            {
-                if(!m_root)
-                    return NULL;
-                Node * address_cursor = m_root;
-                while(true)
-                {
-                    int compare_value = compare(element, address_cursor->m_value);
-                    if(compare_value < 0)
-                    {
-                        if(!address_cursor->m_left)
-                        {
-                            return NULL;
-                        }
-                        else
-                        {
-                            address_cursor = address_cursor->m_left;
-                        }
-                    }
-                    else if(compare_value > 0)
-                    {
-                        if(!address_cursor->m_right)
-                        {
-                            return NULL;
-                        }
-                        else
-                        {
-                            address_cursor = address_cursor->m_right;
-                        }
-                    }
-                    else
-                    {
-                        return address_cursor;
-                    }
-                }
+            Boolean find(const T & element){
+                return Boolean(_find(element) != NULL);
             }
             void insert(const T & element)
             {
@@ -370,42 +373,42 @@ namespace Action
                 }
                 else
                 {
-                    Node * address_cursor = m_root;
+                    Node * floating_cursor = m_root;
                     while(true)
                     {
-                        int compare_value = compare(element, address_cursor->m_value);
+                        int compare_value = compare(element, floating_cursor->m_value);
                         if(compare_value == 0)
                         {
                             return;
                         }
                         else if(compare_value > 0)
                         {
-                            if(address_cursor->m_right)
+                            if(floating_cursor->m_right)
                             {
-                                address_cursor = address_cursor->m_right;
+                                floating_cursor = floating_cursor->m_right;
                             }
                             else
                             {
-                                address_cursor->m_right = new Node(element);
-                                address_cursor->m_right->m_parent = address_cursor;
+                                floating_cursor->m_right = new Node(element);
+                                floating_cursor->m_right->m_parent = floating_cursor;
                                 break;
                             }
                         }
                         else
                         {
-                            if(address_cursor->m_left)
+                            if(floating_cursor->m_left)
                             {
-                                address_cursor = address_cursor->m_left;
+                                floating_cursor = floating_cursor->m_left;
                             }
                             else
                             {
-                                address_cursor->m_left = new Node(element);
-                                address_cursor->m_left->m_parent = address_cursor;
+                                floating_cursor->m_left = new Node(element);
+                                floating_cursor->m_left->m_parent = floating_cursor;
                                 break;
                             }
                         }
                     }
-                    adjust(address_cursor);
+                    adjust(floating_cursor);
                 }
                 ++m_size;
             }
@@ -415,41 +418,41 @@ namespace Action
                     return;
                 else
                 {
-                    Node * address_cursor = find(element);
-                    if(!address_cursor)
+                    Node * cursor = _find(element);
+                    if(!cursor)
                         return;
-                    if(address_cursor->m_left && address_cursor->m_right)
+                    if(cursor->m_left && cursor->m_right)
                     {
-                        Node * right_min_node = address_cursor->m_right;
+                        Node * right_min_node = cursor->m_right;
                         while(right_min_node->m_left)
                             right_min_node = right_min_node->m_left;
-                        address_cursor->m_value = right_min_node->m_value;
-                        address_cursor = right_min_node;
+                        cursor->m_value = right_min_node->m_value;
+                        cursor = right_min_node;
                     }
-                    if(!address_cursor->m_left)
+                    if(!cursor->m_left)
                     {
-                        if(address_cursor->m_parent)
+                        if(cursor->m_parent)
                         {
-                            if(address_cursor->m_parent->m_right == address_cursor)
+                            if(cursor->m_parent->m_right == cursor)
                             {
-                                address_cursor->m_parent->m_right = address_cursor->m_right;
+                                cursor->m_parent->m_right = cursor->m_right;
                             }
                             else
                             {
-                                address_cursor->m_parent->m_left = address_cursor->m_right;
+                                cursor->m_parent->m_left = cursor->m_right;
                             }
-                            if(address_cursor->m_right)
+                            if(cursor->m_right)
                             {
-                                address_cursor->m_right->m_parent = address_cursor->m_parent;
+                                cursor->m_right->m_parent = cursor->m_parent;
                             }
-                            Node * temp_node_address = address_cursor;
-                            address_cursor = address_cursor->m_parent;
+                            Node * temp_node_address = cursor;
+                            cursor = cursor->m_parent;
                             delete temp_node_address;
                         }
                         else
                         {
-                            Node * temp_node_address = address_cursor;
-                            m_root = address_cursor = address_cursor->m_right;
+                            Node * temp_node_address = cursor;
+                            m_root = cursor = cursor->m_right;
                             if(m_root)
                             {
                                 m_root->m_parent = NULL;
@@ -459,28 +462,28 @@ namespace Action
                     }
                     else
                     {
-                        if(address_cursor->m_parent)
+                        if(cursor->m_parent)
                         {
-                            if(address_cursor->m_parent->m_right == address_cursor)
+                            if(cursor->m_parent->m_right == cursor)
                             {
-                                address_cursor->m_parent->m_right = address_cursor->m_left;
+                                cursor->m_parent->m_right = cursor->m_left;
                             }
                             else
                             {
-                                address_cursor->m_parent->m_left = address_cursor->m_left;
+                                cursor->m_parent->m_left = cursor->m_left;
                             }
-                            if(address_cursor->m_left)
+                            if(cursor->m_left)
                             {
-                                address_cursor->m_left->m_parent = address_cursor->m_parent;
+                                cursor->m_left->m_parent = cursor->m_parent;
                             }
-                            Node * temp_node_address = address_cursor;
-                            address_cursor = address_cursor->m_parent;
+                            Node * temp_node_address = cursor;
+                            cursor = cursor->m_parent;
                             delete temp_node_address;
                         }
                         else
                         {
-                            Node * temp_node_address = address_cursor;
-                            m_root = address_cursor = address_cursor->m_left;
+                            Node * temp_node_address = cursor;
+                            m_root = cursor = cursor->m_left;
                             if(m_root)
                             {
                                 m_root->m_parent = NULL;
@@ -488,7 +491,7 @@ namespace Action
                             delete temp_node_address;
                         }
                     }
-                    adjust(address_cursor);
+                    adjust(cursor);
                 }
                 --m_size;
             }
@@ -502,26 +505,6 @@ namespace Action
                 _to_array(&return_value, m_root);
                 return return_value;
             }
-			void _check(Node * proot){
-				if (proot->m_left && proot->m_right && abs(proot->m_left->m_height - proot->m_left->m_height) < 2){
-					_check(proot->m_left);
-					_check(proot->m_right);
-				}
-				else if (proot->m_left && proot->m_left->m_height < 1){
-					_check(proot->m_left);
-				}
-				else if (proot->m_right && proot->m_right->m_height < 1){
-					_check(proot->m_right);
-				}
-				else if (!proot->m_left && !proot->m_right){
-
-				}
-				else
-					throw (-1);
-			}
-			void check() {
-				_check(m_root);
-			}
             void clear()
             {
                 _clear(m_root);

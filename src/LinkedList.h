@@ -130,7 +130,6 @@ namespace Action
             LinkedList();
             LinkedList(const LinkedList &);
             LinkedList & operator = (const LinkedList &);
-
             virtual void push_back(const T &);
             virtual void insert(const Integer &, const T &);
             virtual void insert(const Integer &, const Integer &, const T &);
@@ -143,7 +142,6 @@ namespace Action
             virtual void clear();
             virtual T & operator [](const Integer &);
             virtual T at(const Integer &) const;
-
             virtual T front() const;
             virtual T back() const;
             virtual Pointer begin()
@@ -162,7 +160,6 @@ namespace Action
             {
                 return Pointer(this, m_end_address);
             }
-
             virtual Boolean operator == (const Object &) const override;
             virtual Integer size() const
             {

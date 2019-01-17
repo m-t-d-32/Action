@@ -1,6 +1,7 @@
 outobjdir = ./obj
 outexedir = ./bin
 outsrcdir = ./src
+outtestdir = ./test
 
 exe = $(outexedir)/main.exe
 
@@ -11,9 +12,11 @@ cppfiles = $(outsrcdir)/*.cpp
 cfiles   = $(outsrcdir)/*.c
 
 srcfiles = $(outsrcdir)/*.*
+
+testfile = $(outtestdir)/main.cpp
 			
-$(exe):   	$(objects)
-			g++ -o main.exe $(objects)
+$(exe):   	$(objects) $(testfile)
+			g++ $(objects) $(testfile) -o main.exe 
 			mv main.exe $(outexedir)
 			
 $(objects): $(srcfiles)

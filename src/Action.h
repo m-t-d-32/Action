@@ -22,6 +22,7 @@
 #include "TreeMap.hpp"
 #include "Scanner.h"
 #include "BinTree.h"
+#include "BTree.h"
 
 #endif /* Action_EasyInclude */
 

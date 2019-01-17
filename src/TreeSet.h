@@ -88,7 +88,7 @@ namespace Action
             }
             virtual Boolean contains(const T & element) const
             {
-                return Boolean(m_tree.find(element) != NULL);
+                return m_tree.find(element);
             }
             virtual Integer size() const
             {

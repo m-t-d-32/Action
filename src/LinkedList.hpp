@@ -27,45 +27,45 @@ namespace Action
     {
         if(this == &another)
             return *this;
-        Node * another_address_cursor = another.m_begin_address;
-        Node * this_address_cursor;
-        if(!another_address_cursor)
+        Node * another_floating_cursor = another.m_begin_address;
+        Node * this_floating_cursor;
+        if(!another_floating_cursor)
         {
             clear();
             return *this;
         }
         if(!m_begin_address)
         {
-            m_begin_address = new Node(another_address_cursor->m_value);
-            this_address_cursor = m_begin_address;
+            m_begin_address = new Node(another_floating_cursor->m_value);
+            this_floating_cursor = m_begin_address;
         }
         else
         {
-            this_address_cursor = m_begin_address;
-            while(another_address_cursor->m_address_next && this_address_cursor->m_address_next)
+            this_floating_cursor = m_begin_address;
+            while(another_floating_cursor->m_address_next && this_floating_cursor->m_address_next)
             {
-                this_address_cursor->m_value = another_address_cursor->m_value;
-                another_address_cursor = another_address_cursor->m_address_next;
-                this_address_cursor = this_address_cursor->m_address_next;
+                this_floating_cursor->m_value = another_floating_cursor->m_value;
+                another_floating_cursor = another_floating_cursor->m_address_next;
+                this_floating_cursor = this_floating_cursor->m_address_next;
             }
-            this_address_cursor->m_value = another_address_cursor->m_value;
+            this_floating_cursor->m_value = another_floating_cursor->m_value;
         }
 
-        if(!(this_address_cursor->m_address_next))
+        if(!(this_floating_cursor->m_address_next))
         {
-            another_address_cursor = another_address_cursor->m_address_next;
-            while(another_address_cursor)
+            another_floating_cursor = another_floating_cursor->m_address_next;
+            while(another_floating_cursor)
             {
-                this_address_cursor->m_address_next = new Node(another_address_cursor->m_value);
-                another_address_cursor = another_address_cursor->m_address_next;
-                this_address_cursor = this_address_cursor->m_address_next;
+                this_floating_cursor->m_address_next = new Node(another_floating_cursor->m_value);
+                another_floating_cursor = another_floating_cursor->m_address_next;
+                this_floating_cursor = this_floating_cursor->m_address_next;
             }
-            m_end_address = this_address_cursor;
+            m_end_address = this_floating_cursor;
         }
         else
         {
-            erase(this_address_cursor->m_address_next, end());
-            m_end_address = this_address_cursor;
+            erase(this_floating_cursor->m_address_next, end());
+            m_end_address = this_floating_cursor;
         }
         m_size = another.m_size;
         return *this;
@@ -105,10 +105,10 @@ namespace Action
         if(position < 0 || position >= m_size)
             throw List_PtrOutOfRange();
 
-        const Node *address_cursor = m_begin_address;
+        const Node *floating_cursor = m_begin_address;
         for(int i = 0; i < position; ++i)
-            address_cursor = address_cursor->m_address_next;
-        return address_cursor->m_value;
+            floating_cursor = floating_cursor->m_address_next;
+        return floating_cursor->m_value;
     }
 
     template <class T>
@@ -132,6 +132,10 @@ namespace Action
     template <class T>
     void LinkedList<T>::insert(Pointer position, const T & element)
     {
+        if (position == end()){
+            push_back(element);
+            return;
+        }
         Node * target_address = position.get_node();
         if(!target_address)
             throw List_PtrOutOfRange();
@@ -263,13 +267,13 @@ namespace Action
             {
                 return Boolean::False;
             }
-            Node *this_address_cursor = m_begin_address, *another_address_cursor = another_linkedlist.m_begin_address;
-            while(this_address_cursor && another_address_cursor)
+            Node *this_floating_cursor = m_begin_address, *another_floating_cursor = another_linkedlist.m_begin_address;
+            while(this_floating_cursor && another_floating_cursor)
             {
-                if(this_address_cursor->m_value != another_address_cursor->m_value)
+                if(this_floating_cursor->m_value != another_floating_cursor->m_value)
                     return Boolean::False;
-                this_address_cursor = this_address_cursor->m_address_next;
-                another_address_cursor = another_address_cursor->m_address_next;
+                this_floating_cursor = this_floating_cursor->m_address_next;
+                another_floating_cursor = another_floating_cursor->m_address_next;
             }
             return Boolean::True;
         }
@@ -287,14 +291,14 @@ namespace Action
     }
 
     template <class T>
-    Integer LinkedList<T>::find(const T & iArgOfObject) const
+    Integer LinkedList<T>::find(const T & element) const
     {
         if(!m_begin_address)
             return -1;
         int index = 0;
-        for(const Node * address_cursor = m_begin_address; address_cursor != NULL; address_cursor = address_cursor->m_address_next)
+        for(const Node * floating_cursor = m_begin_address; floating_cursor != NULL; floating_cursor = floating_cursor->m_address_next)
         {
-            if(address_cursor->m_value == iArgOfObject)
+            if(floating_cursor->m_value == element)
                 return index;
             ++index;
         }
@@ -311,10 +315,10 @@ namespace Action
     String LinkedList<T>::to_string() const
     {
         String rtn = "[";
-        for(const Node * address_cursor = m_begin_address; address_cursor != NULL; address_cursor = address_cursor->m_address_next)
+        for(const Node * floating_cursor = m_begin_address; floating_cursor != NULL; floating_cursor = floating_cursor->m_address_next)
         {
-            rtn += ((Object &)(address_cursor->m_value)).to_string();
-            if(address_cursor != m_end_address)
+            rtn += ((Object &)(floating_cursor->m_value)).to_string();
+            if(floating_cursor != m_end_address)
             {
                 rtn += ",";
             }
