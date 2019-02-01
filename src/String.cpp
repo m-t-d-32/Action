@@ -24,7 +24,7 @@ namespace Action
 
     String::String(const String & string_value) : m_chars(string_value.m_chars) {}
 
-    void String::append(const char & char_value)
+    void String::append(char char_value)
     {
         m_chars.insert(length(), char_value);
     }
@@ -34,7 +34,7 @@ namespace Action
         m_chars.insert(length(), string_value.m_chars, 0, string_value.length());
     }
 
-    String String::operator += (const char & char_value)
+    String String::operator += (char char_value)
     {
         append(char_value);
         return *this;
@@ -52,7 +52,7 @@ namespace Action
         m_chars.push_back('\0');
     }
 
-    void String::insert(const Integer & position, const char & char_value)
+    void String::insert(const Integer & position, char char_value)
     {
         m_chars.insert(position, char_value);
     }
@@ -62,7 +62,7 @@ namespace Action
         m_chars.insert(position, string_value.m_chars, 0, string_value.length());
     }
 
-    Integer String::find(const char & char_value, const Integer & begin) const
+    Integer String::find(char char_value, const Integer & begin) const
     {
         for (int i = begin.get_int(); i < m_chars.size().get_int(); ++i)
         {
@@ -77,7 +77,7 @@ namespace Action
         int this_length = length().get_int(), another_length = string_value.length().get_int();
         if(another_length == 0 || this_length - begin.get_int() < another_length)
             return -1;
-        int * nexts = new int[another_length];
+        int * nexts = new int[another_length + 1];
         nexts[0] = 0;
         int src_index = 0, dest_index = 0;
         while(dest_index != another_length)
@@ -173,4 +173,65 @@ namespace Action
     {
         return String(str_1) + str_2;
     }
+
+	ArrayList<String> String::split(const String & delims) const{
+		ArrayList<String> result;
+		String temp;
+		for (int i = 0; i < length(); ++i){
+			if (delims.find(m_chars.at(i)) != -1){
+				if (temp.at(0)){
+					result.push_back(temp);
+					temp.clear();
+				}
+			}
+			else {
+				temp += m_chars.at(i);
+			}
+		}
+		if (temp.at(0)){
+			result.push_back(temp);
+		}
+		return result;
+	}
+
+	ArrayList<String> String::split(char delim) const{
+		ArrayList<String> result;
+		String temp;
+		for (int i = 0; i < length(); ++i){
+			if (delim == m_chars.at(i)){
+				if (temp.at(0)){
+					result.push_back(temp);
+					temp.clear();
+				}
+			}
+			else {
+				temp += m_chars.at(i);
+			}
+		}
+		if (temp.at(0)){
+			result.push_back(temp);
+		}
+		return result;
+	}
+
+	ArrayList<String> String::split_long(const String & delim) const{
+		ArrayList<String> result;
+		String temp;
+		Integer begin = 0, end = 0;
+		while (begin < length()){
+			end = find(delim, begin);
+			if (end == -1) {
+				end = length();
+			}
+			if (end > begin){
+				for (Integer i = begin; i < end; ++i){
+					temp += m_chars.at(i);
+				}
+				result.push_back(temp);
+				temp.clear();
+			}
+			begin = end + delim.length();
+		}
+		return result;
+	}
 }

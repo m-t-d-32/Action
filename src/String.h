@@ -39,15 +39,15 @@ namespace Action
             {
                 return Boolean(length() == 0);
             }
-            void append(const char &);
+            void append(char);
             void append(const String &);
-            String operator += (const char &);
+            String operator += (char);
             String operator += (const String &);
-            void insert(const Integer &, const char &);
+            void insert(const Integer &, char);
             void insert(const Integer &, const String &);
             void clear();
             Integer find(const String &, const Integer & begin = 0) const;
-            Integer find(const char &, const Integer & begin = 0) const;
+            Integer find(char, const Integer & begin = 0) const;
             inline const char * c_str() const
             {
                 return m_chars.m_data;
@@ -62,6 +62,9 @@ namespace Action
             }
             void print(std::ostream & os = std::cout) const override;
             int hash_code() const override;
+			ArrayList<String> split(const String &) const;
+			ArrayList<String> split(char) const;
+			ArrayList<String> split_long(const String &) const;
             Boolean compare_to(const Object &) const override;
             Boolean operator == (const Object &) const override;
             friend Boolean operator == (const String & value_1, const String & value_2)

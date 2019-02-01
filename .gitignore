@@ -1,2 +1,4 @@
 obj/*
+!obj/.gitkeep
 bin/*
+!obj/.gitkeep
