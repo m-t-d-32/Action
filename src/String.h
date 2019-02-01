@@ -62,9 +62,10 @@ namespace Action
             }
             void print(std::ostream & os = std::cout) const override;
             int hash_code() const override;
-			ArrayList<String> split(const String &) const;
+			String slice(Integer, Integer) const;
+			ArrayList<String> split(const String & delim = "\t\f\n ") const;
 			ArrayList<String> split(char) const;
-			ArrayList<String> split_long(const String &) const;
+			ArrayList<String> split_long(const String & delim = " ") const;
             Boolean compare_to(const Object &) const override;
             Boolean operator == (const Object &) const override;
             friend Boolean operator == (const String & value_1, const String & value_2)

@@ -155,6 +155,7 @@ namespace Action
             virtual String get_name() const override;
             virtual String to_string() const override;
             virtual ~ArrayList();
+			virtual ArrayList<T> slice(Integer begin, Integer end) const;
         private:
             int m_size;
             Allocator<T> m_alloc;

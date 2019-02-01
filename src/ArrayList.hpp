@@ -279,6 +279,17 @@ namespace Action
         return return_value;
     }
 
+	template <class T>
+	ArrayList<T> ArrayList<T>::slice(Integer begin ,Integer end) const{
+		ArrayList<T> result;
+		if (begin < 0) begin += size();
+		if (end < 0) end += size();
+		for (Integer i = begin; i < end; ++i){
+			result.push_back(at(i));
+		}
+		return result;
+	}
+
     template <class T>
     ArrayList<T>::~ArrayList()
     {

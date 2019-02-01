@@ -234,4 +234,14 @@ namespace Action
 		}
 		return result;
 	}
+
+	String String::slice(Integer begin, Integer end) const{
+		String result;
+		if (begin < 0) begin += length();
+		if (end < 0) end += length();
+		for (Integer i = begin; i < end; ++i){
+			result += at(i);
+		}
+		return result;
+	}
 }
