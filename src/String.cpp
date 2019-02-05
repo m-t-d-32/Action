@@ -174,140 +174,140 @@ namespace Action
         return String(str_1) + str_2;
     }
 
-	ArrayList<String> String::split(const String & delims) const{
-		ArrayList<String> result;
-		String temp;
-		for (int i = 0; i < length(); ++i){
-			if (delims.find(m_chars.at(i)) != -1){
-				if (temp.at(0)){
-					result.push_back(temp);
-					temp.clear();
-				}
-			}
-			else {
-				temp += m_chars.at(i);
-			}
-		}
-		if (temp.at(0)){
-			result.push_back(temp);
-		}
-		return result;
-	}
+    ArrayList<String> String::split(const String & delims) const{
+        ArrayList<String> result;
+        String temp;
+        for (int i = 0; i < length(); ++i){
+            if (delims.find(m_chars.at(i)) != -1){
+                if (temp.at(0)){
+                    result.push_back(temp);
+                    temp.clear();
+                }
+            }
+            else {
+                temp += m_chars.at(i);
+            }
+        }
+        if (temp.at(0)){
+            result.push_back(temp);
+        }
+        return result;
+    }
 
-	ArrayList<String> String::split(char delim) const{
-		ArrayList<String> result;
-		String temp;
-		for (int i = 0; i < length(); ++i){
-			if (delim == m_chars.at(i)){
-				if (temp.at(0)){
-					result.push_back(temp);
-					temp.clear();
-				}
-			}
-			else {
-				temp += m_chars.at(i);
-			}
-		}
-		if (temp.at(0)){
-			result.push_back(temp);
-		}
-		return result;
-	}
+    ArrayList<String> String::split(char delim) const{
+        ArrayList<String> result;
+        String temp;
+        for (int i = 0; i < length(); ++i){
+            if (delim == m_chars.at(i)){
+                if (temp.at(0)){
+                    result.push_back(temp);
+                    temp.clear();
+                }
+            }
+            else {
+                temp += m_chars.at(i);
+            }
+        }
+        if (temp.at(0)){
+            result.push_back(temp);
+        }
+        return result;
+    }
 
-	ArrayList<String> String::split_long(const String & delim) const{
-		ArrayList<String> result;
-		String temp;
-		Integer begin = 0, end = 0;
-		while (begin < length()){
-			end = find(delim, begin);
-			if (end == -1) {
-				end = length();
-			}
-			if (end > begin){
-				for (Integer i = begin; i < end; ++i){
-					temp += m_chars.at(i);
-				}
-				result.push_back(temp);
-				temp.clear();
-			}
-			begin = end + delim.length();
-		}
-		return result;
-	}
+    ArrayList<String> String::split_long(const String & delim) const{
+        ArrayList<String> result;
+        String temp;
+        Integer begin = 0, end = 0;
+        while (begin < length()){
+            end = find(delim, begin);
+            if (end == -1) {
+                end = length();
+            }
+            if (end > begin){
+                for (Integer i = begin; i < end; ++i){
+                    temp += m_chars.at(i);
+                }
+                result.push_back(temp);
+                temp.clear();
+            }
+            begin = end + delim.length();
+        }
+        return result;
+    }
 
-	String String::slice(Integer begin, Integer end) const{
-		String result;
-		if (begin < 0) begin += length();
-		if (end < 0) end += length();
-		for (Integer i = begin; i < end; ++i){
-			result += at(i);
-		}
-		return result;
-	}
-	
-	String String::lstrip(char delim) const {
-		Integer begin = 0;
-		for (; begin < length(); ++begin){
-			if (m_chars.at(begin) != delim) break;
-		}
-		return right(length() - begin);
-	}
-	
-	String String::rstrip(char delim) const {
-		Integer end = length() - 1;
-		for (; end >= 0; --end) {
-			if (m_chars.at(end) != delim) break;
-		}
-		return left(end + 1);
-	}
-	
-	String String::strip(char delim) const {
-		Integer begin = 0, end = length() - 1;
-		for (; begin < length(); ++begin){
-			if (m_chars.at(begin) != delim) break;
-		}
-		for (; end >= 0; --end){
-			if (m_chars.at(end) != delim) break;
-		}
-		return slice(begin, end + 1);
-	}
-		
-	String String::lstrip(const String & delims) const{
-		Integer begin = 0;
-		for (; begin < length(); ++begin){
-			if (delims.find(m_chars.at(begin)) == -1) break;
-		}
-		return right(length() - begin);
-	}
-	
-	String String::rstrip(const String & delims) const{
-		Integer end = length() - 1;
-		for (; end >= 0; --end) {
-			if (delims.find(m_chars.at(end)) == -1) break;
-		}
-		return left(end + 1);
-	}
-	
-	String String::strip(const String & delims) const{
-		Integer begin = 0, end = length() - 1;
-		for (; begin < length(); ++begin){
-			if (delims.find(m_chars.at(begin)) == -1) break;
-		}
-		for (; end >= 0; --end) {
-			if (delims.find(m_chars.at(end)) == -1) break;
-		}
-		return slice(begin, end + 1);
-	}
-	
-	String String::left(Integer _length) const{
-		if (_length <= 0) return "";
-		else if (_length >= length()) return *this;
-		else return slice(0, _length);
-	}
-	
-	String String::right(Integer _length) const{
-		if (_length <= 0) return "";
-		else if (_length >= length()) return *this;
-		else return slice(length() - _length, length());
-	}
+    String String::slice(Integer begin, Integer end) const{
+        String result;
+        if (begin < 0) begin += length();
+        if (end < 0) end += length();
+        for (Integer i = begin; i < end; ++i){
+            result += at(i);
+        }
+        return result;
+    }
+    
+    String String::lstrip(char delim) const {
+        Integer begin = 0;
+        for (; begin < length(); ++begin){
+            if (m_chars.at(begin) != delim) break;
+        }
+        return right(length() - begin);
+    }
+    
+    String String::rstrip(char delim) const {
+        Integer end = length() - 1;
+        for (; end >= 0; --end) {
+            if (m_chars.at(end) != delim) break;
+        }
+        return left(end + 1);
+    }
+    
+    String String::strip(char delim) const {
+        Integer begin = 0, end = length() - 1;
+        for (; begin < length(); ++begin){
+            if (m_chars.at(begin) != delim) break;
+        }
+        for (; end >= 0; --end){
+            if (m_chars.at(end) != delim) break;
+        }
+        return slice(begin, end + 1);
+    }
+        
+    String String::lstrip(const String & delims) const{
+        Integer begin = 0;
+        for (; begin < length(); ++begin){
+            if (delims.find(m_chars.at(begin)) == -1) break;
+        }
+        return right(length() - begin);
+    }
+    
+    String String::rstrip(const String & delims) const{
+        Integer end = length() - 1;
+        for (; end >= 0; --end) {
+            if (delims.find(m_chars.at(end)) == -1) break;
+        }
+        return left(end + 1);
+    }
+    
+    String String::strip(const String & delims) const{
+        Integer begin = 0, end = length() - 1;
+        for (; begin < length(); ++begin){
+            if (delims.find(m_chars.at(begin)) == -1) break;
+        }
+        for (; end >= 0; --end) {
+            if (delims.find(m_chars.at(end)) == -1) break;
+        }
+        return slice(begin, end + 1);
+    }
+    
+    String String::left(Integer _length) const{
+        if (_length <= 0) return "";
+        else if (_length >= length()) return *this;
+        else return slice(0, _length);
+    }
+    
+    String String::right(Integer _length) const{
+        if (_length <= 0) return "";
+        else if (_length >= length()) return *this;
+        else return slice(length() - _length, length());
+    }
 }

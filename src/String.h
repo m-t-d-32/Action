@@ -62,22 +62,22 @@ namespace Action
             }
             void print(std::ostream & os = std::cout) const override;
             int hash_code() const override;
-			String slice(Integer, Integer) const;
-			ArrayList<String> split(const String & delim = "\t\f\n ") const;
-			ArrayList<String> split(char) const;
-			ArrayList<String> split_long(const String & delim = " ") const;
+            String slice(Integer, Integer) const;
+            ArrayList<String> split(const String & delim = "\t\f\n ") const;
+            ArrayList<String> split(char) const;
+            ArrayList<String> split_long(const String & delim = " ") const;
             Boolean compare_to(const Object &) const override;
             Boolean operator == (const Object &) const override;
-			
-			String lstrip(char delim) const;
-			String rstrip(char delim) const;
-			String strip(char delim) const;
-			String lstrip(const String & delims = "\t\f\n ") const;
-			String rstrip(const String & delims = "\t\f\n ") const;
-			String strip(const String & delims = "\t\f\n ") const;			
-			String left(Integer length) const;
-			String right(Integer length) const;
-			
+            
+            String lstrip(char delim) const;
+            String rstrip(char delim) const;
+            String strip(char delim) const;
+            String lstrip(const String & delims = "\t\f\n ") const;
+            String rstrip(const String & delims = "\t\f\n ") const;
+            String strip(const String & delims = "\t\f\n ") const;            
+            String left(Integer length) const;
+            String right(Integer length) const;
+            
             friend Boolean operator == (const String & value_1, const String & value_2)
             {
                 return value_1.m_chars == value_2.m_chars;
