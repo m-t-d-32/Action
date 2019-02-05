@@ -52,17 +52,17 @@ namespace Action
         m_chars.push_back('\0');
     }
 
-    void String::insert(const Integer & position, char char_value)
+    void String::insert(Integer position, char char_value)
     {
         m_chars.insert(position, char_value);
     }
 
-    void String::insert(const Integer & position, const String & string_value)
+    void String::insert(Integer position, const String & string_value)
     {
         m_chars.insert(position, string_value.m_chars, 0, string_value.length());
     }
 
-    Integer String::find(char char_value, const Integer & begin) const
+    Integer String::find(char char_value, Integer begin) const
     {
         for (int i = begin.get_int(); i < m_chars.size().get_int(); ++i)
         {
@@ -72,7 +72,7 @@ namespace Action
         return -1;
     }
 
-    Integer String::find(const String & string_value, const Integer & begin) const
+    Integer String::find(const String & string_value, Integer begin) const
     {
         int this_length = length().get_int(), another_length = string_value.length().get_int();
         if(another_length == 0 || this_length - begin.get_int() < another_length)
@@ -243,5 +243,71 @@ namespace Action
 			result += at(i);
 		}
 		return result;
+	}
+	
+	String String::lstrip(char delim) const {
+		Integer begin = 0;
+		for (; begin < length(); ++begin){
+			if (m_chars.at(begin) != delim) break;
+		}
+		return right(length() - begin);
+	}
+	
+	String String::rstrip(char delim) const {
+		Integer end = length() - 1;
+		for (; end >= 0; --end) {
+			if (m_chars.at(end) != delim) break;
+		}
+		return left(end + 1);
+	}
+	
+	String String::strip(char delim) const {
+		Integer begin = 0, end = length() - 1;
+		for (; begin < length(); ++begin){
+			if (m_chars.at(begin) != delim) break;
+		}
+		for (; end >= 0; --end){
+			if (m_chars.at(end) != delim) break;
+		}
+		return slice(begin, end + 1);
+	}
+		
+	String String::lstrip(const String & delims) const{
+		Integer begin = 0;
+		for (; begin < length(); ++begin){
+			if (delims.find(m_chars.at(begin)) == -1) break;
+		}
+		return right(length() - begin);
+	}
+	
+	String String::rstrip(const String & delims) const{
+		Integer end = length() - 1;
+		for (; end >= 0; --end) {
+			if (delims.find(m_chars.at(end)) == -1) break;
+		}
+		return left(end + 1);
+	}
+	
+	String String::strip(const String & delims) const{
+		Integer begin = 0, end = length() - 1;
+		for (; begin < length(); ++begin){
+			if (delims.find(m_chars.at(begin)) == -1) break;
+		}
+		for (; end >= 0; --end) {
+			if (delims.find(m_chars.at(end)) == -1) break;
+		}
+		return slice(begin, end + 1);
+	}
+	
+	String String::left(Integer _length) const{
+		if (_length <= 0) return "";
+		else if (_length >= length()) return *this;
+		else return slice(0, _length);
+	}
+	
+	String String::right(Integer _length) const{
+		if (_length <= 0) return "";
+		else if (_length >= length()) return *this;
+		else return slice(length() - _length, length());
 	}
 }

@@ -42,6 +42,8 @@ int _str_hashCode(char *, int);
 #define BAD_MEMORY_2 0x02
 #define BAD_MEMORY_3 0x03
 
+#define DEFAULT_BUFFER_SIZE 0xff
+
 namespace Action
 {
     class String;

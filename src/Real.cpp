@@ -10,7 +10,7 @@ namespace Action
     const Real Real::MAX_VALUE = DBL_MAX;
     const Real Real::MIN_VALUE = DBL_MIN;
     Real Real::PRECISION = MIN_VALUE;
-    Real::Real(const Integer & integer_value)
+    Real::Real(Integer integer_value)
     {
         m_value = integer_value.m_value;
     }

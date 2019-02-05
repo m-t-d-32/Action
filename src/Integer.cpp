@@ -22,7 +22,7 @@ namespace Action
     {
         try
         {
-            const Integer & another_integer = dynamic_cast<const Integer &>(another_one);
+            Integer another_integer = dynamic_cast<const Integer &>(another_one);
             return Boolean(m_value == another_integer.m_value);
         }
         catch(std::bad_cast)
@@ -46,7 +46,7 @@ namespace Action
     {
         try
         {
-            const Integer & another_integer = dynamic_cast<const Integer &>(another_one);
+            Integer another_integer = dynamic_cast<const Integer &>(another_one);
             return *this < another_integer;
         }
         catch(std::bad_cast)

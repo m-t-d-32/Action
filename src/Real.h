@@ -47,7 +47,7 @@ namespace Action
             {
                 m_value = value;
             }
-            Real(const Integer &);
+            Real(Integer);
             Real(double value)
             {
                 m_value = value;

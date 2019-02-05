@@ -11,7 +11,7 @@ namespace Action
     Deque<T>::Deque() : m_data() {}
 
     template <class T>
-    Deque<T>::Deque(const Integer & capacity) : m_data(capacity) {}
+    Deque<T>::Deque(Integer capacity) : m_data(capacity) {}
 
     template <class T>
     Deque<T>::Deque(const Deque & another) : m_data(another.m_data) {}
@@ -84,7 +84,7 @@ namespace Action
     }
 
     template <class T>
-    T & Deque<T>::operator [](const Integer & index)
+    T & Deque<T>::operator [](Integer index)
     {
         if(index < 0 || index >= m_data.m_size)
         {

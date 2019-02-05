@@ -17,7 +17,7 @@ namespace Action
     }
 
     template <class T>
-    ArrayList<T>::ArrayList(const Integer & capacity)
+    ArrayList<T>::ArrayList(Integer capacity)
     {
         if(capacity <= 0)
             throw ArrayList_IndexOutOfRange();
@@ -93,7 +93,7 @@ namespace Action
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & position, const T & element)
+    void ArrayList<T>::insert(Integer position, const T & element)
     {
         if(position > m_size || position < 0)
             throw ArrayList_IndexOutOfRange();
@@ -115,8 +115,8 @@ namespace Action
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & position, const ArrayList & another, const Integer & begin,
-                              const Integer & end)
+    void ArrayList<T>::insert(Integer position, const ArrayList & another, Integer begin,
+                              Integer end)
     {
         if(begin < 0 || begin > end || end > another.size())
             throw ArrayList_IndexOutOfRange();
@@ -131,13 +131,13 @@ namespace Action
     }
 
     template <class T>
-    void ArrayList<T>::insert(const Integer & position, const ArrayList & another)
+    void ArrayList<T>::insert(Integer position, const ArrayList & another)
     {
         insert(position, another, 0, another.size());
     }
 
     template <class T>
-    void ArrayList<T>::erase(const Integer & position)
+    void ArrayList<T>::erase(Integer position)
     {
         if(position >= m_size || position < 0)
             throw ArrayList_IndexOutOfRange();
@@ -147,7 +147,7 @@ namespace Action
     }
 
     template <class T>
-    void ArrayList<T>::erase(const Integer & begin, const Integer & end)
+    void ArrayList<T>::erase(Integer begin, Integer end)
     {
         if(begin < 0 || end > m_size || end <= begin)
             throw ArrayList_IndexOutOfRange();
@@ -171,7 +171,7 @@ namespace Action
     }
 
     template <class T>
-    T & ArrayList<T>::operator[](const Integer & index)
+    T & ArrayList<T>::operator[](Integer index)
     {
         if(index < 0 || index >= m_size)
             throw ArrayList_IndexOutOfRange();
@@ -179,7 +179,7 @@ namespace Action
     }
 
     template <class T>
-    T ArrayList<T>::at(const Integer & index) const
+    T ArrayList<T>::at(Integer index) const
     {
         if(index < 0 || index >= m_size)
             throw ArrayList_IndexOutOfRange();
@@ -187,7 +187,7 @@ namespace Action
     }
 
     template <class T>
-    void ArrayList<T>::resize(const Integer & new_size, const T & cpy_constructor_arg)
+    void ArrayList<T>::resize(Integer new_size, const T & cpy_constructor_arg)
     {
         if(new_size <= 0)
             throw ArrayList_IndexOutOfRange();

@@ -27,7 +27,7 @@ namespace Action
                     ArrayList<T> * m_list;
                     Integer m_index;
                 public:
-                    Pointer(ArrayList<T> & now_list, const Integer & index) :
+                    Pointer(ArrayList<T> & now_list, Integer index) :
                         m_list(&now_list), m_index(index) {}
 
                     T & operator *()
@@ -64,23 +64,23 @@ namespace Action
                         return *this;
                     }
 
-                    Pointer operator + (const Integer & offset) const
+                    Pointer operator + (Integer offset) const
                     {
                         return Pointer(*m_list, m_index + offset);
                     }
 
-                    Pointer operator - (const Integer & offset) const
+                    Pointer operator - (Integer offset) const
                     {
                         return Pointer(*m_list, m_index - offset);
                     }
 
-                    Pointer operator += (const Integer & offset)
+                    Pointer operator += (Integer offset)
                     {
                         m_index += offset;
                         return *this;
                     }
 
-                    Pointer operator -= (const Integer & offset)
+                    Pointer operator -= (Integer offset)
                     {
                         m_index -= offset;
                         return *this;
@@ -115,7 +115,7 @@ namespace Action
             };
 
             ArrayList();
-            ArrayList(const Integer &);
+            ArrayList(Integer);
             ArrayList(const ArrayList &);
             ArrayList & operator = (const ArrayList &);
             virtual Pointer begin()
@@ -127,20 +127,20 @@ namespace Action
                 return Pointer(*this, size());
             }
 
-            virtual void resize(const Integer &, const T & Val = T());
-            virtual T & operator [](const Integer &);
-            virtual T at(const Integer &) const;
+            virtual void resize(Integer, const T & Val = T());
+            virtual T & operator [](Integer);
+            virtual T at(Integer) const;
             virtual T front() const;
             virtual T back() const;
             virtual void push_back(const T &);
             virtual void pop_back();
-            virtual void insert(const Integer &, const T &);
+            virtual void insert(Integer, const T &);
             virtual void insert(Pointer, const T &);
-            virtual void insert(const Integer &, const ArrayList<T> &,
-                                const Integer &, const Integer &);
-            virtual void insert(const Integer &, const ArrayList<T> &);
-            virtual void erase(const Integer &);
-            virtual void erase(const Integer &, const Integer &);
+            virtual void insert(Integer, const ArrayList<T> &,
+                                Integer, Integer);
+            virtual void insert(Integer, const ArrayList<T> &);
+            virtual void erase(Integer);
+            virtual void erase(Integer, Integer);
             virtual void clear();
             virtual Boolean operator == (const Object &) const override;
             virtual inline Integer size() const

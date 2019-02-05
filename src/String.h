@@ -27,11 +27,11 @@ namespace Action
             {
                 return m_chars.size() - 1;
             }
-            inline char & operator [](const Integer & index)
+            inline char & operator [](Integer index)
             {
                 return m_chars[index];
             }
-            inline char at(const Integer & index) const
+            inline char at(Integer index) const
             {
                 return m_chars.at(index);
             }
@@ -43,11 +43,11 @@ namespace Action
             void append(const String &);
             String operator += (char);
             String operator += (const String &);
-            void insert(const Integer &, char);
-            void insert(const Integer &, const String &);
+            void insert(Integer, char);
+            void insert(Integer, const String &);
             void clear();
-            Integer find(const String &, const Integer & begin = 0) const;
-            Integer find(char, const Integer & begin = 0) const;
+            Integer find(const String &, Integer begin = 0) const;
+            Integer find(char, Integer begin = 0) const;
             inline const char * c_str() const
             {
                 return m_chars.m_data;
@@ -68,6 +68,16 @@ namespace Action
 			ArrayList<String> split_long(const String & delim = " ") const;
             Boolean compare_to(const Object &) const override;
             Boolean operator == (const Object &) const override;
+			
+			String lstrip(char delim) const;
+			String rstrip(char delim) const;
+			String strip(char delim) const;
+			String lstrip(const String & delims = "\t\f\n ") const;
+			String rstrip(const String & delims = "\t\f\n ") const;
+			String strip(const String & delims = "\t\f\n ") const;			
+			String left(Integer length) const;
+			String right(Integer length) const;
+			
             friend Boolean operator == (const String & value_1, const String & value_2)
             {
                 return value_1.m_chars == value_2.m_chars;

@@ -59,13 +59,13 @@ namespace Action
                 return m_value;
             }
 
-            inline friend Integer operator - (const Integer & value)
+            inline friend Integer operator - (Integer value)
             {
                 if(value == MIN_VALUE)
                     throw Integer_OutOfBound(-value.m_value);
                 return -value.m_value;
             }
-            inline friend Integer operator + (const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator + (Integer value_1, Integer value_2)
             {
                 int result = value_1.m_value + value_2.m_value;
                 if(value_1.m_value > 0 && value_2.m_value > 0 && result <= 0)
@@ -74,11 +74,11 @@ namespace Action
                     throw Integer_OutOfBound(result);
                 return result;
             }
-            inline friend Integer operator - (const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator - (Integer value_1, Integer value_2)
             {
                 return value_1 + (-value_2);
             }
-            inline friend Integer operator * (const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator * (Integer value_1, Integer value_2)
             {
                 int result = value_1.m_value * value_2.m_value;
 
@@ -94,12 +94,12 @@ namespace Action
                     return result;
                 }
             }
-            inline friend Real operator / (const Integer & value_1, const Integer & value_2)
+            inline friend Real operator / (Integer value_1, Integer value_2)
             {
                 Real value_real_1 = value_1.m_value, value_real_2 = value_2.m_value;
                 return value_real_1 / value_real_2;
             }
-            inline friend Integer operator MOD(const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator MOD(Integer value_1, Integer value_2)
             {
                 if(!value_2.m_value)
                     throw DividedByZero();
@@ -111,7 +111,7 @@ namespace Action
                     return result;
                 }
             }
-            inline friend Integer operator DIV(const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator DIV(Integer value_1, Integer value_2)
             {
                 if(!value_2.m_value)
                     throw DividedByZero();
@@ -123,7 +123,7 @@ namespace Action
                     return result;
                 }
             }
-            inline friend Integer operator ^ (const Integer & value_1, const Integer & value_2)
+            inline friend Integer operator ^ (Integer value_1, Integer value_2)
             {
                 int base = value_1.m_value, radix = value_2.m_value;
                 if(radix < 0)
@@ -141,61 +141,61 @@ namespace Action
                 }
                 return result;
             }
-            inline friend Integer bit_and(const Integer & value_1, const Integer & value_2)
+            inline friend Integer bit_and(Integer value_1, Integer value_2)
             {
                 return value_1.m_value & value_2.m_value;
             }
-            inline friend Integer bit_or(const Integer & value_1, const Integer & value_2)
+            inline friend Integer bit_or(Integer value_1, Integer value_2)
             {
                 return value_1.m_value | value_2.m_value;
             }
-            inline friend Integer bit_xor(const Integer & value_1, const Integer & value_2)
+            inline friend Integer bit_xor(Integer value_1, Integer value_2)
             {
                 return value_1.m_value ^ value_2.m_value;
             }
-            inline friend Integer bit_not(const Integer & value)
+            inline friend Integer bit_not(Integer value)
             {
                 return    ~value.m_value;
             }
-            inline friend Integer bit_left(const Integer & value, const Integer & count)
+            inline friend Integer bit_left(Integer value, Integer count)
             {
                 if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(((unsigned int) value.m_value) << count.m_value);
                 return ((unsigned int) value.m_value) << count.m_value;
             }
-            inline friend Integer bit_right(const Integer & value, const Integer & count)
+            inline friend Integer bit_right(Integer value, Integer count)
             {
                 if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(((unsigned int) value.m_value) >> count.m_value);
                 return ((unsigned int) value.m_value) >> count.m_value;
             }
-            inline friend Integer algorithm_bit_left(const Integer & value, const Integer & count)
+            inline friend Integer algorithm_bit_left(Integer value, Integer count)
             {
                 if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(value.m_value << count.m_value);
                 return value.m_value << count.m_value;
             }
-            inline friend Integer algorithm_bit_right(const Integer & value, const Integer & count)
+            inline friend Integer algorithm_bit_right(Integer value, Integer count)
             {
                 if(count.m_value >= (int)sizeof(int) * 8 ||
                         count.m_value < 0)
                     throw Integer_OutOfBound(value.m_value >> count.m_value);
                 return value.m_value >> count.m_value;
             }
-            inline Integer & operator += (const Integer & value)
+            inline Integer & operator += (Integer value)
             {
                 *this = *this + value;
                 return *this;
             }
-            inline Integer & operator -= (const Integer & value)
+            inline Integer & operator -= (Integer value)
             {
                 *this = *this - value;
                 return *this;
             }
-            inline Integer & operator *= (const Integer & value)
+            inline Integer & operator *= (Integer value)
             {
                 *this = *this * value;
                 return *this;
@@ -222,7 +222,7 @@ namespace Action
                 *this -= 1;
                 return result;
             }
-            inline Integer & operator = (const Integer & value)
+            inline Integer & operator = (Integer value)
             {
                 m_value = value.m_value;
                 return *this;
@@ -232,27 +232,27 @@ namespace Action
             {
                 return ::_hashCode(m_value);
             }
-            inline friend Boolean operator == (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator == (const Integer value_1, Integer value_2)
             {
                 return Boolean(value_1.m_value == value_2.m_value);
             }
-            inline friend Boolean operator != (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator != (const Integer value_1, Integer value_2)
             {
                 return NOT(value_1 == value_2);
             }
-            inline friend Boolean operator > (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator > (const Integer value_1, Integer value_2)
             {
                 return Boolean(value_1.m_value > value_2.m_value);
             }
-            inline friend Boolean operator < (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator < (const Integer value_1, Integer value_2)
             {
                 return Boolean(value_1.m_value < value_2.m_value);
             }
-            inline friend Boolean operator >= (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator >= (const Integer value_1, Integer value_2)
             {
                 return NOT(value_1 < value_2);
             }
-            inline friend Boolean operator <= (const Integer value_1, const Integer & value_2)
+            inline friend Boolean operator <= (const Integer value_1, Integer value_2)
             {
                 return NOT(value_1 > value_2);
             }

@@ -17,7 +17,7 @@ namespace Action
     }
 
     template <class T>
-    Queue<T>::Queue(const Integer & capacity)
+    Queue<T>::Queue(Integer capacity)
     {
         m_begin = 0;
         m_size = 0;

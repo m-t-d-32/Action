@@ -131,17 +131,17 @@ namespace Action
             LinkedList(const LinkedList &);
             LinkedList & operator = (const LinkedList &);
             virtual void push_back(const T &);
-            virtual void insert(const Integer &, const T &);
-            virtual void insert(const Integer &, const Integer &, const T &);
+            virtual void insert(Integer, const T &);
+            virtual void insert(Integer, Integer, const T &);
             virtual void insert(Pointer, const T &);
             virtual T pop_back();
-            virtual void erase(const Integer &);
-            virtual void erase(const Integer &, const Integer &);
+            virtual void erase(Integer);
+            virtual void erase(Integer, Integer);
             virtual void erase(Pointer);
             virtual void erase(Pointer, Pointer);
             virtual void clear();
-            virtual T & operator [](const Integer &);
-            virtual T at(const Integer &) const;
+            virtual T & operator [](Integer);
+            virtual T at(Integer) const;
             virtual T front() const;
             virtual T back() const;
             virtual Pointer begin()

@@ -24,13 +24,13 @@ namespace Action
             const static Integer BEGIN_SPACE;
 
             Allocator();
-            virtual void set_capacity(const Integer &);
+            virtual void set_capacity(Integer);
             virtual inline Integer get_capacity() const
             {
                 return m_capacity;
             }
-            virtual void construct(const Integer &, const T &);
-            virtual void destruct(const Integer &);
+            virtual void construct(Integer, const T &);
+            virtual void destruct(Integer);
             virtual T * get_space();
             virtual String get_name() const;
             virtual ~Allocator();

@@ -19,7 +19,7 @@ namespace Action
     {
         public:
             Deque();
-            Deque(const Integer &);
+            Deque(Integer);
             Deque(const Deque &);
 
             virtual void push_back(const T &);
@@ -36,7 +36,7 @@ namespace Action
             {
                 return Boolean(m_data.m_size == 0);
             }
-            virtual T & operator [](const Integer &);
+            virtual T & operator [](Integer);
             virtual void clear();
             virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override

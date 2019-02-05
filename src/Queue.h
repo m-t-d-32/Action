@@ -21,7 +21,7 @@ namespace Action
             friend class Deque<T>;
         public:
             Queue();
-            Queue(const Integer &);
+            Queue(Integer);
             Queue(const Queue &);
             Queue & operator = (const Queue &);
             virtual void push(const T &);

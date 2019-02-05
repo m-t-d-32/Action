@@ -27,19 +27,19 @@ namespace Action
     }
 
     template <class T>
-    void Allocator<T>::construct(const Integer & index, const T & cpy_constructor_arg)
+    void Allocator<T>::construct(Integer index, const T & cpy_constructor_arg)
     {
         new(m_space + index.get_int()) T(cpy_constructor_arg);
     }
 
     template <class T>
-    void Allocator<T>::destruct(const Integer & index)
+    void Allocator<T>::destruct(Integer index)
     {
         (m_space + index.get_int())->~T();
     }
 
     template <class T>
-    void Allocator<T>::set_capacity(const Integer & new_capacity)
+    void Allocator<T>::set_capacity(Integer new_capacity)
     {
         m_next_capacity = new_capacity.get_int();
     }

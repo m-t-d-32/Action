@@ -100,7 +100,7 @@ namespace Action
     }
 
     template <class T>
-    T LinkedList<T>::at(const Integer & position) const
+    T LinkedList<T>::at(Integer position) const
     {
         if(position < 0 || position >= m_size)
             throw List_PtrOutOfRange();
@@ -154,7 +154,7 @@ namespace Action
     }
 
     template <class T>
-    void LinkedList<T>::insert(const Integer & position, const T & element)
+    void LinkedList<T>::insert(Integer position, const T & element)
     {
         if(position < 0 || position > m_size)
             throw List_PtrOutOfRange();
@@ -167,7 +167,7 @@ namespace Action
     }
 
     template <class T>
-    void LinkedList<T>::insert(const Integer & position, const Integer & count, const T & element)
+    void LinkedList<T>::insert(Integer position, Integer count, const T & element)
     {
         if(position < 0 || position >= m_size)
             throw List_PtrOutOfRange();
@@ -215,7 +215,7 @@ namespace Action
     }
 
     template <class T>
-    void LinkedList<T>::erase(const Integer & position)
+    void LinkedList<T>::erase(Integer position)
     {
         if(position < 0 || position >= m_size)
             throw List_PtrOutOfRange();
@@ -227,7 +227,7 @@ namespace Action
     }
 
     template <class T>
-    void LinkedList<T>::erase(const Integer & position, const Integer & count)
+    void LinkedList<T>::erase(Integer position, Integer count)
     {
         if(position < 0 || position + count >= m_size
                 || count < 0)
@@ -246,7 +246,7 @@ namespace Action
     }
 
     template <class T>
-    T & LinkedList<T>::operator [](const Integer & position)
+    T & LinkedList<T>::operator [](Integer position)
     {
         if(position < 0 || position >= m_size)
             throw List_PtrOutOfRange();
