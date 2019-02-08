@@ -242,6 +242,9 @@ namespace Action
             }
             Pointer begin() const
             {
+                if (!m_root){
+                    return end();
+                }
                 Node * min_node = m_root;
                 while(min_node->m_left)
                     min_node = min_node->m_left;
@@ -257,6 +260,9 @@ namespace Action
             }
             Pointer v_end() const
             {
+                if (!m_root){
+                    return v_begin();
+                }
                 Node * max_node = m_root;
                 while(max_node->m_right)
                     max_node = max_node->m_right;

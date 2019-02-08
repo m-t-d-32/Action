@@ -43,33 +43,42 @@ namespace Action
                 Pair(A _first, B _second):first(_first), second(_second){}
             };
         public:
-            /* Pointer
+            class Pointer
             {
                 private:
                     const BTree * m_tree;
                     Node * m_node;
+                    int m_index;
                 public:
-                    Pointer(const BTree * tree, Node * node) :
-                        m_tree(tree), m_node(node) {}
+                    Pointer(const BTree * tree, Node * node, Integer index) :
+                        m_tree(tree), m_node(node), m_index(index.get_int()) {}
                     Boolean operator == (const Pointer & another) const
                     {
-                        return Boolean(m_tree == another.m_tree && m_node == another.m_node);
+                        return Boolean(m_tree == another.m_tree && m_node == another.m_node && m_index == another.m_index);
                     }
                     Boolean operator != (const Pointer & another) const
                     {
                         return NOT operator == (another);
                     }
-                    T & operator *()
+                    T operator *()
                     {
                         if(!m_node)
                             throw BTree_IllegalPointer();
-                        return m_node->m_value;
+                        typename Container<T>::Pointer it = (m_node->m_values).begin();
+                        for (int i = 0; i < m_index; ++i){
+                            ++it;
+                        }
+                        return *it;
                     }
-                    T * operator ->()
+                    const T * operator ->()
                     {
                         if(!m_node)
                             throw BTree_IllegalPointer();
-                        return & (m_node->m_value);
+                        typename Container<T>::Pointer it = (m_node->m_values).begin();
+                        for (int i = 0; i < m_index; ++i){
+                            ++it;
+                        }
+                        return &(*it);
                     }
                     Pointer next() const
                     {
@@ -81,27 +90,32 @@ namespace Action
                             return m_tree->begin();
                         else
                         {
-                            if(m_node->m_right)
-                            {
-                                Node * floating_cursor = m_node->m_right;
-                                while(floating_cursor->m_left)
-                                {
-                                    floating_cursor = floating_cursor->m_left;
-                                }
-                                return Pointer(m_tree, floating_cursor);
+                            Node * floating_cursor = m_node;
+                            if (m_index < floating_cursor->m_values.size() - 1 && floating_cursor->m_childs.size() == 0){
+                                return Pointer(m_tree, floating_cursor, m_index + 1);
                             }
-                            else
-                            {
-                                Node * floating_cursor = m_node;
-                                while(floating_cursor->m_parent)
-                                {
-                                    if(floating_cursor == floating_cursor->m_parent->m_right)
-                                        floating_cursor = floating_cursor->m_parent;
-                                    else
-                                        return Pointer(m_tree, floating_cursor->m_parent);
+                            else if (m_index < floating_cursor->m_values.size() && floating_cursor->m_childs.size() > 0){
+                                typename Container<Node *>::Pointer begin_child = (floating_cursor->m_childs).begin();
+                                for (int i = 0; i < m_index; ++i){
+                                    ++begin_child;
+                                }
+                                floating_cursor = *++begin_child;
+                                while(floating_cursor->m_childs.size() > 0){
+                                    floating_cursor = *floating_cursor->m_childs.begin();
+                                }
+                                return Pointer(m_tree, floating_cursor, 0);
+                            }
+                            else {
+                                while (floating_cursor == *--(floating_cursor->m_parent->m_childs).end()){
+                                    floating_cursor = floating_cursor->m_parent;
+                                }
+                                typename Container<Node *>::Pointer begin_child = (floating_cursor->m_parent->m_childs).begin();
+                                for (int i = 0; i < (floating_cursor->m_parent->m_childs).size(); ++i, ++begin_child){
+                                    if (*begin_child == floating_cursor){
+                                        return Pointer(m_tree, floating_cursor->m_parent, i);
+                                    }
                                 }
                             }
-                            return Pointer(m_tree, NULL);
                         }
                     }
                     Pointer last() const
@@ -114,27 +128,32 @@ namespace Action
                             return m_tree->v_end();
                         else
                         {
-                            if(m_node->m_left)
-                            {
-                                Node * floating_cursor = m_node->m_left;
-                                while(floating_cursor->m_right)
-                                {
-                                    floating_cursor = floating_cursor->m_right;
-                                }
-                                return Pointer(m_tree, floating_cursor);
+                            Node * floating_cursor = m_node;
+                            if (m_index > 0 && floating_cursor->m_childs.size() == 0){
+                                    return Pointer(m_tree, floating_cursor, m_index - 1);
                             }
-                            else
-                            {
-                                Node * floating_cursor = m_node;
-                                while(floating_cursor->m_parent)
-                                {
-                                    if(floating_cursor == floating_cursor->m_parent->m_left)
-                                        floating_cursor = floating_cursor->m_parent;
-                                    else
-                                        return Pointer(m_tree, floating_cursor->m_parent);
+                            else if (m_index >= 0 && floating_cursor->m_childs.size() > 0){
+                                typename Container<Node *>::Pointer begin_child = (floating_cursor->m_childs).begin();
+                                for (int i = 0; i < m_index; ++i){
+                                    ++begin_child;
+                                }
+                                floating_cursor = *begin_child;
+                                while(floating_cursor->m_childs.size() > 0){
+                                    floating_cursor = *--floating_cursor->m_childs.end();
+                                }
+                                return Pointer(m_tree, floating_cursor, floating_cursor->m_values.size() - 1);
+                            }
+                            else {
+                                while (floating_cursor == *(floating_cursor->m_parent->m_childs).begin()){
+                                    floating_cursor = floating_cursor->m_parent;
+                                }
+                                typename Container<Node *>::Pointer begin_child = (floating_cursor->m_parent->m_childs).begin();
+                                for (int i = 0; i < (floating_cursor->m_parent->m_childs).size(); ++i, ++begin_child){
+                                    if (*begin_child == floating_cursor){
+                                        return Pointer(m_tree, floating_cursor->m_parent, i - 1);
+                                    }
                                 }
                             }
-                            return Pointer(m_tree, NULL);
                         }
                     }
                     Pointer & operator ++()
@@ -159,7 +178,7 @@ namespace Action
                         *this = last();
                         return return_value;
                     }
-            }; */
+            }; 
         private:
             Node * m_root;
             int m_size;
@@ -173,16 +192,18 @@ namespace Action
                 }
                 delete _node;
             }
-            void _to_array(ArrayList<T> * now_array, const Node * _node) const
+            void _to_array(ArrayList<T> * now_array, const Node * root) const
             {
-                for (int i = 0; i < _node->m_values.size(); ++i){
-                    if (!_node->m_childs.empty()){
-                        _to_array(now_array, _node->m_childs.at(i));
+                if (!root)
+                    return;
+                for (int i = 0; i < root->m_values.size(); ++i){
+                    if (!root->m_childs.empty()){
+                        _to_array(now_array, root->m_childs.at(i));
                     }
-                    now_array->push_back(_node->m_values.at(i));
+                    now_array->push_back(root->m_values.at(i));
                 }
-                if (!_node->m_childs.empty()){
-                    _to_array(now_array, _node->m_childs.back());
+                if (!root->m_childs.empty()){
+                    _to_array(now_array, root->m_childs.back());
                 }
             }
             void _copy(Node * dest, Node * src)
@@ -427,29 +448,34 @@ namespace Action
             {
                 return m_size;
             }
-            /*Pointer begin() const
+            Pointer begin() const
             {
+                if (!m_root){
+                    return end();
+                }
                 Node * min_node = m_root;
-                while(min_node->m_left)
-                    min_node = min_node->m_left;
-                return Pointer(this, min_node);
+                while(!min_node->m_childs.empty())
+                    min_node = *((min_node->m_childs).begin());
+                return Pointer(this, min_node, 0);
             }
             Pointer end() const
             {
-                return Pointer(this, (Node *) BAD_MEMORY_0);
+                return Pointer(this, (Node *) BAD_MEMORY_0, 0);
             }
             Pointer v_begin() const
             {
-                return Pointer(this, (Node *) BAD_MEMORY_1);
+                return Pointer(this, (Node *) BAD_MEMORY_1, 0);
             }
             Pointer v_end() const
             {
+                if (!m_root){
+                    return v_begin();
+                }
                 Node * max_node = m_root;
-                while(max_node->m_right)
-                    max_node = max_node->m_right;
-                return Pointer(this, max_node);
-            }*/
-            
+                while(!max_node->m_childs.empty())
+                    max_node = *--((max_node->m_childs).end());
+                return Pointer(this, max_node, (max_node->m_values).size().get_int() - 1);
+            }          
             void insert(const T & element)
             {
                 if(!m_root)
@@ -490,7 +516,6 @@ namespace Action
                 }
                 ++m_size;
             }
-
             void erase(const T & element)
             {
                 if(!m_root)
@@ -529,47 +554,14 @@ namespace Action
                 }
                 --m_size;
             }
-
-            void _check(Node * root){
-                if (!root) return;
-                for (Container<Node *>::Pointer it = root->m_childs.begin();
-                    it != root->m_childs.end(); ++it){
-                        if ((*it)->m_parent != root){
-                            throw 9;
-                        }
-                }
-            }
-            void _check2(Node * root){
-                if (!root) return;
-                if (root->m_values.size() != root->m_childs.size() - 1 && root->m_childs.size() != 0)
-                    throw 9;
-                for (Container<Node *>::Pointer it = root->m_childs.begin();
-                    it != root->m_childs.end(); ++it){
-                        _check2(*it);
-                }
-            }
-            void check(){
-                _check(m_root);
-                _check2(m_root);
-            }
-            String _to_string(const Node * root) const{
-                if (!root){
-                    return "[]";
-                }
-                String result = root->m_values.to_string();
-                for (int i = 0; i < root->m_childs.size(); ++i){
-                    result += _to_string(root->m_childs.at(i));
-                }
-                return result;
-            }
-            String to_string() const override{
-                return _to_string(m_root);
+            Boolean find(const T & element) const{
+                return Boolean(_find(element).first != NULL);
             }
             virtual String get_name() const override
             {
                 return "Action::BTree";
             }
-            virtual ArrayList<T> to_array() const
+            virtual ArrayList<T> to_array() const override
             {
                 ArrayList<T> return_value;
                 _to_array(&return_value, m_root);
