@@ -36,11 +36,15 @@ namespace Action
             }
             inline friend Boolean operator AND(const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean(value_1.get_val() && value_2.get_val());
+                if (!value_1.get_val())
+                    return False;
+                return Boolean(value_2.get_val());
             }
             inline friend Boolean operator OR(const Boolean & value_1, const Boolean & value_2)
             {
-                return Boolean(value_1.get_val() || value_2.get_val());
+                if (value_1.get_val())
+                    return True;
+                return Boolean(value_2.get_val());
             }
             inline friend Boolean operator XOR(const Boolean & value_1, const Boolean & value_2)
             {

@@ -5,7 +5,6 @@
 #include "Boolean.h"
 #include "DefaultCompare.h"
 #include "BTree_IllegalPointer.h"
-#include "Pair.h"
 #include "ArrayList.hpp"
 #include "BTree_IllegalOrder.h"
 
@@ -21,11 +20,11 @@ namespace Action
 {
     template <class T, unsigned Order = 4, class Compare = DefaultCompare<T>, 
         template <class V> 
-        class Container = ArrayList
+        class Container = LinkedList
     >
     class BTree: public Object
     {
-        public:
+        private:
             struct Node
             {
                 Node * m_parent; 
@@ -36,6 +35,14 @@ namespace Action
                     m_parent = NULL;
                 }
             };
+            template <class A, class B>
+            struct Pair
+            {
+                A first;
+                B second;
+                Pair(A _first, B _second):first(_first), second(_second){}
+            };
+        public:
             /* Pointer
             {
                 private:
@@ -192,33 +199,42 @@ namespace Action
                     dest->m_childs.push_back(new_node);
                 }
             }
-            Node * _find(const T & element) const
+            Pair<Node *, int> _find(const T & element) const
             {
                 if(!m_root)
-                    return NULL;
+                    return Pair<Node *, int>(NULL, 0);
                 Node * floating_cursor = m_root;
                 while(true)
                 {
-                    for (int i = 0; i < floating_cursor->m_values.size(); ++i){
-                        int compare_value = compare(element, floating_cursor->m_values.at(i));
+                    int pos = 0;
+                    Container<T> & values = floating_cursor->m_values;
+                    Container<Node *> childs = floating_cursor->m_childs;
+                    typename Container<T>::Pointer begin_pos = values.begin();
+                    typename Container<Node *>::Pointer begin_child = childs.begin();
+                    for (; begin_pos != values.end(); ++begin_pos, ++pos){
+                        int compare_value = compare(element, *begin_pos);
                         if (compare_value == 0){
-                            return floating_cursor;
+                            return Pair<Node *, int>(floating_cursor, pos);
                         }
                         else if (compare_value < 0){
-                            if (floating_cursor.m_childs.empty()){
-                                return NULL;
+                            if (floating_cursor->m_childs.empty()){
+                                return Pair<Node *, int>(NULL, 0);
                             }
                             else{
-                                floating_cursor = floating_cursor.m_childs[i];
+                                floating_cursor = *begin_child;
+                                break;
                             }
                         }
-                        else if (compare_value > 0){
-                            if (floating_cursor.m_childs.empty()){
-                                return NULL;
-                            }
-                            else{
-                                floating_cursor = floating_cursor.m_childs[i + 1];
-                            }
+                        if (childs.size() > 0){
+                            ++begin_child;
+                        }
+                    }
+                    if (begin_pos == values.end()){
+                        if (floating_cursor->m_childs.empty()){
+                            return Pair<Node *, int>(NULL, 0);
+                        }
+                        else{
+                            floating_cursor = *begin_child;
                         }
                     }
                 }
@@ -294,6 +310,95 @@ namespace Action
                     }
                 }
             }
+            void adjust_union(Node * base_cursor){
+                Node * floating_cursor = base_cursor;
+                while (true){
+                    if (floating_cursor->m_values.size() >= (Order - 1) / 2)
+                        break;
+                    else if (!floating_cursor->m_parent){
+                        if (floating_cursor->m_values.size() == 0){
+                            if (floating_cursor->m_childs.size() == 0){
+                                delete floating_cursor;
+                                m_root = NULL;
+                            }
+                            else {
+                                Node * _root = m_root;
+                                m_root = *floating_cursor->m_childs.begin();
+                                m_root->m_parent = NULL;
+                                delete _root;
+                            }
+                        }
+                        break;
+                    }
+                    else {
+                        Node * parent = floating_cursor->m_parent;
+                        typename Container<T>::Pointer value_pos = parent->m_values.begin();
+                        typename Container<Node *>::Pointer child_pos = parent->m_childs.begin();
+                        for (; child_pos != parent->m_childs.end(); ++child_pos, ++value_pos){
+                            if (*child_pos == floating_cursor) break;
+                        }
+                        typename Container<Node *>::Pointer left_brother_pos = child_pos, right_brother_pos = child_pos;
+                        --left_brother_pos;
+                        ++right_brother_pos;
+                        if (bool(right_brother_pos != parent->m_childs.end()) && bool((*right_brother_pos)->m_values.size() > (Order - 1) / 2)){
+                            (*child_pos)->m_values.push_back(*value_pos);
+                            *value_pos = *(*right_brother_pos)->m_values.begin();
+                            (*right_brother_pos)->m_values.erase((*right_brother_pos)->m_values.begin());
+                            if (!(*right_brother_pos)->m_childs.empty()){
+                                (*child_pos)->m_childs.push_back(*(*right_brother_pos)->m_childs.begin());
+                                (*(*right_brother_pos)->m_childs.begin())->m_parent = *child_pos;
+                                (*right_brother_pos)->m_childs.erase((*right_brother_pos)->m_childs.begin());
+                            }
+                            break;
+                        }
+                        else if (bool(child_pos != parent->m_childs.begin()) && bool((*left_brother_pos)->m_values.size() > (Order - 1) / 2)){
+                            --value_pos;
+                            (*child_pos)->m_values.insert((*child_pos)->m_values.begin(), *value_pos);
+                            *value_pos = (*left_brother_pos)->m_values.back();
+                            (*left_brother_pos)->m_values.pop_back();
+                            if (!(*left_brother_pos)->m_childs.empty()){
+                                (*child_pos)->m_childs.insert((*child_pos)->m_childs.begin(), (*left_brother_pos)->m_childs.back());
+                                (*left_brother_pos)->m_childs.back()->m_parent = *child_pos;
+                                (*left_brother_pos)->m_childs.pop_back();
+                            }
+                            break;
+                        }
+                        else if (right_brother_pos != parent->m_childs.end()){
+                            (*child_pos)->m_values.push_back(*value_pos);
+                            for (typename Container<T>::Pointer it = (*right_brother_pos)->m_values.begin();
+                                it != (*right_brother_pos)->m_values.end(); ++it){
+                                    (*child_pos)->m_values.push_back(*it);
+                            }
+                            for (typename Container<Node *>::Pointer it = (*right_brother_pos)->m_childs.begin();
+                                it != (*right_brother_pos)->m_childs.end(); ++it){
+                                    (*child_pos)->m_childs.push_back(*it);
+                                    (*it)->m_parent = (*child_pos);
+                            }
+                            parent->m_values.erase(value_pos);
+                            delete *right_brother_pos;
+                            parent->m_childs.erase(right_brother_pos);
+                            floating_cursor = parent;
+                        }
+                        else {
+                            --value_pos;
+                            (*left_brother_pos)->m_values.push_back(*value_pos);
+                            for (typename Container<T>::Pointer it = (*child_pos)->m_values.begin();
+                                it != (*child_pos)->m_values.end(); ++it){
+                                    (*left_brother_pos)->m_values.push_back(*it);
+                            }
+                            for (typename Container<Node *>::Pointer it = (*child_pos)->m_childs.begin();
+                                it != (*child_pos)->m_childs.end(); ++it){
+                                    (*left_brother_pos)->m_childs.push_back(*it);
+                                    (*it)->m_parent = (*left_brother_pos);
+                            }
+                            parent->m_values.erase(value_pos);
+                            delete *child_pos;
+                            parent->m_childs.erase(child_pos);
+                            floating_cursor = parent;
+                        }
+                    }
+                }
+            }
         public:
             BTree() : m_root(NULL), m_size(0) {
                 if (Order < 3){
@@ -351,7 +456,7 @@ namespace Action
                 {
                     m_root = new Node();
                     typename Container<T>::Pointer it = m_root->m_values.begin();
-                    it.insert(element);
+                    m_root->m_values.insert(it, element);
                 }
                 else
                 {
@@ -380,7 +485,7 @@ namespace Action
                         else if (compare_value < 0)
                             break;
                     }
-                    insert_pos.insert(element);
+                    floating_cursor->m_values.insert(insert_pos, element);
                     adjust_split(floating_cursor);
                 }
                 ++m_size;
@@ -393,40 +498,64 @@ namespace Action
                 else
                 {
                     Pair<Node *, int> find_value = _find(element);
-                    Node cursor = find_value.key;
-                    int item_index = find_value.value;
-
+                    Node *cursor = find_value.first;
+                    int item_index = find_value.second;
                     if(!cursor)
                         return;
+                    typename Container<T>::Pointer result_pos = cursor->m_values.begin();
                     if (!cursor->m_childs.empty()){
-                        Node * new_cursor = cursor->m_childs[item_index];
+                        typename Container<T>::Pointer begin_value = cursor->m_values.begin();
+                        typename Container<Node *>::Pointer begin_child = cursor->m_childs.begin();
+                        for (int i = 0; i < item_index; ++i){
+                            ++begin_child;
+                            ++begin_value;
+                        }
+                        Node * new_cursor = *begin_child;
                         while (!new_cursor->m_childs.empty()){
                             new_cursor = new_cursor->m_childs.back();
                         }
-                        cursor->m_values[item_index] = new_cursor->m_value.back();
                         cursor = new_cursor;
-                        item_index = new_cursor->m_value.size() - 1;
+                        result_pos = new_cursor->m_values.end();
+                        --result_pos;
+                        *begin_value = *result_pos;
                     }
-
+                    else {
+                        for (int i = 0; i < item_index; ++i){
+                            ++result_pos;
+                        }
+                    }
+                    cursor->m_values.erase(result_pos);
+                    adjust_union(cursor);
                 }
                 --m_size;
             }
 
             void _check(Node * root){
-                if (root->m_childs.empty())
-                    return;
-                else if (root->m_values.size() + 1 == root->m_childs.size()){
-                    for (typename ArrayList<Node *>::Pointer p = root->m_childs.begin(); p != root->m_childs.end(); ++p){
-                        _check(*p);
-                    }
+                if (!root) return;
+                for (Container<Node *>::Pointer it = root->m_childs.begin();
+                    it != root->m_childs.end(); ++it){
+                        if ((*it)->m_parent != root){
+                            throw 9;
+                        }
                 }
-                else
+            }
+            void _check2(Node * root){
+                if (!root) return;
+                if (root->m_values.size() != root->m_childs.size() - 1 && root->m_childs.size() != 0)
                     throw 9;
+                for (Container<Node *>::Pointer it = root->m_childs.begin();
+                    it != root->m_childs.end(); ++it){
+                        _check2(*it);
+                }
             }
             void check(){
                 _check(m_root);
+                _check2(m_root);
             }
             String _to_string(const Node * root) const{
+                if (!root){
+                    return "[]";
+                }
                 String result = root->m_values.to_string();
                 for (int i = 0; i < root->m_childs.size(); ++i){
                     result += _to_string(root->m_childs.at(i));

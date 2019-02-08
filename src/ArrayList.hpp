@@ -158,6 +158,11 @@ namespace Action
     }
 
     template <class T>
+    void ArrayList<T>::erase(Pointer position){
+        position.erase();
+    }
+
+    template <class T>
     ArrayList<T> & ArrayList<T>::operator = (const ArrayList<T> & another)
     {
         if(this == &another)

@@ -141,6 +141,7 @@ namespace Action
             virtual void insert(Integer, const ArrayList<T> &);
             virtual void erase(Integer);
             virtual void erase(Integer, Integer);
+            virtual void erase(Pointer);
             virtual void clear();
             virtual Boolean operator == (const Object &) const override;
             virtual inline Integer size() const

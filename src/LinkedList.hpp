@@ -64,7 +64,7 @@ namespace Action
         }
         else
         {
-            erase(this_floating_cursor->m_address_next, end());
+            erase(Pointer(this, this_floating_cursor->m_address_next), end());
             m_end_address = this_floating_cursor;
         }
         m_size = another.m_size;

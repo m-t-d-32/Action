@@ -1,15 +1,25 @@
 #include "../src/Action.h"
-#include <iostream>
+#include <time.h>
+#include <stdlib.h>
 using namespace Action;
 
 int main(){
-    String a = "  123 456  ";
-    a.left(3).println();
-    a.left(11).println();
-    a.right(3).println();
-    a.right(11).println();
-    a.lstrip().println();
-    a.rstrip().length().println();
-    a.strip().length().println();
+	BTree<Integer> btree;
+	ArrayList<Integer> pool;
+	srand(time(NULL));
+	for (int i = 0; i < 100000; ++i){
+		pool.push_back(rand());
+	}
+	Integer begin = clock();
+	for (int i = 0; i < 100000; ++i){
+		btree.insert(pool[i]);
+	}
+	for (int i = 0; i < 100000; ++i){
+		btree.erase(pool[i]);
+	}
+	Integer end = clock();
+	btree.println();
+	(end - begin).println();
+	system("pause");
     return 0;
 }
