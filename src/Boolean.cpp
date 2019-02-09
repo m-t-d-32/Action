@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Boolean.h"
 #include "String.h"
+#include "Tools.h"
 
 namespace Action
 {
@@ -17,4 +18,8 @@ namespace Action
         else
             return "False";
     }
+	int Boolean::hash_code() const
+	{
+		return get_val() ? hash(-1) : hash(0);
+	}
 }

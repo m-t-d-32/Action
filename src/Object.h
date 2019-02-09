@@ -12,18 +12,6 @@
 #ifndef Action__Object
 #define Action__Object
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-int _hashCode(int);
-int _str_hashCode(char *, int);
-
-#ifdef __cplusplus
-}
-#endif
-
 #if __cplusplus < 201103L
 #define override
 #endif

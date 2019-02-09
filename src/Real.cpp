@@ -4,6 +4,7 @@
 #include "Integer.h"
 #include "String.h"
 #include "Type_NotCorrespond.h"
+#include "Tools.h"
 
 namespace Action
 {
@@ -50,4 +51,17 @@ namespace Action
             throw Type_NotCorrespond();
         }
     }
+	int Real::hash_code() const
+	{
+		int count = sizeof(double) / sizeof(int);
+		int result = 1;
+		for(int i = 0; i < count; ++i)
+		{
+			result *= * ((int *)(&m_value) + i);
+			result >>= ((i ^ 23) % sizeof(int));
+		}
+		if(result < 0)
+			result = -result;
+		return hash(result);
+	}
 }

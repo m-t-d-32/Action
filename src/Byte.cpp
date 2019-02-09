@@ -2,6 +2,7 @@
 #include "Byte.h"
 #include "String.h"
 #include "Boolean.h"
+#include "Tools.h"
 
 namespace Action
 {
@@ -27,4 +28,8 @@ namespace Action
             throw Type_NotCorrespond();
         }
     }
+	int Byte::hash_code() const
+	{
+		return hash(m_value);
+	}
 }

@@ -4,6 +4,7 @@
 #include "String.h"
 #include "Type_NotCorrespond.h"
 #include "Boolean.h"
+#include "Tools.h"
 
 namespace Action
 {
@@ -54,4 +55,8 @@ namespace Action
             throw Type_NotCorrespond();
         }
     }
+	int Integer::hash_code() const
+	{
+		return hash(m_value);
+	}
 }

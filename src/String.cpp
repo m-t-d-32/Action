@@ -4,34 +4,33 @@
 #include "ArrayList.hpp"
 #include "Type_NotCorrespond.h"
 #include <cstring>
+#include "Tools.h"
 
 namespace Action
 {
     String::String()
     {
-        m_chars.push_back('\0');
+        push_back('\0');
     }
 
     String::String(const char * chars_value)
     {
         while(*chars_value)
         {
-            m_chars.push_back(*chars_value);
+            push_back(*chars_value);
             ++chars_value;
         }
-        m_chars.push_back('\0');
+        push_back('\0');
     }
-
-    String::String(const String & string_value) : m_chars(string_value.m_chars) {}
 
     void String::append(char char_value)
     {
-        m_chars.insert(length(), char_value);
+        ArrayList<char>::insert(length(), char_value);
     }
 
     void String::append(const String & string_value)
     {
-        m_chars.insert(length(), string_value.m_chars, 0, string_value.length());
+        ArrayList<char>::insert(length(), string_value, 0, string_value.length());
     }
 
     String String::operator += (char char_value)
@@ -48,25 +47,25 @@ namespace Action
 
     void String::clear()
     {
-        m_chars.clear();
-        m_chars.push_back('\0');
+        ArrayList<char>::clear();
+        push_back('\0');
     }
 
     void String::insert(Integer position, char char_value)
     {
-        m_chars.insert(position, char_value);
+        ArrayList<char>::insert(position, char_value);
     }
 
     void String::insert(Integer position, const String & string_value)
     {
-        m_chars.insert(position, string_value.m_chars, 0, string_value.length());
+        ArrayList<char>::insert(position, string_value, 0, string_value.length());
     }
 
     Integer String::find(char char_value, Integer begin) const
     {
-        for (int i = begin.get_int(); i < m_chars.size().get_int(); ++i)
+        for (int i = begin.get_int(); i < length().get_int(); ++i)
         {
-            if (m_chars.at(i) == char_value)
+            if (at(i) == char_value)
                 return i;
         }
         return -1;
@@ -117,20 +116,20 @@ namespace Action
         return -1;
     }
 
-    String & String::operator= (const String & another_string)
+    String & String::operator = (const String & another_string)
     {
-        m_chars = another_string.m_chars;
+        this->ArrayList<char>::operator = (another_string);
         return *this;
     }
 
     void String::print(std::ostream & print_stream) const
     {
-        print_stream << m_chars.m_data;
+        print_stream << c_str();
     }
 
     int String::hash_code() const
     {
-        return ::_str_hashCode(m_chars.m_data, length().get_int());
+        return str_hash(*this);
     }
 
     Boolean String::operator == (const Action::Object & another_one) const
@@ -138,7 +137,7 @@ namespace Action
         try
         {
             const String & another_string = dynamic_cast<const String &>(another_one);
-            return Boolean(strcmp(m_chars.m_data, another_string.m_chars.m_data) == 0);
+            return Boolean(strcmp(m_data, another_string.m_data) == 0);
         }
         catch(std::bad_cast)
         {
@@ -151,7 +150,7 @@ namespace Action
         try
         {
             const String & another_string = dynamic_cast<const String &>(another_one);
-            return Boolean(strcmp(m_chars.m_data, another_string.m_chars.m_data) < 0);
+            return Boolean(strcmp(m_data, another_string.m_data) < 0);
         }
         catch(std::bad_cast)
         {
@@ -178,14 +177,14 @@ namespace Action
         ArrayList<String> result;
         String temp;
         for (int i = 0; i < length(); ++i){
-            if (delims.find(m_chars.at(i)) != -1){
+            if (delims.find(at(i)) != -1){
                 if (temp.at(0)){
                     result.push_back(temp);
                     temp.clear();
                 }
             }
             else {
-                temp += m_chars.at(i);
+                temp += at(i);
             }
         }
         if (temp.at(0)){
@@ -198,14 +197,14 @@ namespace Action
         ArrayList<String> result;
         String temp;
         for (int i = 0; i < length(); ++i){
-            if (delim == m_chars.at(i)){
+            if (delim == at(i)){
                 if (temp.at(0)){
                     result.push_back(temp);
                     temp.clear();
                 }
             }
             else {
-                temp += m_chars.at(i);
+                temp += at(i);
             }
         }
         if (temp.at(0)){
@@ -225,7 +224,7 @@ namespace Action
             }
             if (end > begin){
                 for (Integer i = begin; i < end; ++i){
-                    temp += m_chars.at(i);
+                    temp += at(i);
                 }
                 result.push_back(temp);
                 temp.clear();
@@ -248,7 +247,7 @@ namespace Action
     String String::lstrip(char delim) const {
         Integer begin = 0;
         for (; begin < length(); ++begin){
-            if (m_chars.at(begin) != delim) break;
+            if (at(begin) != delim) break;
         }
         return right(length() - begin);
     }
@@ -256,7 +255,7 @@ namespace Action
     String String::rstrip(char delim) const {
         Integer end = length() - 1;
         for (; end >= 0; --end) {
-            if (m_chars.at(end) != delim) break;
+            if (at(end) != delim) break;
         }
         return left(end + 1);
     }
@@ -264,10 +263,10 @@ namespace Action
     String String::strip(char delim) const {
         Integer begin = 0, end = length() - 1;
         for (; begin < length(); ++begin){
-            if (m_chars.at(begin) != delim) break;
+            if (at(begin) != delim) break;
         }
         for (; end >= 0; --end){
-            if (m_chars.at(end) != delim) break;
+            if (at(end) != delim) break;
         }
         return slice(begin, end + 1);
     }
@@ -275,7 +274,7 @@ namespace Action
     String String::lstrip(const String & delims) const{
         Integer begin = 0;
         for (; begin < length(); ++begin){
-            if (delims.find(m_chars.at(begin)) == -1) break;
+            if (delims.find(at(begin)) == -1) break;
         }
         return right(length() - begin);
     }
@@ -283,7 +282,7 @@ namespace Action
     String String::rstrip(const String & delims) const{
         Integer end = length() - 1;
         for (; end >= 0; --end) {
-            if (delims.find(m_chars.at(end)) == -1) break;
+            if (delims.find(at(end)) == -1) break;
         }
         return left(end + 1);
     }
@@ -291,10 +290,10 @@ namespace Action
     String String::strip(const String & delims) const{
         Integer begin = 0, end = length() - 1;
         for (; begin < length(); ++begin){
-            if (delims.find(m_chars.at(begin)) == -1) break;
+            if (delims.find(at(begin)) == -1) break;
         }
         for (; end >= 0; --end) {
-            if (delims.find(m_chars.at(end)) == -1) break;
+            if (delims.find(at(end)) == -1) break;
         }
         return slice(begin, end + 1);
     }

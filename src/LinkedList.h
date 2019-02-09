@@ -27,21 +27,17 @@ namespace Action
         public:
             struct Pointer
             {
+				friend class LinkedList;
                 private:
                     LinkedList<T> * m_list;
                     Node * m_node;
-                public:
-                    Pointer(LinkedList<T> * list, Node * node) :
-                        m_list(list), m_node(node) {}
-
-                    inline LinkedList<T> * get_list() const
-                    {
-                        return m_list;
-                    }
-                    inline Node * get_node() const
+					inline Node * get_node() const
                     {
                         return m_node;
                     }
+                public:
+                    Pointer(LinkedList<T> * list, Node * node) :
+                        m_list(list), m_node(node) {}
 
                     T & operator *()
                     {

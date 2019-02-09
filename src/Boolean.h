@@ -74,6 +74,7 @@ namespace Action
             {
                 return get_val() ? true : false;
             }
+			int hash_code() const override;
             String get_name() const override;
             String to_string() const override;
     };

@@ -151,19 +151,7 @@ namespace Action
                 m_value = value.m_value;
                 return *this;
             }
-            int hash_code() const override
-            {
-                int count = sizeof(double) / sizeof(int);
-                int result = 1;
-                for(int i = 0; i < count; ++i)
-                {
-                    result *= * ((int *)(&m_value) + i);
-                    result >>= ((i ^ 23) % sizeof(int));
-                }
-                if(result < 0)
-                    result = -result;
-                return ::_hashCode(result);
-            }
+            int hash_code() const override;
             Boolean operator == (const Object &) const override;
             inline friend Boolean operator == (const Real value_1, const Real & value_2)
             {

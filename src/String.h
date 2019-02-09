@@ -12,30 +12,18 @@
 #define Action__String
 namespace Action
 {
-    template <class T>
-    class ArrayList;
-
-    class String : public Object
+    class String : public ArrayList<char>
     {
         public:
             String();
             String(const char *);
-            String(const String &);
             String & operator = (const String &);
 
             inline Integer length() const
             {
-                return m_chars.size() - 1;
+                return size() - 1;
             }
-            inline char & operator [](Integer index)
-            {
-                return m_chars[index];
-            }
-            inline char at(Integer index) const
-            {
-                return m_chars.at(index);
-            }
-            inline Boolean empty() const
+            inline Boolean empty() const override
             {
                 return Boolean(length() == 0);
             }
@@ -45,12 +33,12 @@ namespace Action
             String operator += (const String &);
             void insert(Integer, char);
             void insert(Integer, const String &);
-            void clear();
+            void clear() override;
             Integer find(const String &, Integer begin = 0) const;
             Integer find(char, Integer begin = 0) const;
             inline const char * c_str() const
             {
-                return m_chars.m_data;
+                return m_data;
             }
             String get_name() const override
             {
@@ -77,13 +65,6 @@ namespace Action
             String strip(const String & delims = "\t\f\n ") const;            
             String left(Integer length) const;
             String right(Integer length) const;
-            
-            friend Boolean operator == (const String & value_1, const String & value_2)
-            {
-                return value_1.m_chars == value_2.m_chars;
-            }
-        private:
-            ArrayList<char> m_chars;
     };
 
     String operator + (const String &, const String &);

@@ -3,6 +3,7 @@
 #include "String.h"
 #include "Integer.h"
 #include "Boolean.h"
+#include "Tools.h"
 
 namespace Action
 {
@@ -32,7 +33,7 @@ namespace Action
     }
     int Object::hash_code() const
     {
-        return ::_hashCode((INT64) this);
+        return hash((INT64) this);
     }
     Boolean Object::operator == (const Object & arg) const
     {

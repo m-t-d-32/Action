@@ -228,10 +228,7 @@ namespace Action
                 return *this;
             }
             Boolean operator == (const Object &) const override;
-            int hash_code() const override
-            {
-                return ::_hashCode(m_value);
-            }
+            int hash_code() const override;
             inline friend Boolean operator == (const Integer value_1, Integer value_2)
             {
                 return Boolean(value_1.m_value == value_2.m_value);

@@ -25,10 +25,10 @@ namespace Action
             {
                 private:
                     ArrayList<T> * m_list;
-                    Integer m_index;
+                    int m_index;
                 public:
                     Pointer(ArrayList<T> & now_list, Integer index) :
-                        m_list(&now_list), m_index(index) {}
+                        m_list(&now_list), m_index(index.get_int()) {}
 
                     T & operator *()
                     {
@@ -156,8 +156,7 @@ namespace Action
             virtual String get_name() const override;
             virtual String to_string() const override;
             virtual ~ArrayList();
-            virtual ArrayList<T> slice(Integer begin, Integer end) const;
-        private:
+        protected:
             int m_size;
             Allocator<T> m_alloc;
             T * m_data;

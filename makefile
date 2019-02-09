@@ -8,10 +8,6 @@ exe = $(outexedir)/main.exe
 objects  = $(outobjdir)/*.o
 			
 cppfiles = $(outsrcdir)/*.cpp
-			
-cfiles   = $(outsrcdir)/*.c
-
-srcfiles = $(outsrcdir)/*.*
 
 testfile = $(outtestdir)/main.cpp
 			
@@ -19,9 +15,8 @@ $(exe):   	$(objects) $(testfile)
 			g++ $(objects) $(testfile) -o main.exe 
 			mv main.exe $(outexedir)
 			
-$(objects): $(srcfiles)
+$(objects): $(cppfiles)
 			g++ -c $(cppfiles)
-			gcc -c $(cfiles)
 			mv *.o $(outobjdir)
 
 clean: 

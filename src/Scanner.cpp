@@ -2,6 +2,7 @@
 #include "Scanner.h"
 #include "Object.h"
 #include "Integer_OutOfBound.h"
+#include "ArrayList.hpp"
 
 namespace Action
 {

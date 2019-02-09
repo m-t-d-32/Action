@@ -44,10 +44,7 @@ namespace Action
             virtual Boolean operator == (const Object &) const override;
             virtual String get_name() const override;
             virtual String to_string() const override;
-            virtual int hash_code() const override
-            {
-                return ::_hashCode(m_value);
-            }
+            virtual int hash_code() const override;
     };
 }
 #endif /* Action__Byte */
