@@ -13,9 +13,10 @@ namespace Action{
 		key ^= (key >> 6);
 		key += ~(key << 11);
 		key ^= (key >> 16);
-		if(key < 0)
-			key = -key;
-		return key;
+		int result = key;
+		if(result < 0)
+			result = -result;
+		return result;
 	}
 
 	int str_hash(const String & str)

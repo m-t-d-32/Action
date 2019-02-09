@@ -3,6 +3,7 @@
 #include "AVLTree.h"
 #include "Boolean.h"
 #include "Integer.h"
+#include "Set.h"
 
 /*
     我希望
@@ -14,7 +15,7 @@
 namespace Action
 {
     template <class T, class Tree = AVLTree<T> >
-    class TreeSet: public Object
+    class TreeSet: public Set<T>
     {
         public:
             struct Pointer
@@ -74,35 +75,35 @@ namespace Action
                 m_tree = another.m_tree;
                 return *this;
             }
-            Boolean operator == (const TreeSet & another)
+            Boolean operator == (const TreeSet & another) 
             {
                 return to_array() == another.to_array();
             }
-            virtual void insert(const T & element)
+            virtual void insert(const T & element) override
             {
                 m_tree.insert(element);
             }
-            virtual void erase(const T & element)
+            virtual void erase(const T & element) override
             {
                 m_tree.erase(element);
             }
-            virtual Boolean contains(const T & element) const
+            virtual Boolean contains(const T & element) const override
             {
                 return m_tree.find(element);
             }
-            virtual Integer size() const
+            virtual Integer size() const override
             {
                 return m_tree.size();
             }
-            virtual Boolean empty() const
+            virtual Boolean empty() const override
             {
                 return Boolean(size() == 0);
             }
-            virtual ArrayList<T> to_array() const
+            virtual ArrayList<T> to_array() const override
             {
                 return m_tree.to_array();
             }
-            virtual void clear()
+            virtual void clear() override
             {
                 m_tree.clear();
             }

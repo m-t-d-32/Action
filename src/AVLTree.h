@@ -368,7 +368,7 @@ namespace Action
                     max_node = max_node->m_right;
                 return Pointer(this, max_node);
             }
-            Boolean find(const T & element){
+            Boolean find(const T & element) const{
                 return Boolean(_find(element) != NULL);
             }
             void insert(const T & element)

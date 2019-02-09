@@ -8,6 +8,7 @@
 #include "ArrayList.hpp"
 #include "Set_PtrOutOfRange.h"
 #include "Set_ElementNotExists.h"
+#include "Set.h"
 
 /*
     你怅惘的脸萦绕我的梦境
@@ -19,7 +20,7 @@
 namespace Action
 {
     template <class T>
-    class HashSet: public Object
+    class HashSet: public Set<T>
     {
         public:
             struct Pointer
@@ -128,19 +129,19 @@ namespace Action
             HashSet();
             HashSet(const HashSet &);
             HashSet & operator = (const HashSet &);
-            virtual void insert(const T &);
-            virtual void erase(const T &);
-            virtual Boolean contains(const T &) const;
-            virtual Integer size() const
+            virtual void insert(const T &) override;
+            virtual void erase(const T &) override;
+            virtual Boolean contains(const T &) const override;
+            virtual Integer size() const override
             {
                 return m_size;
             }
-            virtual Boolean empty() const
+            virtual Boolean empty() const override
             {
                 return Boolean(m_size == 0);
             }
-            virtual ArrayList<T> to_array() const;
-            virtual void clear();
+            virtual ArrayList<T> to_array() const override;
+            virtual void clear() override;
             virtual Pointer begin() const;
             virtual Pointer end() const;
             virtual Pointer v_begin() const;

@@ -4,32 +4,19 @@
 using namespace Action;
 
 int main(){
-    String a, b;
-	a = "hello";
-	a.println();
-	b = a;
+    TreeSet<Integer> a;
+	Set<Integer> & b = a;
+	b.insert(12);
+	b.insert(23);
 	b.println();
-	a.find("ll").println();
-	a = " strip ";
-	a.lstrip().size().println();
-	a.rstrip().length().println();
-	a.strip().println();
-	a.left(3).println();
-	b.right(2).println();
-	b.slice(2, -1).println();
-	b = "";
+	b.erase(12);
+	b.println();
+	b.size().println();
 	b.empty().println();
-	for (String::Pointer it = a.begin(); it != a.end(); ++it){
-		std::cout << *it;
-	}
-	std::cout << Integer(-1).hash_code() << std::endl;
-	std::cout << Boolean::False.hash_code() << std::endl;
-	
-	Integer x = 3;
-	(++x).println();
-	if ((++x) == 5 AND (++x) == 6){
-		x.println();
-	}
-	x.println();
+	b.contains(12).println();
+	b.contains(23).println();
+	b.to_array().println();
+	b.clear();
+	b.println();
     return 0;
 }
