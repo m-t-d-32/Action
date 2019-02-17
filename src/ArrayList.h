@@ -76,13 +76,13 @@ namespace Action
 
                     Pointer operator += (Integer offset)
                     {
-                        m_index += offset;
+                        m_index += offset.get_int();
                         return *this;
                     }
 
                     Pointer operator -= (Integer offset)
                     {
-                        m_index -= offset;
+                        m_index -= offset.get_int();
                         return *this;
                     }
 
