@@ -4,6 +4,7 @@
 #include "HashSet.hpp"
 #include "LinkedList.h"
 #include "Pair.h"
+#include "Map.h"
 
 /*
     命运馈赠的礼物
@@ -15,7 +16,7 @@
 namespace Action
 {
     template <class K, class V>
-    class HashMap: public Object
+    class HashMap : public Map<K, V>
     {
         public:
             class PairSet: public HashSet<Pair<K, V> >
@@ -44,13 +45,13 @@ namespace Action
                     typename HashSet<Pair<K, V> >::Pointer m_ptr;
                 public:
                     Pointer(const typename HashSet<Pair<K, V> >::Pointer & ptr) : m_ptr(ptr) {}
-                    Pair<K, V>  & operator *()
+                    Pair<K, V> operator *()
                     {
                         return *m_ptr;
                     }
-                    Pair<K, V>  * operator ->()
+                    const Pair<K, V> * operator ->()
                     {
-                        return & (*m_ptr);
+                        return m_ptr.operator->();
                     }
                     Pointer & operator ++()
                     {
@@ -93,25 +94,25 @@ namespace Action
             HashMap() {}
             HashMap(const HashMap &);
             HashMap & operator = (const HashMap &);
-            virtual void insert(K, V);
-            virtual V get(K) const;
-            virtual V & operator [](K);
-            virtual Boolean contains_key(K);
-            virtual Boolean contains_value(V);
-            virtual void erase(K);
+            virtual void insert(const K &, const V &);
+            virtual V get(const K &) const;
+            virtual void erase(const K &);
+            virtual V & operator [](const K &);
+            virtual Boolean contains_key(const K &) const;
+            virtual Boolean contains_value(const V &) const;
             virtual void clear()
             {
                 m_set.clear();
             }
-            virtual Integer size()
+            virtual Integer size() const
             {
                 return m_set.size();
             }
-            virtual Boolean empty()
+            virtual Boolean empty() const
             {
                 return m_set.empty();
             }
-            virtual ArrayList<Pair<K, V> > to_array()
+            virtual ArrayList<Pair<K, V> > to_array() const
             {
                 return m_set.to_array();
             }

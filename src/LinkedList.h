@@ -27,11 +27,11 @@ namespace Action
         public:
             struct Pointer
             {
-				friend class LinkedList;
+                friend class LinkedList;
                 private:
                     LinkedList<T> * m_list;
                     Node * m_node;
-					inline Node * get_node() const
+                    inline Node * get_node() const
                     {
                         return m_node;
                     }

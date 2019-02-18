@@ -28,8 +28,8 @@ namespace Action
             throw Type_NotCorrespond();
         }
     }
-	int Byte::hash_code() const
-	{
-		return hash(m_value);
-	}
+    int Byte::hash_code() const
+    {
+        return hash(m_value);
+    }
 }

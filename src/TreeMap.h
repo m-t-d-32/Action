@@ -5,6 +5,7 @@
 #include "Integer.h"
 #include "Boolean.h"
 #include "Set_ElementNotExists.h"
+#include "Map.h"
 
 /*
     回忆凝结成力量
@@ -16,23 +17,13 @@
 namespace Action
 {
     template <class K, class V, class Tree = AVLTree<Pair<K, V> > >
-    class TreeMap: public Object
+    class TreeMap: public Map<K, V>
     {
         public:
-            class PairSet: public Tree
-            {
+            struct _Tree:public Tree{
                 public:
-                    virtual Pair<K, V> & get(const Pair<K, V> & another_key) const
-                    {
-                        typename Tree::Node * element_address = this->find(another_key);
-                        if(!element_address)
-                        {
-                            throw Set_ElementNotExists();
-                        }
-                        else
-                        {
-                            return element_address->m_value;
-                        }
+                    Pair<K, V> * get_self(const Pair<K, V> & element) const{
+                        return Tree::get_self(element);
                     }
             };
 
@@ -42,13 +33,13 @@ namespace Action
                     typename Tree::Pointer m_ptr;
                 public:
                     Pointer(typename Tree::Pointer ptr) : m_ptr(ptr) {}
-                    Pair<K, V>  & operator *()
+                    Pair<K, V> operator *()
                     {
                         return *m_ptr;
                     }
-                    Pair<K, V>  * operator ->()
+                    const Pair<K, V> * operator ->()
                     {
-                        return & (*m_ptr);
+                        return m_ptr.operator ->();
                     }
                     Pointer & operator ++()
                     {
@@ -91,44 +82,44 @@ namespace Action
             TreeMap() {}
             TreeMap(const TreeMap &);
             TreeMap & operator = (const TreeMap &);
-            virtual void insert(K, V);
-            virtual V get(K) const;
-            virtual V & operator [](K);
-            virtual Boolean contains_key(K);
-            virtual Boolean contains_value(V);
-            virtual void erase(K);
+            virtual void insert(const K &, const V &);
+            virtual V get(const K &) const;
+            virtual V & operator [](const K &);
+            virtual Boolean contains_key(const K &) const;
+            virtual Boolean contains_value(const V &) const;
+            virtual void erase(const K &);
             virtual void clear()
             {
-                m_set.clear();
+                m_tree.clear();
             }
-            virtual Integer size()
+            virtual Integer size() const
             {
-                return m_set.size();
+                return m_tree.size();
             }
-            virtual Boolean empty()
+            virtual Boolean empty() const
             {
-                return (m_set.size() == 0);
+                return (m_tree.size() == 0);
             }
-            virtual ArrayList<Pair<K, V> > to_array()
+            virtual ArrayList<Pair<K, V> > to_array() const
             {
-                return m_set.to_array();
+                return m_tree.to_array();
             }
 
             virtual Pointer begin() const
             {
-                return m_set.begin();
+                return m_tree.begin();
             }
             virtual Pointer end() const
             {
-                return m_set.end();
+                return m_tree.end();
             }
             virtual Pointer v_begin() const
             {
-                return m_set.v_begin();
+                return m_tree.v_begin();
             }
             virtual Pointer v_end() const
             {
-                return m_set.v_end();
+                return m_tree.v_end();
             }
             virtual String get_name() const override
             {
@@ -136,11 +127,11 @@ namespace Action
             }
             virtual String to_string() const override
             {
-                return m_set.to_array().to_string();
+                return m_tree.to_array().to_string();
             }
             virtual ~TreeMap() {}
         private:
-            PairSet m_set;
+            _Tree m_tree;
     };
 }
 #endif /* Action__TreeMap */

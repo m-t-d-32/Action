@@ -32,11 +32,11 @@ namespace Action
                     {
                         return NOT operator == (another);
                     }
-                    T & operator *()
+                    T operator *()
                     {
                         return m_ptr.operator * ();
                     }
-                    T * operator ->()
+                    const T * operator ->()
                     {
                         return m_ptr.operator ->();
                     }

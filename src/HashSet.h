@@ -27,20 +27,24 @@ namespace Action
             {
                 private:
                     const HashSet * m_set;
+                    int m_listindex;
                     typename LinkedList<T>::Pointer m_ptr;
                 public:
-                    Pointer(const HashSet * set, const typename LinkedList<T>::Pointer & ptr) :
-                        m_set(set), m_ptr(ptr) {}
-                    T & operator *()
+                    Pointer(const HashSet * set, Integer listindex, const typename LinkedList<T>::Pointer & ptr) :
+                        m_set(set), m_ptr(ptr), m_listindex(listindex.get_int()) {}
+                    T operator *()
                     {
                         if(*this == m_set->end())
                             throw Set_PtrOutOfRange();
                         else
                             return *m_ptr;
                     }
-                    T * operator ->()
+                    const T * operator ->()
                     {
-                        return & (*this);
+                        if (*this == m_set->end())
+                            throw Set_PtrOutOfRange();
+                        else
+                            return m_ptr.operator ->();
                     }
                     Pointer & operator ++()
                     {
@@ -75,18 +79,18 @@ namespace Action
                             return m_set->begin();
                         else
                         {
-                            if(m_ptr.next() != (m_ptr.get_list())->end())
-                                return Pointer(m_set, m_ptr.next());
+                            if (m_ptr.next() != m_set->m_links[m_listindex].end())
+                                return Pointer(m_set, m_listindex, m_ptr.next());
                             else
                             {
-                                LinkedList<T> * next_valid_list;
-                                for(next_valid_list = m_ptr.get_list() + 1; next_valid_list < m_set->m_links + m_set->m_link_capacity; ++next_valid_list)
-                                    if(next_valid_list->size() > 0)
-                                        break;
-                                if(next_valid_list >= m_set->m_links + m_set->m_link_capacity)
+                                int i = m_listindex + 1;
+                                for (; i < m_set->m_link_capacity; ++i){
+                                    if (m_set->m_links[i].size() > 0) break;
+                                }
+                                if (i >= m_set->m_link_capacity)
                                     return m_set->end();
                                 else
-                                    return Pointer(m_set, next_valid_list->begin());
+                                    return Pointer(m_set, i, m_set->m_links[i].begin());
                             }
                         }
                     }
@@ -100,18 +104,18 @@ namespace Action
                             return m_set->v_end();
                         else
                         {
-                            if(m_ptr.last() != (m_ptr.get_list())->v_begin())
-                                return Pointer(m_set, m_ptr.last());
+                            if (m_ptr.last() != m_set->m_links[m_listindex].v_begin())
+                                return Pointer(m_set, m_listindex, m_ptr.last());
                             else
                             {
-                                LinkedList<T> * last_valid_list;
-                                for(last_valid_list = m_ptr.get_list() - 1; last_valid_list >= m_set->m_links; --last_valid_list)
-                                    if(last_valid_list->size() > 0)
-                                        break;
-                                if(last_valid_list < m_set->m_links)
+                                int i = m_listindex - 1;
+                                for (; i >= 0; --i){
+                                    if (m_set->m_links[i].size() > 0) break;
+                                }
+                                if (i < 0)
                                     return m_set->v_begin();
                                 else
-                                    return Pointer(m_set, last_valid_list->v_end());
+                                    return Pointer(m_set, i, m_set->m_links[i].v_end());
                             }
                         }
                     }

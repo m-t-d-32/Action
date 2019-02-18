@@ -55,8 +55,8 @@ namespace Action
             throw Type_NotCorrespond();
         }
     }
-	int Integer::hash_code() const
-	{
-		return hash(m_value);
-	}
+    int Integer::hash_code() const
+    {
+        return hash(m_value);
+    }
 }

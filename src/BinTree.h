@@ -419,6 +419,11 @@ namespace Action
             {
                 _clear(m_root);
             }
+        protected:
+            T * get_self(const T & element) const {
+                Node * result = _find(element);
+                return result ? &result->m_value : NULL;
+            }
     };
 }
 #endif /* Action__BinTree */

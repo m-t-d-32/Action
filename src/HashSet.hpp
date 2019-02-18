@@ -125,19 +125,19 @@ namespace Action
             if(m_links[i].size() != 0)
                 break;
         }
-        return Pointer(this, m_links[i].begin());
+        return Pointer(this, i, m_links[i].begin());
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::end() const
     {
-        return Pointer(this, m_links[0].end());
+        return Pointer(this, -1, m_links[0].end());
     }
 
     template <class T>
     typename HashSet<T>::Pointer HashSet<T>::v_begin() const
     {
-        return Pointer(this, m_links[0].v_begin());
+        return Pointer(this, -1, m_links[0].v_begin());
     }
 
     template <class T>
@@ -151,7 +151,7 @@ namespace Action
             if(m_links[i].size() != 0)
                 break;
         }
-        return Pointer(this, m_links[i].v_end());
+        return Pointer(this, i, m_links[i].v_end());
     }
 
     template <class T>

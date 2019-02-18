@@ -36,11 +36,11 @@ namespace Action
                 }
             };
             template <class A, class B>
-            struct Pair
+            struct _Pair
             {
                 A first;
                 B second;
-                Pair(A _first, B _second):first(_first), second(_second){}
+                _Pair(A _first, B _second):first(_first), second(_second){}
             };
         public:
             class Pointer
@@ -220,10 +220,10 @@ namespace Action
                     dest->m_childs.push_back(new_node);
                 }
             }
-            Pair<Node *, int> _find(const T & element) const
+            _Pair<Node *, int> _find(const T & element) const
             {
                 if(!m_root)
-                    return Pair<Node *, int>(NULL, 0);
+                    return _Pair<Node *, int>(NULL, 0);
                 Node * floating_cursor = m_root;
                 while(true)
                 {
@@ -235,11 +235,11 @@ namespace Action
                     for (; begin_pos != values.end(); ++begin_pos, ++pos){
                         int compare_value = compare(element, *begin_pos);
                         if (compare_value == 0){
-                            return Pair<Node *, int>(floating_cursor, pos);
+                            return _Pair<Node *, int>(floating_cursor, pos);
                         }
                         else if (compare_value < 0){
                             if (floating_cursor->m_childs.empty()){
-                                return Pair<Node *, int>(NULL, 0);
+                                return _Pair<Node *, int>(NULL, 0);
                             }
                             else{
                                 floating_cursor = *begin_child;
@@ -252,7 +252,7 @@ namespace Action
                     }
                     if (begin_pos == values.end()){
                         if (floating_cursor->m_childs.empty()){
-                            return Pair<Node *, int>(NULL, 0);
+                            return _Pair<Node *, int>(NULL, 0);
                         }
                         else{
                             floating_cursor = *begin_child;
@@ -522,7 +522,7 @@ namespace Action
                     return;
                 else
                 {
-                    Pair<Node *, int> find_value = _find(element);
+                    _Pair<Node *, int> find_value = _find(element);
                     Node *cursor = find_value.first;
                     int item_index = find_value.second;
                     if(!cursor)
@@ -575,6 +575,16 @@ namespace Action
             ~BTree()
             {
                 _clear(m_root);
+            }
+        protected:
+            T * get_self(const T & element) const {
+                _Pair<Node *, int> _node = _find(element);
+                if (_node.first == NULL){
+                    return NULL;
+                }                
+                typename Container<T>::Pointer it = _node.first->m_values.begin();
+                for (; it != _node.first->m_values.end(), --_node.second != 0; ++it);
+                return &(*it);
             }
     };
 }

@@ -20,7 +20,7 @@ namespace Action
     }
 
     template<class K, class V>
-    void HashMap<K, V>::insert(K key, V value)
+    void HashMap<K, V>::insert(const K & key, const V & value)
     {
         Pair<K, V> put_pair(key, value);
         if(m_set.contains(put_pair))
@@ -34,13 +34,13 @@ namespace Action
     }
 
     template<class K, class V>
-    V HashMap<K, V>::get(K key) const
+    V HashMap<K, V>::get(const K & key) const
     {
         return m_set.get(Pair<K, V> (key, V())).value;
     }
 
     template<class K, class V>
-    V & HashMap<K, V>::operator[](K key)
+    V & HashMap<K, V>::operator[](const K & key)
     {
         Pair<K, V>  put_pair(key, V());
         if(!m_set.contains(put_pair))
@@ -51,13 +51,13 @@ namespace Action
     }
 
     template<class K, class V>
-    Boolean HashMap<K, V>::contains_key(K key)
+    Boolean HashMap<K, V>::contains_key(const K & key) const
     {
         return m_set.contains(Pair<K, V> (key, V()));
     }
 
     template<class K, class V>
-    Boolean HashMap<K, V>::contains_value(V value)
+    Boolean HashMap<K, V>::contains_value(const V & value) const
     {
         for(typename HashMap<K, V>::Pointer it = begin(); it != end(); ++it)
         {
@@ -68,7 +68,7 @@ namespace Action
     }
 
     template<class K, class V>
-    void HashMap<K, V>::erase(K key)
+    void HashMap<K, V>::erase(const K & key)
     {
         m_set.erase(Pair<K, V> (key, V()));
     }

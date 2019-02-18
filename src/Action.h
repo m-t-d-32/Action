@@ -12,6 +12,8 @@
 #include "HashMap.hpp"
 #include "HashSet.hpp"
 #include "Heap.hpp"
+#include "Set.h"
+#include "Map.h"
 #include "LinkedList.hpp"
 #include "Queue.hpp"
 #include "Real.h"

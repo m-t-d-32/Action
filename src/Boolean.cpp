@@ -18,8 +18,8 @@ namespace Action
         else
             return "False";
     }
-	int Boolean::hash_code() const
-	{
-		return get_val() ? hash(-1) : hash(0);
-	}
+    int Boolean::hash_code() const
+    {
+        return get_val() ? hash(-1) : hash(0);
+    }
 }

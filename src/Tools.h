@@ -9,8 +9,8 @@
 #define Action__Tools
 namespace Action
 {
-	int hash(INT64);
-	int str_hash(const String &);
+    int hash(INT64);
+    int str_hash(const String &);
 }
 
 #endif /* Action__Tools */
