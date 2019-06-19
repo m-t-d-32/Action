@@ -561,7 +561,7 @@ namespace Action
             {
                 return "Action::BTree";
             }
-            virtual ArrayList<T> to_array() const override
+            virtual ArrayList<T> to_array() const
             {
                 ArrayList<T> return_value;
                 _to_array(&return_value, m_root);
