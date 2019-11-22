@@ -8,7 +8,7 @@
 #include "ArrayList.h"
 
 /*
-    我们的征途是星辰大海
+    鎴戜滑鐨勫緛閫旀槸鏄熻景澶ф捣
 */
 
 #ifndef Action__BinTree

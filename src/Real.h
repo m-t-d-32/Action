@@ -9,8 +9,8 @@
 #include "Boolean.h"
 
 /*
-    祝你岁月无波澜
-    敬我余生不悲欢
+    他说她的绿色玻璃雨衣像一只药瓶
+    “你就是医我的药”
 */
 
 #ifndef Action__Real

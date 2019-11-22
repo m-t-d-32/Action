@@ -4,8 +4,8 @@
 #include "Allocator.hpp"
 
 /*
-    我存在
-    是生命绵延不断的精彩
+    如果快乐太难
+    那我祝你平安
 */
 
 #ifndef Action__Queue

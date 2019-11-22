@@ -5,8 +5,8 @@
 #include "Boolean.h"
 
 /*
-    羁绊早已写好，
-    只等与你相遇。
+    羁绊早已写好
+    只等与你相遇
 */
 
 #ifndef Action__LinkedList

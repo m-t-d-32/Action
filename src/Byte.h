@@ -2,8 +2,8 @@
 #include "Object.h"
 
 /*
-    每一次发奋努力的背后
-    必有加倍的赏赐
+    我本可以忍受黑暗
+    如果不曾见过太阳
 */
 
 #ifndef Action__Byte

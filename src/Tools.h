@@ -2,7 +2,8 @@
 #include "String.h"
 
 /*
-    
+    愿你前程似锦再无波澜
+    愿你衣锦还乡再无苦难
 */
 
 #ifndef Action__Tools
