@@ -2,14 +2,6 @@
 
 Action 是一个全新的，开放源代码的 C++ 类库，它封装了包括 Integer 、 String 等在内的基本数据类型，以及部分容器类型。
 
-Action 具有强大的异常处理功能。
-
-Action 不断发展，也需要您的支持和贡献。
-
-## 项目进度
-
-关于容器，到目前为止，我们已经实现了：
-
 - ArrayList （动态数组）
 - LinkedList （链表）
 - Heap （优先队列）
@@ -21,25 +13,13 @@ Action 不断发展，也需要您的支持和贡献。
 - HashMap （用哈希实现的字典）
 - TreeSet （用二叉树实现的集合）
 - TreeMap （用二叉树实现的字典）
-
-## 开发计划
-
-- 实现图（ Graph ）的一些算法
-- 实现高性能高精度计算
-- 实现分数的转化和存储（如果可以的话）
+- Map和Set接口
+- 异常处理功能
 
 ## 其他
 
-**警告：请勿使用 Visual C++ 6.0 或者更早的编译器对项目进行编译。**
+**警告：本工程支持g++、Visual Studio编译，如果使用后者，请保证版本号不小于7（Visual Studio 2003）**
 
-文件使用 Unicode 编码，放入 Visual C++ 6.0 会显示中文乱码。如果一定需要使用 Visual C++ 6.0 ，请打开运行时类型转换（ RTTI ）选项，否则会造成运行错误。
+请支持C++11，建议使用C++11标准进行编译。
 
-**添加到一个工程时，请不要忘了添加.c文件和.hpp文件。**
-
-欢迎给 Star 、提 Issues 或者 Pull Requests 。
-
-如果有问题，欢迎发邮件给我。我的邮箱是 blue-maple@foxmail.com 。
-
-本项目遵守 GNU General Public License v3.0 许可条款。
-
-By NorthBankWalker. 2008-2018, All Rights Reserved.
+**Release中提供的二进制文件为Windows上Mingw或Linux上g++编译生成的二进制文件**
